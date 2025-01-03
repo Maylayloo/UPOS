@@ -9,15 +9,15 @@ const Root = () => {
                 UPOS
             </h1>
 
-            <section className='w-full mt-[5rem]'>
+            <section className='w-full mt-[5rem] font-outfit'>
                 <Hero/>
             </section>
 
-            <section className='w-full bg-green-700 mt-16'>
+            <section className='w-full font-outfit mt-[7rem]'>
                 <Login/>
             </section>
 
-            <section className='w-full bg-blue-700 mt-16'>
+            <section className='w-full mt-16'>
                 <Onboarding/>
             </section>
 
