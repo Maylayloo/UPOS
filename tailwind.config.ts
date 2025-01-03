@@ -8,9 +8,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        outfit: ['var(--font-outfit)'],
+        roboto: ['var(--font-roboto)'],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+
       },
     },
   },
