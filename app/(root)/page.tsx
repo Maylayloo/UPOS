@@ -1,9 +1,19 @@
+import Hero from "@/app/(root)/(sections)/Hero";
+import Login from "@/app/(root)/(sections)/Login";
+import Onboarding from "@/app/(root)/(sections)/Onboarding";
+
 const Root = () => {
     return (
-        <section className='bg-green-500 w-52 h-52'>
-            <h1>
-                Test
+        <section className=''>
+            <h1 className='text-[36px] font-outfit'>
+                UPOS
             </h1>
+
+            <Hero/>
+            <Login/>
+            <Onboarding/>
+
+
         </section>
     )
 }
