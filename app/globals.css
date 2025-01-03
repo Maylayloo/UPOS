@@ -6,5 +6,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
 
+.h2-root {
+  @apply text-6xl max-md:text-4xl max-lg:w-full font-bold leading-[5rem] w-[75%];
+}
+
+.p-root {
+  @apply text-xl max-md:text-lg w-[80%] mt-4 max-lg:w-full max-xl:mb-8 3xl:w-[60%];
+}
+
+.h3-root {
+  @apply text-lg tracking-[0.2rem] font-semibold whitespace-nowrap mb-3;
+}
+
+.button-root {
+  @apply px-12 py-4 rounded-[4rem] text-lg tracking-wider max-sm:px-0 max-sm:w-[80%] max-sm:py-4 max-xl:text-base;
 }
