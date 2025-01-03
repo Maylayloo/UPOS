@@ -17,7 +17,7 @@
 }
 
 .h3-root {
-  @apply text-lg tracking-[0.2rem] font-semibold whitespace-nowrap mb-3;
+  @apply text-lg tracking-[0.2rem] font-semibold whitespace-nowrap mb-3 uppercase;
 }
 
 .button-root {
