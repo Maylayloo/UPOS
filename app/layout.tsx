@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${outfit.variable} ${roboto.variable}`}>
-            <body className='mx-[157px] max-xl:mx-12 mt-14 bg-bg text-white h-screen'>
+            <body className='mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 bg-bg text-white h-screen'>
                 {children}
 
                 <Footer/>
