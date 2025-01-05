@@ -1,5 +1,6 @@
 import miloszIMG from "@/public/images/milosz.png"
 import Image from "next/image";
+import Link from "next/link";
 
 const Login = () => {
     return (
@@ -18,9 +19,11 @@ const Login = () => {
                     Sprawdź jakie korzyści Cię czekają!
                 </h2>
                 <div className='mt-6 max-lg:flex max-lg:justify-center max-sm:flex-col max-sm:items-center max-sm:gap-6 max-sm:my-10 mb-8'>
-                    <button className='button-root bg-[#41748C] mr-10'>
-                        ZALOGUJ SIĘ
-                    </button>
+                    <Link href="/login">
+                        <button className='button-root bg-[#41748C] mr-10'>
+                            ZALOGUJ SIĘ
+                        </button>
+                    </Link>
                     <button className='button-root border-2 border-[#9AD6D6]'>
                         CZYTAJ DALEJ
                     </button>
