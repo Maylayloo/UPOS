@@ -21,7 +21,7 @@ public class Student extends User {
 
     public Student(String email, String password, String name, String surname, String rola, String indexNumber,
                    String faculty, String major, String dateOfBirth, String phoneNumber, int semester) {
-        super(email, password, name, surname, rola); // Wywołanie konstruktora klasy User
+        super(email, password, name, surname, rola);
         this.indexNumber = indexNumber;
         this.faculty = faculty;
         this.major = major;

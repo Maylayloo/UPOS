@@ -15,7 +15,7 @@ public class Professor extends User {
     public Professor() {}
 
     public Professor(String email, String password, String name, String surname, String rola, Long profId, String title) {
-        super(email, password, name, surname, rola); // Wywołanie konstruktora klasy User
+        super(email, password, name, surname, rola);
         this.profId = profId;
         this.title = title;
     }
