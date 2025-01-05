@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import aghIMG from "@/public/icons/agh.png"
 import userIMG from "@/public/icons/user.png"
@@ -7,7 +9,42 @@ import infoIMG from "@/public/icons/info.png"
 import LoginInput from "@/components/subcomponents/LoginInput";
 import LoginButton from "@/components/subcomponents/LoginButton";
 
+import {FormEvent} from 'react'
+import {useRouter} from "next/router";
+
 const LoginPage = () => {
+    const router = useRouter()
+
+
+    async function handleSubmit(event: FormEvent<HTMLFormElement>){
+        event.preventDefault()
+
+        const formData = new FormData(event.currentTarget)
+        const email = formData.get('email')
+        const password = formData.get('password')
+
+        const response = await fetch('', {
+            method: 'POST',
+            headers: {'Content-Type': ''},
+            body: JSON.stringify({email, password}),
+        })
+
+        if (response.ok) {
+            await router.push('/dashboard')
+        } else {
+            //
+        }
+
+
+
+
+    }
+
+
+
+
+
+
     return (
         <div className='h-[85svh] text-black font-outfit'>
             <div className='absolute inset-0 bg-lgbg '>
@@ -36,9 +73,9 @@ const LoginPage = () => {
                     </div>
                     <div
                         className='w-full h-64 bg-[#FDFDFD] flex justify-center border-2 border-[#DDDDDD] rounded-[0.25rem] items-center flex-col mb-6'>
-                        <form action='' className='flex flex-col items-center'>
-                            <LoginInput name="name" type="text" image={userIMG} alt="Username"/>
-                            <LoginInput name="password" type="password" image={passIMG} alt="Password"/>
+                        <form onSubmit={handleSubmit} className='flex flex-col items-center'>
+                            <LoginInput name="email" type="email" image={userIMG} alt="Username" placeholder="Nazwa użytkownika (email)"/>
+                            <LoginInput name="password" type="password" image={passIMG} alt="Password" placeholder="Hasło"/>
                             <LoginButton type='submit' text="Zaloguj się" image={logIMG} alt="login"
                                          className='mb-4 bg-[#28A745]'/>
                         </form>
