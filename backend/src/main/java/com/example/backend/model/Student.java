@@ -30,7 +30,7 @@ public class Student extends User {
         this.semester = semester;
     }
 
-    // Gettery i Settery
+
     public Long getStudentId() {
         return studentId;
     }
