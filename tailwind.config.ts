@@ -16,7 +16,8 @@ export default {
         roboto: ['var(--font-roboto)'],
       },
       colors: {
-        bg: "#1E1E1E"
+        bg: "#1E1E1E",
+        lgbg: "#E6E6E6",
       },
     },
   },
