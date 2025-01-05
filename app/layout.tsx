@@ -18,14 +18,10 @@ export const metadata: Metadata = {
     description: "Big Bang Gang",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" className={`${outfit.variable} ${roboto.variable}`}>
-            <body className='mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 bg-bg text-white h-screen overflow-x-hidden'>
+            <body className='mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 bg-bg text-white overflow-x-hidden'>
                 {children}
 
                 <Footer/>
