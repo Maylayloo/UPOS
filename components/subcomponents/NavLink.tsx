@@ -13,7 +13,11 @@ const NavLink = ({href, content}: navLinkProps) => {
     const path = usePathname();
 
     return (
-        <Link href={href} className={`navLink ${path.startsWith(href) ? " font-bold underline text-[#9AD6D6] underline-[#9AD6D6]" : "font-[300]"}`}>
+        <Link
+            href={href}
+            className={`navLink max-sm:text-[1.4rem]
+                ${path.startsWith(href) ? " font-bold underline text-[#9AD6D6] underline-[#9AD6D6]" : "font-[300]"}`}
+        >
             {content}
         </Link>
     );
