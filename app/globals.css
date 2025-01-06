@@ -23,3 +23,7 @@
 .button-root {
   @apply px-12 py-4 rounded-[4rem] text-lg tracking-wider max-sm:px-0 max-sm:w-[80%] max-sm:py-4 max-xl:text-base;
 }
+
+.navLink {
+  @apply text-xl whitespace-nowrap tracking-wider font-[300]
+}
