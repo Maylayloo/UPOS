@@ -1,9 +1,9 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -16,6 +16,10 @@ public class Course {
     private String semester;
     private String major;
 
+    //We probably need a list of exams if we want to contain them inside courses
+    @Transient //I suppose we don't want another mapped column in a database with exams
+    private List<Exam> exams = new ArrayList<>();
+
     public Course() {}
 
     public Course(String name, int ects, String coordinator, String semester, String major) {
@@ -24,6 +28,7 @@ public class Course {
         this.coordinator = coordinator;
         this.semester = semester;
         this.major = major;
+        this.exams = new ArrayList<>();
     }
 
     public Long getCourseId() {
@@ -72,5 +77,17 @@ public class Course {
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
+
+    public void addExam(Exam exam) {
+        this.exams.add(exam);
     }
 }

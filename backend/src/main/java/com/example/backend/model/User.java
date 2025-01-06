@@ -2,7 +2,6 @@ package com.example.backend.model;
 
 import jakarta.persistence.*;
 
-@Entity
 @Inheritance(strategy = InheritanceType.JOINED)  //apparently it helps with a database, diffrent tables for diffrent roles
 public abstract class User {
     @Id
@@ -13,7 +12,7 @@ public abstract class User {
     private String password;
     private String name;
     private String surname;
-    private String rola; //not sure if we meant one role or multiple
+    //private String rola; //not sure if we meant one role or multiple
 
     public User() {}
 
@@ -22,7 +21,7 @@ public abstract class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.rola = role;
+        //this.rola = role;
     }
 
     public Long getUserId() {
@@ -65,11 +64,11 @@ public abstract class User {
         this.surname = surname;
     }
 
-    public String getRola() {
-        return rola;
-    }
-
-    public void setRola(String rola) {
-        this.rola = rola;
-    }
+//    public String getRola() {
+//        return rola;
+//    }
+//
+//    public void setRola(String rola) {
+//        this.rola = rola;
+//    }
 }
