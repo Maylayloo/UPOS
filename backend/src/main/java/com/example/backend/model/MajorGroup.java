@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Group {
+public class MajorGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
@@ -17,9 +17,9 @@ public class Group {
     private String place;
     private int maxStudentAmount;
 
-    public Group() {}
+    public MajorGroup() {}
 
-    public Group(Long courseId, String type, int numberOfGroup, String date, String place, int maxStudentAmount) {
+    public MajorGroup(Long courseId, String type, int numberOfGroup, String date, String place, int maxStudentAmount) {
         this.courseId = courseId;
         this.type = type;
         this.numberOfGroup = numberOfGroup;
