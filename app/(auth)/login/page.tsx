@@ -11,34 +11,35 @@ import LoginButton from "@/components/subcomponents/LoginButton";
 
 import {FormEvent} from 'react'
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 const LoginPage = () => {
-    const router = useRouter()
+    // const router = useRouter()
+    async function handleSubmit(){}
+    //
+    // async function handleSubmit(event: FormEvent<HTMLFormElement>){
+    //     event.preventDefault()
+    //
+    //     const formData = new FormData(event.currentTarget)
+    //     const email = formData.get('email')
+    //     const password = formData.get('password')
+    //
+    //     const response = await fetch('', {
+    //         method: 'POST',
+    //         headers: {'Content-Type': ''},
+    //         body: JSON.stringify({email, password}),
+    //     })
+    //
+    //     if (response.ok) {
+    //         await router.push('/dashboard')
+    //     } else {
+    //         //
+    //     }
+    //
 
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>){
-        event.preventDefault()
 
-        const formData = new FormData(event.currentTarget)
-        const email = formData.get('email')
-        const password = formData.get('password')
-
-        const response = await fetch('', {
-            method: 'POST',
-            headers: {'Content-Type': ''},
-            body: JSON.stringify({email, password}),
-        })
-
-        if (response.ok) {
-            await router.push('/dashboard')
-        } else {
-            //
-        }
-
-
-
-
-    }
+    // }
 
 
 
@@ -80,8 +81,10 @@ const LoginPage = () => {
                                          className='mb-4 bg-[#28A745]'/>
                         </form>
                         <div className='flex gap-2'>
-                            <LoginButton type='button' text="Zresetuj hasło" image={infoIMG} alt="login"
-                                         className='bg-[#6C757D]'/>
+                            <Link href='/dashboard'>
+                                <LoginButton type='button' text="Zresetuj hasło" image={infoIMG} alt="login"
+                                             className='bg-[#6C757D]'/>
+                            </Link>
                             <LoginButton type='button' text="Pierwsze logowanie" image={infoIMG} alt="login"
                                          className='bg-[#6C757D]'/>
                         </div>
