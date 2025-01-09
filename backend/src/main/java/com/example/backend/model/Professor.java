@@ -6,16 +6,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Professor extends User {
+public class Professor  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profId;
+    private Long userId;
     private String title;
 
     public Professor() {}
 
     public Professor(String email, String password, String name, String surname, String rola, Long profId, String title) {
-        super(email, password, name, surname, rola);
+
         this.profId = profId;
         this.title = title;
     }

@@ -6,15 +6,16 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Admin extends User {
+public class Admin{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
+    private Long userId;
 
     public Admin() {}
 
     public Admin(String email, String password, String name, String surname, String rola, Long adminId) {
-        super(email, password, name, surname, rola);
+
         this.adminId = adminId;
     }
 

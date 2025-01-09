@@ -6,10 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Student extends User {
+public class Student  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long studentId;
+    private Long userId;
     private String indexNumber;
     private String faculty;
     private String major;
@@ -17,11 +18,12 @@ public class Student extends User {
     private String phoneNumber;
     private int semester;
 
+
     public Student() {}
 
     public Student(String email, String password, String name, String surname, String rola, String indexNumber,
                    String faculty, String major, String dateOfBirth, String phoneNumber, int semester) {
-        super(email, password, name, surname, rola);
+
         this.indexNumber = indexNumber;
         this.faculty = faculty;
         this.major = major;
