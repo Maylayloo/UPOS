@@ -25,5 +25,5 @@
 }
 
 .navLink {
-  @apply text-xl whitespace-nowrap tracking-wider font-[300]
+  @apply text-xl whitespace-nowrap tracking-wider
 }
