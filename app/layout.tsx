@@ -5,6 +5,7 @@ import React from "react";
 import Footer from "@/components/Footer";
 
 import { Outfit, Roboto } from "next/font/google"
+import DynamicBody from "@/components/DynamicBody";
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 const roboto = Roboto({
@@ -21,12 +22,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en" className={`${outfit.variable} ${roboto.variable}`}>
-            <body className='mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 bg-bg text-white overflow-x-hidden'>
+            <DynamicBody>
                 {children}
 
                 <Footer/>
-            </body>
-
+            </DynamicBody>
 
         </html>
     );
