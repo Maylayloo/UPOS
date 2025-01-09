@@ -4,7 +4,7 @@ import {profileData} from "@/constants/userProfileData";
 
 const ProfilePage = () => {
     return (
-        <div className='w-full flex flex-col items-center gap-12'>
+        <div className='w-full flex flex-col items-center gap-12 pb-8'>
             {
                 profileData.map(((item, index) => (
                     <ProfileField
