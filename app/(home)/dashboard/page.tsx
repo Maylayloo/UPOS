@@ -7,18 +7,23 @@ const Page = () => {
     const role = "student"
 
     return (
-        dashboardContent.map((tile) => (
-            <DashboardTile
-                key={tile.title}
-                href={tile.href}
-                icon={tile.icon}
-                title={tile.title}
-                role={role}
-                allowedRoles={tile.allowedRoles}
-                leadingColor={tile.leadingColor}
-            />
-        ))
+        <div className="flex flex-wrap justify-center gap-8">
+            {
+                dashboardContent.map((tile) => (
+                    <DashboardTile
+                        key={tile.title}
+                        href={tile.href}
+                        icon={tile.icon}
+                        title={tile.title}
+                        role={role}
+                        allowedRoles={tile.allowedRoles}
+                        leadingColor={tile.leadingColor}
+                    />
+                ))
+            }
+        </div>
     );
+
 };
 
 export default Page;

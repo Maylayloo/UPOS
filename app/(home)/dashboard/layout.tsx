@@ -36,9 +36,11 @@ const DashboardLayout = ({children,}: {
             <h2 className="text-3xl uppercase mt-4 mb-10 tracking-widest font-outfit">
                 {displayTitle}
             </h2>
-            <div className='flex flex-wrap justify-center gap-8'>
+            <div className='w-full h-full'>
                 {
                     children
+
+
                 }
             </div>
         </div>
