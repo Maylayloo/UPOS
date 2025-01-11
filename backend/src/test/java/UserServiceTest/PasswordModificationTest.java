@@ -2,7 +2,7 @@ package UserServiceTest;
 
 
 import com.example.backend.model.MyUser;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.MyUserRepository;
 import com.example.backend.service.userService.UserModificationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class UserModificationServiceTest {
     private UserModificationService userModificationService;
 
     @Mock
-    private UserRepository userRepository;
+    private MyUserRepository userRepository;
 
     @BeforeEach
     void setUp() {
