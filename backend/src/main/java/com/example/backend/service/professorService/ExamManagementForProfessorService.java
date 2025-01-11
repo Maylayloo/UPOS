@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExamManagementForProfessorService {
     public void scheduleExam(){}
-    public void modifyExamaById(){}
+    public void modifyExamById(){}
 }
 
 
