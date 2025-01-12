@@ -5,14 +5,20 @@ import Image from "next/image";
 import hamburger from "@/public/icons/hamburger.png"
 import close from "@/public/icons/close.png"
 import {useState} from "react";
+import {useUser} from "@/app/(context)/UserContext";
 
 const Navbar = () => {
 
-    // add get_role in the future
-    const role = "student"
-    // add get_name in the future
-    const name = "Jan Kowalski"
+    // useUser() hook
+    const { user } = useUser();
 
+    // get user's role
+    const role = user.rola.toLowerCase();
+
+    // get user's name and surname
+    const name = user.name + " " + user.surname;
+
+    // useState for mobile Navbar, describing if it is opened
     const [active, setActive] = useState(false)
 
     return (
@@ -23,6 +29,8 @@ const Navbar = () => {
                     <span className='px-3'>
                         {name}
                     </span>
+
+                    // TODO: make logout button work
                     <button className='mr-4 px-6 rounded-lg py-1 my-2 border border-[#9AD6D6] text-[#9AD6D6]'>
                         WYLOGUJ
                     </button>
@@ -44,6 +52,8 @@ const Navbar = () => {
                 </button>
             </div>
 
+
+            // render opened mobile NavBar if (active)
             { active && (
                 <div
                     className='bg-gradient-to-t from-[#2c5252] via-[#1f4242] to-bg absolute inset-x-0 h-screen
@@ -52,6 +62,8 @@ const Navbar = () => {
                     <NavLink href='/dashboard' content='MÓJ UPOS'></NavLink>
                     <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
                     <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
+
+                    // TODO: make logout button work
                     <button className='px-10 rounded-lg py-3 border-2 border-[#9AD6D6] text-[#9AD6D6]'>
                         WYLOGUJ
                     </button>
