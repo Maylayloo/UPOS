@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 
 import { Outfit, Roboto } from "next/font/google"
 import DynamicBody from "@/components/DynamicBody";
+import {UserProvider} from "@/app/(context)/UserContext";
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 const roboto = Roboto({
@@ -23,8 +24,9 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
     return (
         <html lang="en" className={`${outfit.variable} ${roboto.variable}`}>
             <DynamicBody>
-                {children}
-
+                <UserProvider>
+                    {children}
+                </UserProvider>
                 <Footer/>
             </DynamicBody>
 
