@@ -6,6 +6,7 @@ import {useUser} from "@/app/(context)/UserContext";
 
 const ProfilePage = () => {
 
+    // useUser() hook
     const {user} = useUser()
 
 
