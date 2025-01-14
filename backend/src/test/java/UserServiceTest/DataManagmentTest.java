@@ -35,13 +35,13 @@ class UserDataManagementServiceTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(mockUser));
 
         // When
-        Optional<MyUser> result = userDataManagementService.getUserByEmail(email);
+        MyUser result = userDataManagementService.getUserByEmail(email);
 
         // Then
-        assertTrue(result.isPresent());
-        assertEquals(email, result.get().getEmail());
-        assertEquals("John", result.get().getName());
-        assertEquals("Doe", result.get().getSurname());
+        assertNotNull(result);
+        assertEquals(email, result.getEmail());
+        assertEquals("John", result.getName());
+        assertEquals("Doe", result.getSurname());
         verify(userRepository, times(1)).findByEmail(email);
     }
 
@@ -52,10 +52,10 @@ class UserDataManagementServiceTest {
         when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         // When
-        Optional<MyUser> result = userDataManagementService.getUserByEmail(email);
+        MyUser result = userDataManagementService.getUserByEmail(email);
 
         // Then
-        assertFalse(result.isPresent());
+        assertNull(result);
         verify(userRepository, times(1)).findByEmail(email);
     }
 }

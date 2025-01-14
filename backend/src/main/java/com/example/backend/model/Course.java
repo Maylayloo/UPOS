@@ -13,6 +13,7 @@ public class Course {
     private String name;
     private int ects;
     private String coordinator;
+    private Long professorId;
     private String semester;
     private String major;
 
@@ -22,10 +23,12 @@ public class Course {
 
     public Course() {}
 
-    public Course(String name, int ects, String coordinator, String semester, String major) {
+    public Course(Long courseId, String name, int ects, String coordinator, Long professorId, String semester, String major) {
+        this.courseId = courseId;
         this.name = name;
         this.ects = ects;
         this.coordinator = coordinator;
+        this.professorId = professorId;
         this.semester = semester;
         this.major = major;
         this.exams = new ArrayList<>();
@@ -55,17 +58,17 @@ public class Course {
         this.ects = ects;
     }
 
-    public String getCoordinator() {
-        return coordinator;
-    }
+    public String getCoordinator() { return coordinator; }
 
     public void setCoordinator(String coordinator) {
         this.coordinator = coordinator;
     }
 
-    public String getSemester() {
-        return semester;
-    }
+    public Long getProfessorId() { return professorId; }
+
+    public void setProfessorId(Long professorId) { this.professorId = professorId; }
+
+    public String getSemester() { return semester; }
 
     public void setSemester(String semester) {
         this.semester = semester;

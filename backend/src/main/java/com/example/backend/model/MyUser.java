@@ -12,7 +12,7 @@ public class MyUser {
     private String password;
     private String name;
     private String surname;
-    private String rola; //not sure if we meant one role or multiple
+    private String role; //not sure if we meant one role or multiple
 
     public MyUser() {}
 
@@ -21,7 +21,7 @@ public class MyUser {
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.rola = role;
+        this.role = role;
     }
 
     public Long getUserId() {
@@ -64,11 +64,11 @@ public class MyUser {
         this.surname = surname;
     }
 
-    public String getRola() {
-        return rola;
+    public String getRole() {
+        return role;
     }
 
-    public void setRola(String rola) {
-        this.rola = rola;
+    public void setRole(String rola) {
+        this.role = rola;
     }
 }

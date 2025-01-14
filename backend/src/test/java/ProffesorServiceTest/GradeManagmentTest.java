@@ -48,20 +48,21 @@ class GradeManagementForProfessorServiceTest {
     }
 
     @Test
-    void testSetFinalGradesByProfessorId() {
+    void testSetFinalGradesByStudentId() {
         // Given
-        Long professorId = 1L;
+        Long studentId = 1L;
         List<FinalGrade> finalGrades = List.of(
-                new FinalGrade(101L, 1L, "5"),
-                new FinalGrade(102L, 1L, "4")
+                new FinalGrade(studentId, 101L, "5"),
+                new FinalGrade(studentId, 102L, "4")
         );
 
         // When
-        gradeManagementForProfessorService.setFinalGradesByProfessorId(professorId, finalGrades);
+        gradeManagementForProfessorService.setFinalGradesByStudentId(studentId, finalGrades);
 
         // Then
         verify(finalGradeRepository, times(1)).saveAll(finalGrades);
     }
+
 
     @Test
     void testDeleteGradeById() {
@@ -76,14 +77,15 @@ class GradeManagementForProfessorServiceTest {
     }
 
     @Test
-    void testDeleteFinalGradeByStudentId() {
+    void testDeleteFinalGrade() {
         // Given
-        Long studentId = 1L;
+        Long finalGradeId = 1L;
 
         // When
-        gradeManagementForProfessorService.deleteFinalGradeByStudentId(studentId);
+        gradeManagementForProfessorService.deleteFinalGradeById(finalGradeId);
 
         // Then
-        verify(finalGradeRepository, times(1)).deleteById(studentId);
+        verify(finalGradeRepository, times(1)).deleteById(finalGradeId);
     }
+
 }
