@@ -15,7 +15,8 @@ public class Exam {
 
     public Exam() {}
 
-    public Exam(Long courseId, String date, String place) {
+    public Exam(Long examId, Long courseId, String date, String place) {
+        this.examId = examId;
         this.courseId = courseId;
         this.date = date;
         this.place = place;

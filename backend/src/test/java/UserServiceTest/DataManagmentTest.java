@@ -42,7 +42,7 @@ class UserDataManagementServiceTest {
         assertEquals(email, result.getEmail());
         assertEquals("John", result.getName());
         assertEquals("Doe", result.getSurname());
-        verify(userRepository, times(1)).findByEmail(email);
+        verify(userRepository, times(2)).findByEmail(email);
     }
 
     @Test

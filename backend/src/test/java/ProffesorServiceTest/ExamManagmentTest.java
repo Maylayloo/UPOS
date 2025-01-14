@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class ExamManagementForProfessorServiceTest {
@@ -33,7 +34,7 @@ class ExamManagementForProfessorServiceTest {
         // Given
         Long courseId = 1L;
         Course course = new Course(8L,"Anal", 5, "Dill Doe",2L, "1", "Math");
-        Exam exam = new Exam(1L, "2025-01-10", "D5-s101");
+        Exam exam = new Exam(2L, 1L, "2025-01-10", "D5-s101");
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
 
@@ -49,12 +50,12 @@ class ExamManagementForProfessorServiceTest {
     @Test
     void testModifyExamById() {
         // Given
-        Long courseId = 1L;
-        Long examId = 1L;
+        Long courseId = 6L;
+        Long examId = 3L;
         Course course = new Course(6L,"Math", 5, "Dr. Smith",2L, "2", "AiR");
-        Exam oldExam = new Exam(1L, "2025-01-10", "Room 101");
+        Exam oldExam = new Exam(3L,1L, "2025-01-10", "Room 101");
         course.addExam(oldExam);
-        Exam updatedExam = new Exam(1L, "2025-02-15", "Room 202");
+        Exam updatedExam = new Exam(5L, 1L, "2025-02-15", "Room 202");
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
 
@@ -74,16 +75,17 @@ class ExamManagementForProfessorServiceTest {
         Long courseId = 1L;
         Long examId = 2L; // Exam ID that doesn't exist
         Course course = new Course(7L,"Math", 5, "Dr. Smith",1L, "3", "Mathematics");
-        course.addExam(new Exam(1L, "2025-01-10", "Room 101"));
-        Exam updatedExam = new Exam(2L, "2025-02-15", "Room 202");
+        course.addExam(new Exam(6L,1L, "2025-01-10", "Room 101"));
+        Exam updatedExam = new Exam(7L,2L, "2025-02-15", "Room 202");
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
 
-        // When
-        examManagementForProfessorService.modifyExamById(courseId, examId, updatedExam);
+        // When & Then
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                examManagementForProfessorService.modifyExamById(courseId, examId, updatedExam));
 
-        // Then
-        assertEquals(1, course.getExams().size()); // No modification
+        assertEquals("Exam not found with ID: 2 in course ID: 1", exception.getMessage());
         verify(courseRepository, never()).save(course);
     }
+
 }

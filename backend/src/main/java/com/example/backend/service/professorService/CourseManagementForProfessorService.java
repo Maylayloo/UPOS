@@ -1,12 +1,22 @@
 package com.example.backend.service.professorService;
 
 import com.example.backend.model.Course;
+import com.example.backend.repository.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CourseManagementForProfessorService {
-    public List<Course> getCourses(Long professorId) {return null;}
+    @Autowired
+    private CourseRepository courseRepository;
+
+    public List<Course> getCourses(Long professorId) {
+        List<Course> courses = courseRepository.findByProfessorId(professorId);
+        return courses != null ? courses : new ArrayList<>();
+    }
+
 
 }
