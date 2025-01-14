@@ -10,41 +10,83 @@ import LoginInput from "@/components/subcomponents/LoginInput";
 import LoginButton from "@/components/subcomponents/LoginButton";
 
 import {FormEvent} from 'react'
-import {useRouter} from "next/router";
+import {useRouter} from "next/navigation";
 import Link from "next/link";
+import {useUser} from "@/app/(context)/UserContext";
 
 const LoginPage = () => {
-    // const router = useRouter()
-    async function handleSubmit(){}
-    //
-    // async function handleSubmit(event: FormEvent<HTMLFormElement>){
-    //     event.preventDefault()
-    //
-    //     const formData = new FormData(event.currentTarget)
-    //     const email = formData.get('email')
-    //     const password = formData.get('password')
-    //
-    //     const response = await fetch('', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': ''},
-    //         body: JSON.stringify({email, password}),
-    //     })
-    //
-    //     if (response.ok) {
-    //         await router.push('/dashboard')
-    //     } else {
-    //         //
-    //     }
-    //
+
+    const router = useRouter()
+
+    // useUser() hook
+    const { setUser } = useUser();
 
 
+    // function for handling form, fetching data and log in user
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
 
-    // }
+        // get data from form
+        const formData = new FormData(event.currentTarget);
+        const email = formData.get('email');
+        const password = formData.get('password');
 
+        // notification pushed when form isn't filled
+        if (!email || !password) {
+            alert('Wprowadź email i hasło.');
+            return;
+        }
 
+        // login and fetch data
+        try {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: email,
+                    password: password
+                }),
+            });
 
+            if (response.ok) {
 
+                // fetch user data from backend e.g. userId, name, role, etc
+                try {
+                    const response = await fetch("http://localhost:8080/users/loggedIn", {
+                        method: "GET",
+                        credentials: "include"
+                    });
+                    if (!response.ok) {
+                        throw new Error("Błąd podczas pobierania danych");
+                    }
 
+                    const data = await response.json();
+
+                    // save data into 'user'
+                    setUser(data)
+
+                } catch (error) {
+                    console.error("Wystąpił błąd:", error);
+                }
+
+                // push logged user to /dashboard
+                router.push('/dashboard');
+
+            } else {
+                // if response isn't ok show error
+                const error = await response.json();
+                alert(`Błąd logowania: ${error.message || 'Niepoprawne dane'}`);
+            }
+
+        } catch (error) {
+            // show error if something went wrong
+            console.error('Błąd połączenia:', error);
+            alert('Nie udało się połączyć z serwerem.');
+        }
+    }
 
     return (
         <div className='h-[85svh] text-black font-outfit'>
