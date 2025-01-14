@@ -3,5 +3,8 @@ package com.example.backend.repository;
 import com.example.backend.model.FinalGrade;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FinalGradeRepository extends JpaRepository<FinalGrade, Integer> {
+import java.util.List;
+
+public interface FinalGradeRepository extends JpaRepository<FinalGrade, Long> {
+    List<FinalGrade> findByStudentId(Long studentId);
 }
