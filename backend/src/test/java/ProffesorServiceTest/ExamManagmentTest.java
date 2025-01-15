@@ -33,7 +33,7 @@ class ExamManagementForProfessorServiceTest {
     void testScheduleExam() {
         // Given
         Long courseId = 1L;
-        Course course = new Course(8L,"Anal", 5, "Dill Doe",2L, "1", "Math");
+        Course course = new Course(8L,"Anal", 5, 2L, "1", "Math");
         Exam exam = new Exam(2L, 1L, "2025-01-10", "D5-s101");
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
@@ -52,7 +52,7 @@ class ExamManagementForProfessorServiceTest {
         // Given
         Long courseId = 6L;
         Long examId = 3L;
-        Course course = new Course(6L,"Math", 5, "Dr. Smith",2L, "2", "AiR");
+        Course course = new Course(6L,"Math", 5, 2L, "2", "AiR");
         Exam oldExam = new Exam(3L,1L, "2025-01-10", "Room 101");
         course.addExam(oldExam);
         Exam updatedExam = new Exam(5L, 1L, "2025-02-15", "Room 202");
@@ -74,7 +74,7 @@ class ExamManagementForProfessorServiceTest {
         // Given
         Long courseId = 1L;
         Long examId = 2L; // Exam ID that doesn't exist
-        Course course = new Course(7L,"Math", 5, "Dr. Smith",1L, "3", "Mathematics");
+        Course course = new Course(7L,"Math", 5, 1L, "3", "Mathematics");
         course.addExam(new Exam(6L,1L, "2025-01-10", "Room 101"));
         Exam updatedExam = new Exam(7L,2L, "2025-02-15", "Room 202");
 

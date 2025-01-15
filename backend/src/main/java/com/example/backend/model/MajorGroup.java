@@ -1,9 +1,9 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 public class MajorGroup {
@@ -13,19 +13,39 @@ public class MajorGroup {
     private Long courseId;
     private String type;
     private int numberOfGroup;
-    private String date;
+    @Enumerated(EnumType.STRING)
+    private DayOfTheWeek dayOfTheWeek;
+    private LocalTime startOfLesson;
+    private LocalTime endOfLesson;
     private String place;
     private int maxStudentAmount;
+    @ElementCollection
+    private List<Long> studentsIds;
 
     public MajorGroup() {}
 
-    public MajorGroup(Long courseId, String type, int numberOfGroup, String date, String place, int maxStudentAmount) {
-        this.courseId = courseId;
+    public MajorGroup( String type, int numberOfGroup, DayOfTheWeek dayOfTheWeek, LocalTime
+            startOfLesson, LocalTime endOfLesson, String place, int maxStudentAmount, List<Long> studentsIds) {
         this.type = type;
         this.numberOfGroup = numberOfGroup;
-        this.date = date;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.startOfLesson = startOfLesson;
+        this.endOfLesson = endOfLesson;
         this.place = place;
         this.maxStudentAmount = maxStudentAmount;
+        this.studentsIds = studentsIds;
+    }
+    public MajorGroup(Long groupId, String type, int numberOfGroup, DayOfTheWeek dayOfTheWeek, LocalTime
+            startOfLesson, LocalTime endOfLesson, String place, int maxStudentAmount, List<Long> studentsIds) {
+        this.groupId = groupId;
+        this.type = type;
+        this.numberOfGroup = numberOfGroup;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.startOfLesson = startOfLesson;
+        this.endOfLesson = endOfLesson;
+        this.place = place;
+        this.maxStudentAmount = maxStudentAmount;
+        this.studentsIds = studentsIds;
     }
 
     public Long getGroupId() {
@@ -60,13 +80,7 @@ public class MajorGroup {
         this.numberOfGroup = numberOfGroup;
     }
 
-    public String getDate() {
-        return date;
-    }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getPlace() {
         return place;
@@ -82,5 +96,37 @@ public class MajorGroup {
 
     public void setMaxStudentAmount(int maxStudentAmount) {
         this.maxStudentAmount = maxStudentAmount;
+    }
+
+    public List<Long> getStudentsIds() {
+        return studentsIds;
+    }
+
+    public void setStudentsIds(List<Long> studentsIds) {
+        this.studentsIds = studentsIds;
+    }
+
+    public DayOfTheWeek getDayOfTheWeek() {
+        return dayOfTheWeek;
+    }
+
+    public void setDayOfTheWeek(DayOfTheWeek dayOfTheWeek) {
+        this.dayOfTheWeek = dayOfTheWeek;
+    }
+
+    public LocalTime getStartOfLesson() {
+        return startOfLesson;
+    }
+
+    public void setStartOfLesson(LocalTime startOfLesson) {
+        this.startOfLesson = startOfLesson;
+    }
+
+    public LocalTime getEndOfLesson() {
+        return endOfLesson;
+    }
+
+    public void setEndOfLesson(LocalTime endOfLesson) {
+        this.endOfLesson = endOfLesson;
     }
 }

@@ -12,17 +12,25 @@ public class MyUser {
     private String password;
     private String name;
     private String surname;
-    private String role; //not sure if we meant one role or multiple
+    @Enumerated(EnumType.STRING)
+    private Role role; //not sure if we meant one role or multiple
+    private String number;
+    private String address;
+    private String bankNumber;
 
-    public MyUser() {}
-
-    public MyUser(String email, String password, String name, String surname, String role) {
+    public MyUser(String email, String password, String name, String surname, Role role, String number, String address, String bankNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.role = role;
+        this.number = number;
+        this.address = address;
+        this.bankNumber = bankNumber;
     }
+
+    public MyUser() {}
+
 
     public Long getUserId() {
         return userId;
@@ -64,11 +72,37 @@ public class MyUser {
         this.surname = surname;
     }
 
-    public String getRole() {
+
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBankNumber() {
+        return bankNumber;
+    }
+
+    public void setBankNumber(String bankNumber) {
+        this.bankNumber = bankNumber;
+    }
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String rola) {
-        this.role = rola;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
