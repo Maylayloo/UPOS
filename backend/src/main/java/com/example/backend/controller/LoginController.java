@@ -29,7 +29,7 @@ public class LoginController {
             authenticationService.executeLoginRequest(loginRequest,request);
             MyUser user =userDataManagementService.getUserByEmail(loginRequest.getUsername());
             Map<String , String> resultRole = new HashMap<>();
-            resultRole.put("role", user.getRole());
+            resultRole.put("role", user.getRole().toString());
             return new ResponseEntity<>(resultRole, HttpStatus.OK);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Invalid username or password");

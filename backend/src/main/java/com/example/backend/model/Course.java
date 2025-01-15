@@ -12,7 +12,6 @@ public class Course {
     private Long courseId;
     private String name;
     private int ects;
-    private String coordinator;
     private Long professorId;
     private String semester;
     private String major;
@@ -23,11 +22,10 @@ public class Course {
 
     public Course() {}
 
-    public Course(Long courseId, String name, int ects, String coordinator, Long professorId, String semester, String major) {
+    public Course(Long courseId, String name, int ects, Long professorId, String semester, String major) {
         this.courseId = courseId;
         this.name = name;
         this.ects = ects;
-        this.coordinator = coordinator;
         this.professorId = professorId;
         this.semester = semester;
         this.major = major;
@@ -58,11 +56,7 @@ public class Course {
         this.ects = ects;
     }
 
-    public String getCoordinator() { return coordinator; }
 
-    public void setCoordinator(String coordinator) {
-        this.coordinator = coordinator;
-    }
 
     public Long getProfessorId() { return professorId; }
 

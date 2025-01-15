@@ -33,8 +33,8 @@ class CourseManagementForProfessorServiceTest {
         // Given
         Long professorId = 1L;
         List<Course> mockCourses = Arrays.asList(
-                new Course(1L, "Mathematics", 5, "Hugh Janus",1L, "5", "Math"),
-                new Course(2L, "Physics", 4, "Ben Dover",3L, "3", "Science")
+                new Course(1L, "Mathematics", 5, 1L, "5", "Math"),
+                new Course(2L, "Physics", 4, 3L, "3", "Science")
         );
 
         when(courseRepository.findByProfessorId(professorId)).thenReturn(mockCourses);

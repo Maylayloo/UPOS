@@ -28,7 +28,7 @@ class CourseManagementForAdminServiceTest {
     @Test
     void testCreateCourse() {
         // Given
-        Course course = new Course(5L, "Anal 101", 5, "Dill Doe",1L, "1", "Femboys");
+        Course course = new Course(5L, "Anal 101", 5, 1L, "1", "Femboys");
 
         // When
         courseManagementForAdminService.createCourse(course);
