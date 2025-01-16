@@ -1,6 +1,7 @@
 package UserServiceTest;
 
 import com.example.backend.model.MyUser;
+import com.example.backend.model.Role;
 import com.example.backend.repository.MyUserRepository;
 import com.example.backend.service.userService.UserDataManagementService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +32,7 @@ class UserDataManagementServiceTest {
     void testGetUserByEmail_UserExists() {
         // Given
         String email = "john.doe@example.com";
-        MyUser mockUser = new MyUser(email, "securepassword", "John", "Doe", "User");
+        MyUser mockUser = new MyUser(email, "securepassword", "John", "Doe", Role.STUDENT,"48 546 464 456","reymont56","5645764856245677546");
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(mockUser));
 
         // When

@@ -1,11 +1,28 @@
+'use client'
+
 import React from 'react';
+import {usePathname} from "next/navigation";
 
 const DynamicBody = ({children}: {children: React.ReactNode }) => {
 
-    // TODO: zrób fajnie gradienty w zależności od path.
+    const path = usePathname();
+
+    const bodyThemes: Record<string, string> = {
+        "/dashboard": "bg-gradient-to-t from-[#2f6478] to-bg to-[85%]",
+
+
+        "/dashboard/profile": "bg-gradient-to-t from-[#224406] to-bg to-[85%]",
+        "/dashboard/schedule": "bg-gradient-to-t from-[#065F7F] to-bg to-[85%]",
+        "/dashboard/statistics": "bg-gradient-to-t from-[#827E09] to-bg to-[85%]",
+        "/dashboard/grades": "bg-gradient-to-t from-[#67095F] to-bg to-[85%]",
+        "/dashboard/groups": "bg-gradient-to-t from-[#CBD6C1] to-bg to-[85%]",
+        "/dashboard/roulette": "bg-gradient-to-t from-[#4D0F10] to-bg to-[85%]",
+    }
+
+    const bodyColor = bodyThemes[path] || "bg-bg"
 
     return (
-        <body className="mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 bg-bg text-white overflow-x-hidden">
+        <body className={`mx-[157px] max-xl:mx-12 max-sm:mx-8 mt-14 text-white overflow-x-hidden ${bodyColor}`}>
             {children}
         </body>
     );

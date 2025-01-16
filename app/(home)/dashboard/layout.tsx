@@ -17,9 +17,10 @@ const DashboardLayout = ({children,}: {
 }) => {
 
     const path = usePathname();
+    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
 
     const titles: Record<string, string> = {
-        "/dashboard/profile": "Jan Kowalski", // tu imię i nazwisko zalogowanego użytkownika
+        "/dashboard/profile": storedUser.name + " " + storedUser.surname, // tu imię i nazwisko zalogowanego użytkownika
         "/dashboard/schedule": "Plan Zajęć",
         "/dashboard/statistics": "Statystyki",
         "/dashboard/grades": "oceny",

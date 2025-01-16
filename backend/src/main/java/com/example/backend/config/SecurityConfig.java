@@ -52,6 +52,7 @@ public class SecurityConfig {
 
                 .sessionManagement(i ->i.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
+
         return http.build();
     }
 

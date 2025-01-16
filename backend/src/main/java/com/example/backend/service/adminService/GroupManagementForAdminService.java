@@ -5,6 +5,8 @@ import com.example.backend.repository.MajorGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GroupManagementForAdminService {
 
@@ -18,5 +20,6 @@ public class GroupManagementForAdminService {
     public void deleteGroup(Long groupId) {
         majorGroupRepository.deleteById(groupId);
     }
+
 }
 

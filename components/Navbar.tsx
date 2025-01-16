@@ -9,14 +9,14 @@ import {useUser} from "@/app/(context)/UserContext";
 
 const Navbar = () => {
 
-    // useUser() hook
-    const { user } = useUser();
+    // change localstorage to session-storage
+    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
 
     // get user's role
-    const role = user.role.toLowerCase();
+    const role = storedUser?.role?.toLowerCase();
 
     // get user's name and surname
-    const name = user.name + " " + user.surname;
+    const name = storedUser?.name + " " + storedUser?.surname;
 
     // useState for mobile Navbar, describing if it is opened
     const [active, setActive] = useState(false)
@@ -30,7 +30,7 @@ const Navbar = () => {
                         {name}
                     </span>
 
-                    // TODO: make logout button work
+                    {/*TODO: make logout button work*/}
                     <button className='mr-4 px-6 rounded-lg py-1 my-2 border border-[#9AD6D6] text-[#9AD6D6]'>
                         WYLOGUJ
                     </button>
@@ -53,7 +53,7 @@ const Navbar = () => {
             </div>
 
 
-            {/*// render opened mobile NavBar if (active)*/}
+            {/*render opened mobile NavBar if (active)*/}
             { active && (
                 <div
                     className='bg-gradient-to-t from-[#2c5252] via-[#1f4242] to-bg absolute inset-x-0 h-screen
@@ -63,7 +63,7 @@ const Navbar = () => {
                     <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
                     <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
 
-                    {/*// TODO: make logout button work*/}
+                    // TODO: make logout button work
                     <button className='px-10 rounded-lg py-3 border-2 border-[#9AD6D6] text-[#9AD6D6]'>
                         WYLOGUJ
                     </button>

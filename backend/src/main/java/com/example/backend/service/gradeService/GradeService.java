@@ -16,5 +16,11 @@ public class GradeService {
     public List<Grade> showGradesByStudentId(Long studentId) {
         return gradeRepository.findByStudentId(studentId);
     }
+
+    public List<Grade> showGradesByGradeId(Long gradeId) {return null;}
+    public List<Grade> showAllGrades() {return gradeRepository.findAll();}
+    public List<Grade> showAllGradesByLoggedInStudent() {
+        return null;
+    }
 }
 

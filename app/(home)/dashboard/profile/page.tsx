@@ -6,19 +6,19 @@ import {useUser} from "@/app/(context)/UserContext";
 
 const ProfilePage = () => {
 
-    // useUser() hook
-    const {user} = useUser()
+    // change localstorage to session storage
+    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
 
 
     // table with user Data provided by { user } from backend
     const profileData = [
         {
             title: "Email",
-            value: user.email
+            value: storedUser.email
         },
         {
             title: "Numer Albumu",
-            value: user.userId
+            value: storedUser.userId
         },
         {
             title: "Numer Telefonu",
