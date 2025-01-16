@@ -21,4 +21,7 @@ public class UserUtils {
     public static boolean isUserRoleAdmin(){
         return getLoggedInUserRole().equals("ADMIN");
     }
+    public static boolean isUserRoleProfessor(){
+        return getLoggedInUserRole().equals("PROFESSOR");
+    }
 }

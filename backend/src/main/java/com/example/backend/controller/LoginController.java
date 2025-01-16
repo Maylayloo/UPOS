@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.LoginRequest;
+import com.example.backend.dto.LoginRequestDTO;
 import com.example.backend.model.MyUser;
 import com.example.backend.service.authenticationService.AuthenticationService;
 import com.example.backend.service.userService.UserDataManagementService;
@@ -24,7 +24,7 @@ public class LoginController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest, HttpServletRequest request) {
         try {
             authenticationService.executeLoginRequest(loginRequest,request);
             MyUser user =userDataManagementService.getUserByEmail(loginRequest.getUsername());

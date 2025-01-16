@@ -20,5 +20,7 @@ public class CourseManagementForProfessorService {
     }
     public List<MajorGroup> getMajorGroupsByLoggedInProfessor() {return null;}
 
+    public List<MajorGroup> getMajorGroupsByLoggedInProfessorAndCourseId(Long id) {return null;}
 
+    public List<Course> getCoursesByLoggedInProfessor() {return null;}
 }

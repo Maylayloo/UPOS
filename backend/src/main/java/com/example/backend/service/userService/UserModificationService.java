@@ -1,5 +1,6 @@
 package com.example.backend.service.userService;
 
+import com.example.backend.model.MyUser;
 import com.example.backend.repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,7 @@ public class UserModificationService {
             return true;
         }).orElse(false);
     }
+
+    public void updateMyUser(MyUser myUser) {userRepository.save(myUser);}
 }
 
