@@ -22,11 +22,11 @@ public class Professor  {
         this.title = title;
     }
 
-    public Long getProfId() {
+    public Long getProfessorId() {
         return profId;
     }
 
-    public void setProfId(Long profId) {
+    public void setProfessorId(Long profId) {
         this.profId = profId;
     }
 
