@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/UPOS.iml" filepath="$PROJECT_DIR$/.idea/UPOS.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/UPOS_.iml" filepath="$PROJECT_DIR$/.idea/UPOS_.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backend/backend.iml" filepath="$PROJECT_DIR$/backend/backend.iml" />
     </modules>
   </component>
 </project>

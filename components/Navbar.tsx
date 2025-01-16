@@ -13,7 +13,7 @@ const Navbar = () => {
     const { user } = useUser();
 
     // get user's role
-    const role = user.rola.toLowerCase();
+    const role = user.role.toLowerCase();
 
     // get user's name and surname
     const name = user.name + " " + user.surname;
@@ -53,7 +53,7 @@ const Navbar = () => {
             </div>
 
 
-            // render opened mobile NavBar if (active)
+            {/*// render opened mobile NavBar if (active)*/}
             { active && (
                 <div
                     className='bg-gradient-to-t from-[#2c5252] via-[#1f4242] to-bg absolute inset-x-0 h-screen
@@ -63,7 +63,7 @@ const Navbar = () => {
                     <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
                     <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
 
-                    // TODO: make logout button work
+                    {/*// TODO: make logout button work*/}
                     <button className='px-10 rounded-lg py-3 border-2 border-[#9AD6D6] text-[#9AD6D6]'>
                         WYLOGUJ
                     </button>

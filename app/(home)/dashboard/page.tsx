@@ -11,7 +11,7 @@ const Page = () => {
     const {user} = useUser()
 
     // get user's role
-    const role = user.rola.toLowerCase();
+    const role = user.role.toLowerCase();
 
     return (
         <div className="flex flex-wrap justify-center gap-8">
