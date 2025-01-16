@@ -24,6 +24,14 @@ public class Grade {
         this.value = value;
     }
 
+    public Grade(Long gradeId, Long studentId, Long groupId, boolean isPartial, String value) {
+        this.gradeId = gradeId;
+        this.studentId = studentId;
+        this.groupId = groupId;
+        this.isPartial = isPartial;
+        this.value = value;
+    }
+
     public Long getGradeId() {
         return gradeId;
     }
