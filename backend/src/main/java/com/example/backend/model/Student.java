@@ -1,9 +1,6 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student  {
@@ -18,6 +15,9 @@ public class Student  {
     private String phoneNumber;
     private int semester;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private MyUser user;
 
     public Student() {}
 
@@ -88,4 +88,12 @@ public class Student  {
     public void setSemester(int semester) {
         this.semester = semester;
     }
+
+    public MyUser getUser() { return user; }
+
+    public void setUser(MyUser user) { this.user = user; }
+
+    public Long getUserId() { return userId; }
+
+    public void setUserId(Long userId) { this.userId = userId; }
 }
