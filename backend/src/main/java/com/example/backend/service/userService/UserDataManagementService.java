@@ -19,4 +19,6 @@ public class UserDataManagementService {
     public Optional<List<MyUser>> getAllUsers(){
         return Optional.of(MyUserRepository.findAll());
     }
+
+    public Optional<MyUser> getUserById(Long id){return MyUserRepository.findById(id);}
 }
