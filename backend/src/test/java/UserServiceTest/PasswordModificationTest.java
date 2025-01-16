@@ -2,6 +2,7 @@ package UserServiceTest;
 
 
 import com.example.backend.model.MyUser;
+import com.example.backend.model.Role;
 import com.example.backend.repository.MyUserRepository;
 import com.example.backend.service.userService.UserModificationService;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ class UserModificationServiceTest {
         // Given
         Long userId = 1L;
         String newPassword = "123new";
-        MyUser mockUser = new MyUser("Dill.doe@example.com", "oldPassword", "Dill", "Doe", "User");
+        MyUser mockUser = new MyUser("Dill.doe@example.com", "oldPassword", "Dill", "Doe", Role.STUDENT,"48 656 565 999","34-005,Kraków,ul.reymont 45","464524352646");
         mockUser.setUserId(userId);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(mockUser));
