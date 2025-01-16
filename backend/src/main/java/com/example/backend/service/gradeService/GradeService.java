@@ -6,7 +6,7 @@ import com.example.backend.model.Role;
 import com.example.backend.model.Student;
 import com.example.backend.repository.GradeRepository;
 import com.example.backend.repository.StudentRepository;
-import com.example.backend.service.userService.UserWebAuthenticationService;
+import com.example.backend.service.studentService.StudentAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class GradeService {
     private StudentRepository studentRepository;
 
     @Autowired
-    private UserWebAuthenticationService userWebAuthenticationService;
+    private StudentAuthenticationService studentAuthenticationService;
 
     public List<Grade> showGradesByStudentId(Long studentId) {
         return gradeRepository.findByStudentId(studentId);
@@ -39,16 +39,9 @@ public class GradeService {
     public List<Grade> showAllGrades() {return gradeRepository.findAll();}
 
     public List<Grade> showAllGradesByLoggedInStudent() {
-        MyUser loggedInUser = userWebAuthenticationService.getLoggedInUser();
+        Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
 
-        if (loggedInUser.getRole() != Role.STUDENT) {
-            throw new RuntimeException("Logged-in user is not a student");
-        }
-
-        Student student = studentRepository.findByUser_UserId(loggedInUser.getUserId())
-                .orElseThrow(() -> new RuntimeException("Could not find student with userId: " + loggedInUser.getUserId()));
-
-        return gradeRepository.findByStudentId(student.getStudentId());
+        return gradeRepository.findByStudentId(loggedInStudent.getStudentId());
     }
 }
 
