@@ -15,9 +15,9 @@ public class Student  {
     private String phoneNumber;
     private int semester;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private MyUser user;
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private MyUser user;
 
     public Student() {}
 
@@ -89,9 +89,9 @@ public class Student  {
         this.semester = semester;
     }
 
-    public MyUser getUser() { return user; }
-
-    public void setUser(MyUser user) { this.user = user; }
+//    public MyUser getUser() { return user; }
+//
+//    public void setUser(MyUser user) { this.user = user; }
 
     public Long getUserId() { return userId; }
 

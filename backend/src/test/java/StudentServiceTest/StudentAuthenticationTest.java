@@ -42,10 +42,10 @@ class StudentAuthenticationServiceTest {
 
         Student student = new Student();
         student.setStudentId(1L);
-        student.setUser(loggedInUser);
+        student.setUserId(loggedInUser.getUserId());
 
         when(userWebAuthenticationService.getLoggedInUser()).thenReturn(loggedInUser);
-        when(studentRepository.findByUser_UserId(loggedInUser.getUserId())).thenReturn(Optional.of(student));
+        when(studentRepository.findByUserId(loggedInUser.getUserId())).thenReturn(Optional.of(student));
 
         // When
         Student result = studentAuthenticationService.getLoggedInStudent();
@@ -53,9 +53,9 @@ class StudentAuthenticationServiceTest {
         // Then
         assertNotNull(result);
         assertEquals(1L, result.getStudentId());
-        assertEquals(loggedInUser, result.getUser());
+        assertEquals(loggedInUser.getUserId(), result.getUserId());
         verify(userWebAuthenticationService, times(1)).getLoggedInUser();
-        verify(studentRepository, times(1)).findByUser_UserId(loggedInUser.getUserId());
+        verify(studentRepository, times(1)).findByUserId(loggedInUser.getUserId());
     }
 
     @Test
@@ -83,13 +83,13 @@ class StudentAuthenticationServiceTest {
         loggedInUser.setRole(Role.STUDENT);
 
         when(userWebAuthenticationService.getLoggedInUser()).thenReturn(loggedInUser);
-        when(studentRepository.findByUser_UserId(loggedInUser.getUserId())).thenReturn(Optional.empty());
+        when(studentRepository.findByUserId(loggedInUser.getUserId())).thenReturn(Optional.empty());
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> studentAuthenticationService.getLoggedInStudent());
 
         assertEquals("Could not find student with userId: 1", exception.getMessage());
         verify(userWebAuthenticationService, times(1)).getLoggedInUser();
-        verify(studentRepository, times(1)).findByUser_UserId(loggedInUser.getUserId());
+        verify(studentRepository, times(1)).findByUserId(loggedInUser.getUserId());
     }
 }

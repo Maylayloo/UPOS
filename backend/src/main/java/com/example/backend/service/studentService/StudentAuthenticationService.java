@@ -24,7 +24,7 @@ public class StudentAuthenticationService {
             throw new RuntimeException("Logged-in user is not a student");
         }
 
-        return studentRepository.findByUser_UserId(loggedInUser.getUserId())
+        return studentRepository.findByUserId(loggedInUser.getUserId())
                 .orElseThrow(() -> new RuntimeException("Could not find student with userId: " + loggedInUser.getUserId()));
     }
 }

@@ -42,7 +42,7 @@ class ProfessorAuthenticationServiceTest {
 
         Professor mockProfessor = new Professor();
         mockProfessor.setProfessorId(1L);
-        mockProfessor.setUser(mockUser);
+        mockProfessor.setUserId(mockUser.getUserId());
 
         when(userWebAuthenticationService.getLoggedInUser()).thenReturn(mockUser);
         when(professorRepository.findByUserId(1L)).thenReturn(Optional.of(mockProfessor));

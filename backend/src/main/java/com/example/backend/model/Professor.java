@@ -10,9 +10,9 @@ public class Professor  {
     private Long userId;
     private String title;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private MyUser user;
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private MyUser user;
 
     public Professor() {}
 
@@ -38,7 +38,24 @@ public class Professor  {
         this.title = title;
     }
 
-    public MyUser getUser() { return user; }
+//    public MyUser getUser() { return user; }
+//
+//    public void setUser(MyUser user) { this.user = user; }
 
-    public void setUser(MyUser user) { this.user = user; }
+
+    public Long getProfId() {
+        return profId;
+    }
+
+    public void setProfId(Long profId) {
+        this.profId = profId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }
