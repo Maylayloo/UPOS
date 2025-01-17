@@ -21,7 +21,7 @@ public class CourseController {
     @GetMapping("/loggedIn")
     public ResponseEntity<?> loggedIn() {
         if(UserUtils.isUserRoleStudent()) {
-            return new ResponseEntity<>(groupForStudentService.getCoursesBySLoggedInStudent(),HttpStatus.OK);
+            return new ResponseEntity<>(groupForStudentService.getCoursesByLoggedInStudent(),HttpStatus.OK);
         }
         else if(UserUtils.isUserRoleProfessor()){
             return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByLoggedInProfessor(),HttpStatus.OK);
