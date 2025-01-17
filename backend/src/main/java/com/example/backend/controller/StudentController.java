@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Grade;
 import com.example.backend.service.gradeService.GradeService;
+import com.example.backend.service.userService.UserWebAuthenticationService;
 import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,11 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private GradeService gradeService;
-
+    @Autowired
+    private UserWebAuthenticationService userWebAuthenticationService;
     @GetMapping("/loggedIn/grades")
     public ResponseEntity<List<Grade>> getGradesForLoggedInUser() {
-        if(UserUtils.isUserRoleStudent()){
+        if(userWebAuthenticationService.isLoggedInStudent()){
             return new ResponseEntity<>(gradeService.showAllGradesByLoggedInStudent(),HttpStatus.OK);
         }
         else{

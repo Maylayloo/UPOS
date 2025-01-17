@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.service.professorService.CourseManagementForProfessorService;
 import com.example.backend.service.studentService.CourseForStudentService;
+import com.example.backend.service.userService.UserWebAuthenticationService;
 import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,14 @@ public class CourseController {
     private CourseForStudentService groupForStudentService;
     @Autowired
     private CourseManagementForProfessorService courseManagementForProfessorService;
-
+    @Autowired
+    private UserWebAuthenticationService userWebAuthenticationService;
     @GetMapping("/loggedIn")
     public ResponseEntity<?> loggedIn() {
-        if(UserUtils.isUserRoleStudent()) {
+        if(userWebAuthenticationService.isLoggedInStudent()){
             return new ResponseEntity<>(groupForStudentService.getCoursesByLoggedInStudent(),HttpStatus.OK);
         }
-        else if(UserUtils.isUserRoleProfessor()){
+        else if(userWebAuthenticationService.isLoggedInProfessor()){
             return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByLoggedInProfessor(),HttpStatus.OK);
         }
         else{

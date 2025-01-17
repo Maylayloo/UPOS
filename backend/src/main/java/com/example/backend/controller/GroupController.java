@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.model.MajorGroup;
 import com.example.backend.service.professorService.CourseManagementForProfessorService;
 import com.example.backend.service.studentService.CourseForStudentService;
+import com.example.backend.service.userService.UserWebAuthenticationService;
 import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +22,14 @@ public class GroupController {
     private CourseForStudentService groupForStudentService;
     @Autowired
     private CourseManagementForProfessorService courseManagementForProfessorService;
-
+    @Autowired
+    private UserWebAuthenticationService userWebAuthenticationService;
     @GetMapping("/loggedIn")
     public ResponseEntity<List<MajorGroup>> getAllGroupsByLoggerInUser() {
-        if(UserUtils.isUserRoleStudent()) {
+        if(userWebAuthenticationService.isLoggedInStudent()) {
             return new  ResponseEntity<>(groupForStudentService.getMajorGroupsByLoggedInStudent(),HttpStatus.OK);
         }
-        else if(UserUtils.isUserRoleProfessor()){
+        else if(userWebAuthenticationService.isLoggedInProfessor()) {
             return new ResponseEntity<>(courseManagementForProfessorService.getMajorGroupsByLoggedInProfessor(),HttpStatus.OK);
         }
         else{
@@ -37,10 +39,10 @@ public class GroupController {
 
     @GetMapping("/loggedIn/{id}")
     public ResponseEntity<List<MajorGroup>> getGroupsByCourseId(@PathVariable Long id) {
-        if(UserUtils.isUserRoleStudent()) {
+        if(userWebAuthenticationService.isLoggedInStudent()) {
             return new  ResponseEntity<>(groupForStudentService.getMajorGroupsByLoggedInStudentAndCourseId(id),HttpStatus.OK);
         }
-        else if(UserUtils.isUserRoleProfessor()){
+        else if(userWebAuthenticationService.isLoggedInProfessor()) {
             return new ResponseEntity<>(courseManagementForProfessorService.getMajorGroupsByLoggedInProfessorAndCourseId(id),HttpStatus.OK);
         }
         else{

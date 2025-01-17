@@ -26,5 +26,9 @@ public class AuthenticationService {
         session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
     }
 
+    public void isStudent(){
+
+    }
+
 
 }
