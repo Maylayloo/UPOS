@@ -25,7 +25,7 @@ public class GroupController {
     @GetMapping("/loggedIn")
     public ResponseEntity<List<MajorGroup>> getAllGroupsByLoggerInUser() {
         if(UserUtils.isUserRoleStudent()) {
-            return new  ResponseEntity<>(groupForStudentService.getGroupsByLoggedInStudent(),HttpStatus.OK);
+            return new  ResponseEntity<>(groupForStudentService.getMajorGroupsByLoggedInStudent(),HttpStatus.OK);
         }
         else if(UserUtils.isUserRoleProfessor()){
             return new ResponseEntity<>(courseManagementForProfessorService.getMajorGroupsByLoggedInProfessor(),HttpStatus.OK);
@@ -38,7 +38,7 @@ public class GroupController {
     @GetMapping("/loggedIn/{id}")
     public ResponseEntity<List<MajorGroup>> getGroupsByCourseId(@PathVariable Long id) {
         if(UserUtils.isUserRoleStudent()) {
-            return new  ResponseEntity<>(groupForStudentService.getGroupsBySLoggedInStudentAndCourseId(id),HttpStatus.OK);
+            return new  ResponseEntity<>(groupForStudentService.getMajorGroupsByLoggedInStudentAndCourseId(id),HttpStatus.OK);
         }
         else if(UserUtils.isUserRoleProfessor()){
             return new ResponseEntity<>(courseManagementForProfessorService.getMajorGroupsByLoggedInProfessorAndCourseId(id),HttpStatus.OK);
