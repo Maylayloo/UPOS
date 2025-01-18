@@ -33,7 +33,7 @@ public class DefaultUserDataUtil implements CommandLineRunner {
         List<Long> studentIDS= Arrays.asList(1L);
         LocalTime startTime = LocalTime.of(9,40);
         LocalTime endTime = LocalTime.of(11,45);
-        MajorGroup majorGroup =  new MajorGroup(1L, "Wykład", 1, DayOfTheWeek.NIEDZIELA,startTime,endTime, "D6-s201", 90,studentIDS);
+        MajorGroup majorGroup =  new MajorGroup(1L, "Wykład", 1, DayOfTheWeek.SUNDAY,startTime,endTime, "D6-s201", 90,studentIDS);
         return majorGroup;
     }
 

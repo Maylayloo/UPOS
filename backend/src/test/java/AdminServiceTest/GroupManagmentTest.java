@@ -36,7 +36,7 @@ class GroupManagementForAdminServiceTest {
         List<Long> studentIds = Arrays.asList(1L);
         LocalTime startTime = LocalTime.of(9,40);
         LocalTime endTime = LocalTime.of(11,45);
-        MajorGroup majorGroup = new MajorGroup( "Wykład", 1, DayOfTheWeek.PIĄTEK,startTime,endTime,"206 B6",15,studentIds);
+        MajorGroup majorGroup = new MajorGroup( "Wykład", 1, DayOfTheWeek.FRIDAY,startTime,endTime,"206 B6",15,studentIds);
 
         groupManagementForAdminService.createGroup(majorGroup);
 
