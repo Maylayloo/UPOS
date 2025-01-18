@@ -34,7 +34,6 @@ const GroupsPage = () => {
                          courseId={course.courseId}
                      />
                  ))
-
                 }
             </div>
         </div>
