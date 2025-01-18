@@ -20,6 +20,16 @@ interface Groups {
     place: string,
 }
 
+const daysTranslation = {
+    MONDAY: "Każdy poniedziałek",
+    TUESDAY: "Każdy wtorek",
+    WEDNESDAY: "Każda środa",
+    THURSDAY: "Każdy czwartek",
+    FRIDAY: "Każdy piątek",
+    SATURDAY: "Każda sobota",
+    SUNDAY: "Każda niedziela",
+};
+
 const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
 
     useEffect(() => {
@@ -33,6 +43,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                console.log("data", data)
                 localStorage.setItem(`group${courseId}`, JSON.stringify(data));
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -44,11 +55,13 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
 
     const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '{}');
 
+    const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
+
     console.log(storedGroup)
 
     return (
         <div className='border-b border-b-[#DBE3D4] w-full px-8 py-5'>
-            <h2 className='font-roboto font-semibold text-lg tracking-wide'>
+            <h2 className='font-roboto font-[500] text-lg tracking-wide'>
                 {name} <span className='font-[300] text-base'>
                     [punkty ECTS: {ects}]
                 </span>
@@ -63,9 +76,9 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                         key={group.groupId}
                         type={group.type}
                         no={group.numberOfGroup}
-                        dotw={group.dayOfTheWeek}
-                        startHour={group.startOfLesson}
-                        endHour={group.endOfLesson}
+                        dotw={translateDay(group.dayOfTheWeek as keyof typeof daysTranslation)}
+                        startHour={group.startOfLesson.slice(0, 5)}
+                        endHour={group.endOfLesson.slice(0, 5)}
                     />
                 ))
             }
