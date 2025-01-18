@@ -25,14 +25,17 @@ const GroupsPage = () => {
                         ROK ADAKEMICKI: 2024/2025
                     </h3>
                 </div>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
-                <GroupsSection_Tile/>
+                {
+                 storedCourses.map((course) => (
+                     <GroupsSection_Tile
+                         key={course.courseId}
+                         name={course.name}
+                         ects={course.ects}
+                         courseId={course.courseId}
+                     />
+                 ))
+
+                }
             </div>
         </div>
 
