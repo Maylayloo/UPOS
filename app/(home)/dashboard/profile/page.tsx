@@ -8,7 +8,6 @@ const ProfilePage = () => {
 
     // change localstorage to session storage
     const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
-
     // table with user Data provided by { user } from backend
     const profileData = [
         {
@@ -21,17 +20,18 @@ const ProfilePage = () => {
         },
         {
             title: "Numer Telefonu",
-            value: "+48 420 213 769",
+            value: storedUser.number,
             changeable: true,
         },
         {
             title: "Adres",
-            value: "31-056 Kraków, ul. Kupa 4 m. 21",
+            value: storedUser.address,
+            // value: "31-056 Kraków, ul. Kupa 4 m. 21",
             changeable: true,
         },
         {
             title: "Konto Bankowe",
-            value: "69122137721142001123435555",
+            value: storedUser.bankNumber,
             changeable: true,
         },
 
