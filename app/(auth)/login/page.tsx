@@ -17,9 +17,8 @@ import {useUser} from "@/app/(context)/UserContext";
 const LoginPage = () => {
 
     const router = useRouter()
-
     // useUser() hook
-    const { setUser } = useUser();
+    const { setUser }: any = useUser();
 
 
     // function for handling form, fetching data and log in user
@@ -66,7 +65,11 @@ const LoginPage = () => {
                     const data = await response.json();
 
                     // save data into 'user'
-                    setUser(data)
+                    setUser(data);
+
+                    // save user data to localStorage
+                    localStorage.setItem('user', JSON.stringify(data));
+
 
                 } catch (error) {
                     console.error("Wystąpił błąd:", error);
@@ -87,7 +90,6 @@ const LoginPage = () => {
             alert('Nie udało się połączyć z serwerem.');
         }
     }
-
     return (
         <div className='h-[85svh] text-black font-outfit'>
             <div className='absolute inset-0 bg-lgbg '>

@@ -11,6 +11,7 @@ const Page = () => {
     // TODO: zmien localstorage na session storage
     const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
     const role = storedUser.role.toLowerCase();
+
     return (
         <div className="flex flex-wrap justify-center gap-8">
             {

@@ -9,7 +9,6 @@ const ProfilePage = () => {
     // change localstorage to session storage
     const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
 
-
     // table with user Data provided by { user } from backend
     const profileData = [
         {
