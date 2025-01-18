@@ -17,7 +17,7 @@ const GroupContainer = ({type, no, dotw, startHour, endHour}: groupsInterface) =
                 </span>
                 </h2>
                 <h3 className='px-2.5'>
-                    Każdy {dotw}, {startHour} - {endHour}
+                    {dotw}, {startHour} - {endHour}
                 </h3>
             </div>
         </div>
