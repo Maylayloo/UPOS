@@ -1,9 +1,6 @@
 package com.example.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Professor  {
@@ -13,6 +10,10 @@ public class Professor  {
     private Long userId;
     private String title;
 
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    private MyUser user;
+
     public Professor() {}
 
     public Professor(String email, String password, String name, String surname, String rola, Long profId, String title) {
@@ -21,11 +22,11 @@ public class Professor  {
         this.title = title;
     }
 
-    public Long getProfId() {
+    public Long getProfessorId() {
         return profId;
     }
 
-    public void setProfId(Long profId) {
+    public void setProfessorId(Long profId) {
         this.profId = profId;
     }
 
@@ -35,5 +36,26 @@ public class Professor  {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+//    public MyUser getUser() { return user; }
+//
+//    public void setUser(MyUser user) { this.user = user; }
+
+
+    public Long getProfId() {
+        return profId;
+    }
+
+    public void setProfId(Long profId) {
+        this.profId = profId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

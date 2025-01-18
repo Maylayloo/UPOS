@@ -1,6 +1,7 @@
 package com.example.backend.service.userService;
 
 import com.example.backend.model.MyUser;
+import com.example.backend.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,5 +19,13 @@ public class UserWebAuthenticationService {
         String email= user.getUsername();
         return userDataManagementService.getUserByEmail(email);
 
+    }
+
+    public boolean isLoggedInStudent(){
+        return getLoggedInUser().getRole().equals(Role.STUDENT);
+    }
+
+    public boolean isLoggedInProfessor(){
+        return getLoggedInUser().getRole().equals(Role.PROFESSOR);
     }
 }

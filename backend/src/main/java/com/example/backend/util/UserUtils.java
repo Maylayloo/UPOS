@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 
 public class UserUtils {
-
-    private static  final UserWebAuthenticationService userWebAuthenticationService = new UserWebAuthenticationService();
+    @Autowired
+    private static UserWebAuthenticationService userWebAuthenticationService ;
 
 
     public static String getLoggedInUserRole(){
@@ -20,5 +20,8 @@ public class UserUtils {
     }
     public static boolean isUserRoleAdmin(){
         return getLoggedInUserRole().equals("ADMIN");
+    }
+    public static boolean isUserRoleProfessor(){
+        return getLoggedInUserRole().equals("PROFESSOR");
     }
 }
