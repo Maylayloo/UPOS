@@ -22,7 +22,7 @@ const GroupsPage = () => {
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl'>
                 <div className='w-full bg-[#D9D9D9] rounded-t-xl text-center'>
                     <h3 className='text-bg text-2xl tracking-wider font-outfit py-3'>
-                        ROK ADAKEMICKI: 2024/2025
+                        ROK AKADEMICKI: 2024/2025
                     </h3>
                 </div>
                 {
