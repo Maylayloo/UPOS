@@ -61,15 +61,24 @@ const LoginPage = () => {
                     if (!response.ok) {
                         throw new Error("Błąd podczas pobierania danych");
                     }
+                    const response2 = await fetch("http://localhost:8080/courses/loggedIn", {
+                        method: "GET",
+                        credentials: "include"
+                    })
+                    if (!response2.ok) {
+                        throw new Error("Błąd podczas pobierania danych")
+                    }
 
                     const data = await response.json();
-
+                    const coursesData = await response2.json();
                     // save data into 'user'
                     setUser(data);
 
                     // save user data to localStorage
                     localStorage.setItem('user', JSON.stringify(data));
+                    localStorage.setItem('courses', JSON.stringify(coursesData));
 
+                    console.log(localStorage)
 
                 } catch (error) {
                     console.error("Wystąpił błąd:", error);
