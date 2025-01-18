@@ -77,12 +77,12 @@ class CourseManagementForProfessorServiceTest {
 
         List<MajorGroup> mockMajorGroups = Arrays.asList(
                 new MajorGroup(
-                        1L, "Lab", 1, DayOfTheWeek.MONDAY,
+                        1L, "Lab", 1, DayOfTheWeek.PONIEDZIAŁEK,
                         LocalTime.of(8, 0), LocalTime.of(10, 0),
                         "Room 101", 30, Arrays.asList(1L, 2L, 3L)
                 ),
                 new MajorGroup(
-                        2L, "Lab", 1, DayOfTheWeek.FRIDAY,
+                        2L, "Lab", 1, DayOfTheWeek.PIĄTEK,
                         LocalTime.of(8, 0), LocalTime.of(10, 0),
                         "Room 102", 30, Arrays.asList(1L, 2L, 3L)
                 )
@@ -114,12 +114,12 @@ class CourseManagementForProfessorServiceTest {
 
         List<MajorGroup> mockMajorGroups = Arrays.asList(
                 new MajorGroup(
-                        1L, "Lab", 1, DayOfTheWeek.MONDAY,
+                        1L, "Lab", 1, DayOfTheWeek.PONIEDZIAŁEK,
                         LocalTime.of(8, 0), LocalTime.of(10, 0),
                         "Room 101", 30, Arrays.asList(1L, 2L, 3L)
                 ),
                 new MajorGroup(
-                        2L, "Cw Audytoryjne", 1, DayOfTheWeek.THURSDAY,
+                        2L, "Cw Audytoryjne", 1, DayOfTheWeek.PONIEDZIAŁEK,
                         LocalTime.of(15, 0), LocalTime.of(16, 30),
                         "Room 102", 30, Arrays.asList(1L, 2L, 3L)
                 )

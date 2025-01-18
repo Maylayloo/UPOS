@@ -17,8 +17,8 @@ public class DefaultGroupUtil {
         List<Long> studentIds = Arrays.asList(1L);
         LocalTime startTime = LocalTime.of(9,40);
         LocalTime endTime = LocalTime.of(11,45);
-        MajorGroup majorGroup = new MajorGroup(1L, "Wykład", 1, DayOfTheWeek.SUNDAY,startTime,endTime, "D6-s201", 90,studentIds);
-        MajorGroup labgroup = new MajorGroup(2L, "cwiczenia", 1, DayOfTheWeek.SUNDAY,startTime,endTime, "D5-s20sfd1", 15,studentIds);
+        MajorGroup majorGroup = new MajorGroup(1L, "Wykład", 1, DayOfTheWeek.NIEDZIELA,startTime,endTime, "D6-s201", 90,studentIds);
+        MajorGroup labgroup = new MajorGroup(2L, "cwiczenia", 1, DayOfTheWeek.NIEDZIELA,startTime,endTime, "D5-s20sfd1", 15,studentIds);
 
     }
 }
