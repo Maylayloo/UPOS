@@ -17,9 +17,8 @@ import {useUser} from "@/app/(context)/UserContext";
 const LoginPage = () => {
 
     const router = useRouter()
-
     // useUser() hook
-    const { setUser } = useUser();
+    const { setUser }: any = useUser();
 
 
     // function for handling form, fetching data and log in user
@@ -62,11 +61,24 @@ const LoginPage = () => {
                     if (!response.ok) {
                         throw new Error("Błąd podczas pobierania danych");
                     }
+                    const response2 = await fetch("http://localhost:8080/courses/loggedIn", {
+                        method: "GET",
+                        credentials: "include"
+                    })
+                    if (!response2.ok) {
+                        throw new Error("Błąd podczas pobierania danych")
+                    }
 
                     const data = await response.json();
-
+                    const coursesData = await response2.json();
                     // save data into 'user'
-                    setUser(data)
+                    setUser(data);
+
+                    // save user data to localStorage
+                    localStorage.setItem('user', JSON.stringify(data));
+                    localStorage.setItem('courses', JSON.stringify(coursesData));
+
+                    console.log(localStorage)
 
                 } catch (error) {
                     console.error("Wystąpił błąd:", error);
@@ -87,7 +99,6 @@ const LoginPage = () => {
             alert('Nie udało się połączyć z serwerem.');
         }
     }
-
     return (
         <div className='h-[85svh] text-black font-outfit'>
             <div className='absolute inset-0 bg-lgbg '>

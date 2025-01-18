@@ -15,7 +15,7 @@ const DynamicBody = ({children}: {children: React.ReactNode }) => {
         "/dashboard/schedule": "bg-gradient-to-t from-[#065F7F] to-bg to-[85%]",
         "/dashboard/statistics": "bg-gradient-to-t from-[#827E09] to-bg to-[85%]",
         "/dashboard/grades": "bg-gradient-to-t from-[#67095F] to-bg to-[85%]",
-        "/dashboard/groups": "bg-gradient-to-t from-[#CBD6C1] to-bg to-[85%]",
+        "/dashboard/groups": "bg-gradient-to-t from-[#8a8a8a] to-bg to-[85%]",
         "/dashboard/roulette": "bg-gradient-to-t from-[#4D0F10] to-bg to-[85%]",
     }
 
