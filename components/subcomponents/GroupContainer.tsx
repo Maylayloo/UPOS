@@ -9,8 +9,7 @@ interface groupsInterface {
 const GroupContainer = ({type, no, dotw, startHour, endHour}: groupsInterface) => {
     return (
         <div className='px-4 flex flex-col py-1 mt-1'>
-            <div className='mb-3'>
-
+            <div>
                 <h2 className='font-roboto font-[500]'>
                     &#x2022; {type}, <span className='font-[300]'>
                     grupa nr {no}
