@@ -43,7 +43,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log("data", data)
+                console.log(`data for course ${courseId} `, data)
                 localStorage.setItem(`group${courseId}`, JSON.stringify(data));
             } catch (err) {
                 console.error("Error fetching data:", err);
