@@ -1,5 +1,6 @@
 package com.example.backend.service.professorService;
 
+import com.example.backend.dto.GradeRequestDTO;
 import com.example.backend.model.FinalGrade;
 import com.example.backend.model.Grade;
 import com.example.backend.repository.FinalGradeRepository;
@@ -34,4 +35,9 @@ public class GradeManagementForProfessorService {
     public void deleteGradeById(Long gradeId) {
         gradeRepository.deleteById(gradeId);
     }
+
+    public void addGradeByStudentIdAndGroupId(GradeRequestDTO gradeRequestDTO) {}
+
+    public void updateGradeByGradeId(Long id,GradeRequestDTO gradeRequestDTO) {}
+
 }
