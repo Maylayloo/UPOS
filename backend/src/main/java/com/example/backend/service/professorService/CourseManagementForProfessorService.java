@@ -2,14 +2,15 @@ package com.example.backend.service.professorService;
 
 import com.example.backend.model.Course;
 import com.example.backend.model.MajorGroup;
-import com.example.backend.model.MyUser;
+
 import com.example.backend.model.Professor;
 import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.MajorGroupRepository;
 import com.example.backend.repository.ProfessorRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.backend.service.professorService.ProfessorAuthenticationService;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +77,7 @@ public class CourseManagementForProfessorService {
     public List<MajorGroup> getMajorGroupsByCourseId(Long courseId) {
         return majorGroupRepository.findByCourseId(courseId);
     }
+
+
 
 }

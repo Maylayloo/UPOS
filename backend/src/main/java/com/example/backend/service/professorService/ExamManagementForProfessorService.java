@@ -1,10 +1,14 @@
 package com.example.backend.service.professorService;
 
+import com.example.backend.dto.ExamDTO;
+import com.example.backend.mapper.ExamMapper;
 import com.example.backend.model.Course;
 import com.example.backend.model.Exam;
 import com.example.backend.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ExamManagementForProfessorService {
@@ -15,6 +19,12 @@ public class ExamManagementForProfessorService {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
         course.addExam(exam);
+        courseRepository.save(course);
+    }
+    public void scheduleExam(Long courseId, ExamDTO examDTO) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+        course.addExam(ExamMapper.INSTANCE.examDTOToExam(examDTO));
         courseRepository.save(course);
     }
 
@@ -38,7 +48,7 @@ public class ExamManagementForProfessorService {
             throw new RuntimeException("Exam not found with ID: " + examId + " in course ID: " + courseId);
         }
     }
-
+    public List<Exam> getExamsByLoggedInProfessor(){return null;}
 }
 
 
