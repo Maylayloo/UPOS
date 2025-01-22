@@ -6,7 +6,7 @@ import com.example.backend.model.MyUser;
 import com.example.backend.model.Professor;
 import com.example.backend.repository.ProfessorRepository;
 import com.example.backend.service.userService.UserDataManagementService;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
