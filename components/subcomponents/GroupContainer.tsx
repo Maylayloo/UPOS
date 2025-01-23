@@ -17,7 +17,6 @@ const GroupContainer = ({type, no, dotw, startHour, endHour, courseName, groupId
                 <Link
                     href={`/dashboard/groups/${courseName}/${type}/nr_grupy=${no}_&id=${groupId}`}
                     className='hover:underline'
-
                 >
                     <h2 className='font-roboto font-[500]'>
                         &#x2022; {type}, <span className='font-[300]'>
