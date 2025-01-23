@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import GroupContainer from "@/components/subcomponents/GroupContainer";
+import Link from "next/link";
 
 interface groupTileInterface {
     name: string,
@@ -79,6 +80,8 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                         dotw={translateDay(group.dayOfTheWeek as keyof typeof daysTranslation)}
                         startHour={group.startOfLesson.slice(0, 5)}
                         endHour={group.endOfLesson.slice(0, 5)}
+                        courseName={name}
+                        groupId={group.groupId}
                     />
                 ))
             }
