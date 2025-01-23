@@ -15,10 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -47,9 +44,10 @@ class CourseManagementForProfessorServiceTest {
     void testGetCourses() {
         // Given
         Long professorId = 1L;
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
         List<Course> mockCourses = Arrays.asList(
-                new Course(1L, "Mathematics", 5, 1L, "5", "Math"),
-                new Course(2L, "Physics", 4, 3L, "3", "Science")
+                new Course(1L, "Mathematics", 5, 1L, "5", "Math",studentsId),
+                new Course(2L, "Physics", 4, 3L, "3", "Science",studentsId)
         );
 
         when(courseRepository.findByProfessorId(professorId)).thenReturn(mockCourses);
@@ -70,9 +68,10 @@ class CourseManagementForProfessorServiceTest {
         Professor mockProfessor = new Professor();
         mockProfessor.setProfessorId(1L);
 
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
         List<Course> mockCourses = Arrays.asList(
-                new Course(1L, "Mathematics", 5, 1L, "5", "Math"),
-                new Course(2L, "Physics", 4, 1L, "3", "Science")
+                new Course(1L, "Mathematics", 5, 1L, "5", "Math",studentsId),
+                new Course(2L, "Physics", 4, 1L, "3", "Science",studentsId)
         );
 
         List<MajorGroup> mockMajorGroups = Arrays.asList(
@@ -110,7 +109,8 @@ class CourseManagementForProfessorServiceTest {
         Professor mockProfessor = new Professor();
         mockProfessor.setProfessorId(1L);
 
-        Course mockCourse = new Course(1L, "Mathematics", 5, 1L, "5", "Math");
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
+        Course mockCourse = new Course(1L, "Mathematics", 5, 1L, "5", "Math",studentsId);
 
         List<MajorGroup> mockMajorGroups = Arrays.asList(
                 new MajorGroup(
@@ -145,7 +145,8 @@ class CourseManagementForProfessorServiceTest {
         Professor mockProfessor = new Professor();
         mockProfessor.setProfessorId(1L);
 
-        Course mockCourse = new Course(1L, "Mathematics", 5, 2L, "5", "Math"); // Professor ID does not match
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
+        Course mockCourse = new Course(1L, "Mathematics", 5, 2L, "5", "Math",studentsId); // Professor ID does not match
 
         when(professorAuthenticationService.getLoggedInProfessor()).thenReturn(mockProfessor);
         when(courseRepository.findById(1L)).thenReturn(Optional.of(mockCourse));
@@ -166,9 +167,10 @@ class CourseManagementForProfessorServiceTest {
         Professor mockProfessor = new Professor();
         mockProfessor.setProfessorId(1L);
 
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
         List<Course> mockCourses = Arrays.asList(
-                new Course(1L, "Mathematics", 5, 1L, "5", "Math"),
-                new Course(2L, "Physics", 4, 1L, "3", "Science")
+                new Course(1L, "Mathematics", 5, 1L, "5", "Math",studentsId),
+                new Course(2L, "Physics", 4, 1L, "3", "Science",studentsId)
         );
 
         when(professorAuthenticationService.getLoggedInProfessor()).thenReturn(mockProfessor);

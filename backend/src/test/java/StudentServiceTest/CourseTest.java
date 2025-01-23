@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -73,7 +74,8 @@ class CourseForStudentServiceTest {
         Long courseId = 101L;
 
         // Mocking the course existence
-        Course mockCourse = new Course(courseId, "Mathematics", 5, 1L, "5", "Math");
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
+        Course mockCourse = new Course(courseId, "Mathematics", 5, 1L, "5", "Math",studentsId);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(mockCourse));
 
         // Mocking the groups related to the course
@@ -108,9 +110,10 @@ class CourseForStudentServiceTest {
         );
         when(majorGroupRepository.findAll()).thenReturn(mockGroups);
 
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
         List<Course> mockCourses = Arrays.asList(
-                new Course(101L, "Mathematics", 5, 1L, "5", "Math"),
-                new Course(102L, "Physics", 4, 1L, "4", "Science")
+                new Course(101L, "Mathematics", 5, 1L, "5", "Math",studentsId),
+                new Course(102L, "Physics", 4, 1L, "4", "Science",studentsId)
         );
         when(courseRepository.findAllById(anyList())).thenReturn(mockCourses);
 

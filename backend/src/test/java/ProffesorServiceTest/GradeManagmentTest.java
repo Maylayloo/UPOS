@@ -39,8 +39,8 @@ class GradeManagementForProfessorServiceTest {
         // Given
         Long studentId = 1L;
         List<Grade> grades = List.of(
-                new Grade(studentId, 101L, true, "A"),
-                new Grade(studentId, 102L, false, "B")
+                new Grade(studentId, 101L, true, "5"),
+                new Grade(studentId, 102L, false, "4")
         );
 
         // When
@@ -97,13 +97,13 @@ class GradeManagementForProfessorServiceTest {
         GradeRequestDTO gradeRequestDTO = new GradeRequestDTO();
         gradeRequestDTO.setStudentId(1L);
         gradeRequestDTO.setGroupId(101L);
-        gradeRequestDTO.setValue("A");
+        gradeRequestDTO.setValue("5");
         gradeRequestDTO.setPartial(true);
 
         Grade grade = new Grade();
         grade.setStudentId(1L);
         grade.setGroupId(101L);
-        grade.setValue("A");
+        grade.setValue("5");
         grade.setPartial(true);
 
         when(gradeRepository.save(any(Grade.class))).thenReturn(grade);
@@ -123,11 +123,11 @@ class GradeManagementForProfessorServiceTest {
         existingGrade.setGradeId(gradeId);
         existingGrade.setStudentId(1L);
         existingGrade.setGroupId(101L);
-        existingGrade.setValue("B");
+        existingGrade.setValue("4");
         existingGrade.setPartial(false);
 
         GradeRequestDTO gradeRequestDTO = new GradeRequestDTO();
-        gradeRequestDTO.setValue("A");
+        gradeRequestDTO.setValue("5");
         gradeRequestDTO.setPartial(true);
 
         when(gradeRepository.findById(gradeId)).thenReturn(Optional.of(existingGrade));
@@ -136,7 +136,7 @@ class GradeManagementForProfessorServiceTest {
         gradeManagementForProfessorService.updateGradeByGradeId(gradeId, gradeRequestDTO);
 
         // Then
-        assertEquals("A", existingGrade.getValue());
+        assertEquals("5", existingGrade.getValue());
         assertTrue(existingGrade.isPartial());
         verify(gradeRepository, times(1)).findById(gradeId);
         verify(gradeRepository, times(1)).save(existingGrade);
@@ -147,7 +147,7 @@ class GradeManagementForProfessorServiceTest {
         // Given
         Long gradeId = 1L;
         GradeRequestDTO gradeRequestDTO = new GradeRequestDTO();
-        gradeRequestDTO.setValue("A");
+        gradeRequestDTO.setValue("5");
         gradeRequestDTO.setPartial(true);
 
         when(gradeRepository.findById(gradeId)).thenReturn(Optional.empty());
