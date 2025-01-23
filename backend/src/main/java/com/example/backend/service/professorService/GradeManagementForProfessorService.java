@@ -36,8 +36,24 @@ public class GradeManagementForProfessorService {
         gradeRepository.deleteById(gradeId);
     }
 
-    public void addGradeByStudentIdAndGroupId(GradeRequestDTO gradeRequestDTO) {}
+    public void addGradeByStudentIdAndGroupId(GradeRequestDTO gradeRequestDTO) {
+        Grade grade = new Grade();
+        grade.setStudentId(gradeRequestDTO.getStudentId());
+        grade.setGroupId(gradeRequestDTO.getGroupId());
+        grade.setValue(gradeRequestDTO.getValue());
+        grade.setPartial(gradeRequestDTO.isPartial());
 
-    public void updateGradeByGradeId(Long id,GradeRequestDTO gradeRequestDTO) {}
+        gradeRepository.save(grade);
+    }
+
+    public void updateGradeByGradeId(Long id,GradeRequestDTO gradeRequestDTO) {
+        Grade grade = gradeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Grade with ID " + id + " not found"));
+
+        grade.setValue(gradeRequestDTO.getValue());
+        grade.setPartial(gradeRequestDTO.isPartial());
+
+        gradeRepository.save(grade);
+    }
 
 }
