@@ -1,7 +1,7 @@
 const Page = () => {
     return (
         <div>
-            that's a test! :D
+            Dildo Baggins
         </div>
     );
 };
