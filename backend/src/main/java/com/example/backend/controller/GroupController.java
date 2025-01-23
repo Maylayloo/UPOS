@@ -1,8 +1,10 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.MajorGroup;
+import com.example.backend.service.adminService.GroupManagementForAdminService;
 import com.example.backend.service.professorService.CourseManagementForProfessorService;
 import com.example.backend.service.studentService.CourseForStudentService;
+import com.example.backend.service.studentService.StudentService;
 import com.example.backend.service.userService.UserWebAuthenticationService;
 import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class GroupController {
     private CourseManagementForProfessorService courseManagementForProfessorService;
     @Autowired
     private UserWebAuthenticationService userWebAuthenticationService;
+    @Autowired
+    private GroupManagementForAdminService groupManagementForAdminService;
     @GetMapping("/loggedIn")
     public ResponseEntity<List<MajorGroup>> getAllGroupsByLoggerInUser() {
         if(userWebAuthenticationService.isLoggedInStudent()) {
@@ -48,6 +52,11 @@ public class GroupController {
         else{
             return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
         }
+    }
+
+    @GetMapping("/{groupId}")
+    public ResponseEntity<MajorGroup> getGroupById(@PathVariable Long groupId) {
+        return new ResponseEntity<>(groupManagementForAdminService.getMajorGroupById(groupId),HttpStatus.OK);
     }
 
 }
