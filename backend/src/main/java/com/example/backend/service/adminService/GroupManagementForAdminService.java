@@ -12,7 +12,9 @@ public class GroupManagementForAdminService {
 
     @Autowired
     private MajorGroupRepository majorGroupRepository;
-
+    public MajorGroup getMajorGroupById(Long id) {
+       return majorGroupRepository.findById(id).get();
+    }
     public void createGroup(MajorGroup group) {
         majorGroupRepository.save(group);
     }
