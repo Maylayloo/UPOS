@@ -47,7 +47,7 @@ class ExamManagementForProfessorServiceTest {
 
         List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         Course course = new Course(8L,"EIT", 5, 2L, "1", "Math",studentIDS);
-        Exam exam = new Exam(2L, 1L, "2025-01-10", "D5-s101");
+        Exam exam = new Exam(2L, 1L,1L, "2025-01-10", "D5-s101");
 
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));

@@ -34,7 +34,7 @@ public class Course {
         this.semester = semester;
         this.major = major;
         this.exams = new ArrayList<>();
-]       this.studentIds=studentids
+        this.studentIds=studentIds;
     }
 
     public Long getCourseId() {
@@ -91,7 +91,7 @@ public class Course {
         this.exams.add(exam);
     }
 
-    public List<Long> getStudentsIds() { return studentsIds; }
+    public List<Long> getStudentsIds() { return studentIds; }
 
-    public void setStudentsIds(List<Long> studentsIds) { this.studentsIds = studentsIds; }
+    public void setStudentsIds(List<Long> studentsIds) { this.studentIds = studentsIds; }
 }
