@@ -32,33 +32,35 @@ public class ExamManagementForProfessorService {
         course.addExam(exam);
         courseRepository.save(course);
     }
-    public void scheduleExam(Long courseId, ExamDTO examDTO) {
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
-        course.addExam(ExamMapper.INSTANCE.examDTOToExam(examDTO));
-        courseRepository.save(course);
+    public void scheduleExam(ExamDTO examDTO) {
+        Exam exam = ExamMapper.INSTANCE.examDTOToExam(examDTO);
+        examRepository.save(exam);
     }
 
-    public void modifyExamById(Long courseId, Long examId, Exam updatedExam) {
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+    public void modifyExamById(Long examId, ExamDTO examDTO) {
+        Exam existingExam = examRepository.findById(examId)
+                .orElseThrow(() -> new RuntimeException("Exam with ID " + examId + " not found"));
 
-        boolean updated = false;
-        for (Exam exam : course.getExams()) {
-            if (exam.getExamId() != null && exam.getExamId().equals(examId)) {
-                exam.setDate(updatedExam.getDate());
-                exam.setPlace(updatedExam.getPlace());
-                updated = true;
-                break;
-            }
-        }
-
-        if (updated) {
-            courseRepository.save(course);
-        } else {
-            throw new RuntimeException("Exam not found with ID: " + examId + " in course ID: " + courseId);
-        }
+        existingExam.setCourseId(examDTO.getCourseId());
+        existingExam.setProfessorId(examDTO.getProfessorId());
+        existingExam.setDate(examDTO.getDate());
+        existingExam.setPlace(examDTO.getPlace());
+        existingExam.setAttempt(examDTO.getAttempt());
+        examRepository.save(existingExam);
     }
+
+    public void modifyExamById(Long examId, Exam updatedExam) {
+        Exam existingExam = examRepository.findById(examId)
+                .orElseThrow(() -> new RuntimeException("Exam with ID " + examId + " not found"));
+
+        existingExam.setDate(updatedExam.getDate());
+        existingExam.setPlace(updatedExam.getPlace());
+        existingExam.setAttempt(updatedExam.getAttempt());
+        existingExam.setProfessorId(updatedExam.getProfessorId());
+        existingExam.setCourseId(updatedExam.getCourseId()); // Update course if necessary
+        examRepository.save(existingExam);
+    }
+
     public List<Exam> getExamsByLoggedInProfessor() {
         Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
         if (loggedInProfessor == null) {
@@ -66,6 +68,10 @@ public class ExamManagementForProfessorService {
         }
 
         return examRepository.findByProfessorId(loggedInProfessor.getProfessorId());
+    }
+
+    public void deleteExamById(Long examId) {
+        examRepository.deleteById(examId);
     }
 }
 

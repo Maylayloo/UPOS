@@ -1,12 +1,15 @@
 package ProffesorServiceTest;
 
+import com.example.backend.dto.ExamDTO;
 import com.example.backend.model.*;
 import com.example.backend.repository.CourseRepository;
+import com.example.backend.mapper.ExamMapper;
 import com.example.backend.repository.ExamRepository;
 import com.example.backend.service.professorService.ExamManagementForProfessorService;
 import com.example.backend.service.professorService.ProfessorAuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -41,71 +44,161 @@ class ExamManagementForProfessorServiceTest {
     }
 
     @Test
-    void testScheduleExam() {
+    void testScheduleExamWithCourseId_Success() {
         // Given
         Long courseId = 1L;
+        List<Long> studentsId = new ArrayList<Long>(Arrays.asList(1L, 2L));
+        Course mockCourse = new Course(courseId, "Mathematics", 5, 101L, "Fall 2025", "Math",studentsId);
+        Exam mockExam = new Exam(1L, courseId, 101L, "2025-05-15", "Room A1", "1");
 
-        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
-        Course course = new Course(8L,"EIT", 5, 2L, "1", "Math",studentIDS);
-        Exam exam = new Exam(2L, 1L,1L, "2025-01-10", "D5-s101");
-
-
-        when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
+        when(courseRepository.findById(courseId)).thenReturn(Optional.of(mockCourse));
 
         // When
-        examManagementForProfessorService.scheduleExam(courseId, exam);
+        examManagementForProfessorService.scheduleExam(courseId, mockExam);
 
         // Then
-        assertEquals(1, course.getExams().size());
-        assertEquals(exam, course.getExams().get(0));
-        verify(courseRepository, times(1)).save(course);
+        verify(courseRepository, times(1)).findById(courseId);
+        verify(courseRepository, times(1)).save(mockCourse);
+        assertEquals(1, mockCourse.getExams().size());
+        assertEquals(mockExam, mockCourse.getExams().get(0));
     }
 
     @Test
-    void testModifyExamById() {
+    void testScheduleExamWithCourseId_CourseNotFound() {
         // Given
-        Long courseId = 6L;
-        Long examId = 3L;
-
-        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
-        Course course = new Course(6L,"Math", 5, 2L, "2", "AiR", studentIDS);
-        Exam oldExam = new Exam(3L,1L, "2025-01-10", "Room 101");
-
-        course.addExam(oldExam);
-        Exam updatedExam = new Exam(5L, 1L,2L, "2025-02-15", "Room 202","1");
-
-        when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
-
-        // When
-        examManagementForProfessorService.modifyExamById(courseId, examId, updatedExam);
-
-        // Then
-        assertEquals(1, course.getExams().size());
-        assertEquals("2025-02-15", course.getExams().get(0).getDate());
-        assertEquals("Room 202", course.getExams().get(0).getPlace());
-        verify(courseRepository, times(1)).save(course);
-    }
-
-    @Test
-    void testModifyExamById_ExamNotFound() {
-        // Given
-        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         Long courseId = 1L;
-        Long examId = 2L; // Exam ID that doesn't exist
+        Exam mockExam = new Exam(1L, courseId, 101L, "2025-05-15", "Room A1", "1");
 
-        Course course = new Course(7L,"Math", 5, 1L, "3", "Mathematics",studentIDS);
-        course.addExam(new Exam(6L,1L, "2025-01-10", "Room 101"));
-        Exam updatedExam = new Exam(7L,2L, "2025-02-15", "Room 202");
-
-
-        when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
+        when(courseRepository.findById(courseId)).thenReturn(Optional.empty());
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                examManagementForProfessorService.modifyExamById(courseId, examId, updatedExam));
+                examManagementForProfessorService.scheduleExam(courseId, mockExam));
 
-        assertEquals("Exam not found with ID: 2 in course ID: 1", exception.getMessage());
-        verify(courseRepository, never()).save(course);
+        assertEquals("Course not found with ID: 1", exception.getMessage());
+        verify(courseRepository, times(1)).findById(courseId);
+        verify(courseRepository, never()).save(any(Course.class));
+    }
+
+    //this test don't work propably because of a problem with mapper, shows that there's no instance but there is, idk why
+    //to do
+    @Test
+    void testScheduleExamWithDTO_Success() {
+        // Given
+        ExamDTO mockExamDTO = new ExamDTO();
+        mockExamDTO.setCourseId(1L);
+        mockExamDTO.setProfessorId(101L);
+        mockExamDTO.setDate("2025-05-15");
+        mockExamDTO.setPlace("Room A1");
+        mockExamDTO.setAttempt("1");
+
+        //Exam mockExam = ExamMapper.INSTANCE.examDTOToExam(mockExamDTO);
+        //this above didn't work
+
+        //this below don't work XD, seems like mapper (used in the prof service) is not seen
+        // When
+        examManagementForProfessorService.scheduleExam(mockExamDTO);
+
+        // Then
+        //this argument captor is
+        ArgumentCaptor<Exam> captor = ArgumentCaptor.forClass(Exam.class);
+        verify(examRepository, times(1)).save(captor.capture());
+        Exam capturedExam = captor.getValue();
+
+        // Assertions to verify that the captured exam matches the DTO
+        assertNotNull(capturedExam);
+        assertEquals(mockExamDTO.getCourseId(), capturedExam.getCourseId());
+        assertEquals(mockExamDTO.getProfessorId(), capturedExam.getProfessorId());
+        assertEquals(mockExamDTO.getDate(), capturedExam.getDate());
+        assertEquals(mockExamDTO.getPlace(), capturedExam.getPlace());
+        assertEquals(mockExamDTO.getAttempt(), capturedExam.getAttempt());
+    }
+
+    @Test
+    void testModifyExamByIdWithDTO_Success() {
+        // Given
+        Long examId = 1L;
+        Exam existingExam = new Exam(1L, 1L, 101L, "2025-05-10", "Room B2", "1");
+
+        ExamDTO updatedExamDTO = new ExamDTO();
+        //updatedExamDTO.setExamId(1L);
+        updatedExamDTO.setCourseId(2L);
+        updatedExamDTO.setProfessorId(102L);
+        updatedExamDTO.setDate("2025-05-15");
+        updatedExamDTO.setPlace("Room A1");
+        updatedExamDTO.setAttempt("2");
+
+        when(examRepository.findById(examId)).thenReturn(Optional.of(existingExam));
+
+        // When
+        examManagementForProfessorService.modifyExamById(examId, updatedExamDTO);
+
+        // Then
+        assertEquals("2025-05-15", existingExam.getDate());
+        assertEquals("Room A1", existingExam.getPlace());
+        assertEquals("2", existingExam.getAttempt());
+        assertEquals(2L, existingExam.getCourseId());
+        assertEquals(102L, existingExam.getProfessorId());
+
+        verify(examRepository, times(1)).findById(examId);
+        verify(examRepository, times(1)).save(existingExam);
+    }
+
+    @Test
+    void testModifyExamByIdWithDTO_ExamNotFound() {
+        // Given
+        Long examId = 1L;
+        ExamDTO updatedExamDTO = new ExamDTO();
+
+        when(examRepository.findById(examId)).thenReturn(Optional.empty());
+
+        // When & Then
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                examManagementForProfessorService.modifyExamById(examId, updatedExamDTO));
+
+        assertEquals("Exam with ID 1 not found", exception.getMessage());
+        verify(examRepository, times(1)).findById(examId);
+        verify(examRepository, never()).save(any(Exam.class));
+    }
+
+    @Test
+    void testModifyExamByIdWithExam_Success() {
+        // Given
+        Long examId = 1L;
+        Exam existingExam = new Exam(1L, 1L, 101L, "2025-05-10", "Room B2", "1");
+        Exam updatedExam = new Exam(1L, 2L, 102L, "2025-05-15", "Room A1", "2");
+
+        when(examRepository.findById(examId)).thenReturn(Optional.of(existingExam));
+
+        // When
+        examManagementForProfessorService.modifyExamById(examId, updatedExam);
+
+        // Then
+        assertEquals("2025-05-15", existingExam.getDate());
+        assertEquals("Room A1", existingExam.getPlace());
+        assertEquals("2", existingExam.getAttempt());
+        assertEquals(2L, existingExam.getCourseId());
+        assertEquals(102L, existingExam.getProfessorId());
+
+        verify(examRepository, times(1)).findById(examId);
+        verify(examRepository, times(1)).save(existingExam);
+    }
+
+    @Test
+    void testModifyExamByIdWithExam_ExamNotFound() {
+        // Given
+        Long examId = 1L;
+        Exam updatedExam = new Exam();
+
+        when(examRepository.findById(examId)).thenReturn(Optional.empty());
+
+        // When & Then
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                examManagementForProfessorService.modifyExamById(examId, updatedExam));
+
+        assertEquals("Exam with ID 1 not found", exception.getMessage());
+        verify(examRepository, times(1)).findById(examId);
+        verify(examRepository, never()).save(any(Exam.class));
     }
 
     @Test
