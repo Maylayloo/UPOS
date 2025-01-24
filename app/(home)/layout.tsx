@@ -14,6 +14,7 @@ const HomeLayout = ({children, }: {children: React.ReactNode}) => {
         "/dashboard/grades": "border-[#9A088E]",
         "/dashboard/groups": "border-[#DBE3D4]",
         "/dashboard/roulette": "border-[#A21C1E]",
+        "/dashboard/exams": "border-[#ee7970]",
     }
 
     const borderColor = borderColors[path] || "border-[#9AD6D6]"
