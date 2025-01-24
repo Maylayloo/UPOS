@@ -15,10 +15,12 @@ const GroupContainer = ({type, no, dotw, startHour, endHour, courseName, groupId
         <div className='px-4 flex flex-col py-1 mt-1'>
             <div>
                 <Link
-                    href={`/dashboard/groups/${courseName}/${type}/nr_grupy=${no}_&id=${groupId}`}
+                    href={`/dashboard/groups/${courseName}/${type}/nr_grupy=${no}_&id=${groupId}`.toLowerCase()}
                     className='hover:underline'
                 >
-                    <h2 className='font-roboto font-[500]'>
+                    <h2
+                        onClick={() => {localStorage.setItem('current_group', String(groupId))}}
+                        className='font-roboto font-[500]'>
                         &#x2022; {type}, <span className='font-[300]'>
                     grupa nr {no}
                 </span>
