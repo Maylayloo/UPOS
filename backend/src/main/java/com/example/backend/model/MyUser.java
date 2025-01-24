@@ -8,6 +8,7 @@ import lombok.Builder;
 public class MyUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long userId;
 
     private String email;

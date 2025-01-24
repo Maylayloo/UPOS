@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,5 +17,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "WHERE s.studentId = :id")
     public Map<String, String> getNameAndSurnameByStudentId(@Param("id") Long id);
 
-
+    @Query("SELECT s FROM Student s WHERE s.semester = :semester AND s.major = :major")
+    List<Student> findStudentsBySemesterAndMajor(@Param("semester") int semester, @Param("major") String major);
 }
