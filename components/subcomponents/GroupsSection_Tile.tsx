@@ -54,7 +54,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
         fetchData();
     }, []);
 
-    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '{}');
+    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '[]');
 
     const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
 
