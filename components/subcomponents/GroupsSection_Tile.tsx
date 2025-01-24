@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import GroupContainer from "@/components/subcomponents/GroupContainer";
-import Link from "next/link";
 
 interface groupTileInterface {
     name: string,
