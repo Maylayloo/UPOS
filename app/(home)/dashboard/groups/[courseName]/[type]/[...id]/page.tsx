@@ -14,23 +14,10 @@ const Page = () => {
 
     const currentGroupId = localStorage.getItem('current_group');
 
-    interface groupInterface {
-        groupId: number,
-        courseId: number,
-        type: string,
-        numberOfGroup: number,
-        dayOfTheWeek: string,
-        maxStudentAmount: number,
-        startOfLesson: string,
-        endOfLesson: string,
-        studentsIds: number[],
-        place: string,
-    }
-
-    // Poczekaj na currentGroupId, a potem zacznij fetchowanie danych
+    // wait for currentGroupId, then start fetching data
     useEffect(() => {
         if (!currentGroupId) {
-            setIsLoading(false);  // Zakończ ładowanie, jeśli currentGroupId jest null
+            setIsLoading(false);
             return;
         }
 
@@ -56,7 +43,7 @@ const Page = () => {
         fetchData();
     }, [currentGroupId]);
 
-    // Sprawdź, czy dane zostały zapisane w localStorage
+    // checking if data is saved in localStorage
     useEffect(() => {
         const storedData = localStorage.getItem('current_group_data');
         if (storedData) {
@@ -65,7 +52,7 @@ const Page = () => {
         }
     }, []);
 
-    // Jeśli dane nie zostały załadowane, nie renderuj komponentu
+    // Until data isn't fetched, don't load the component. Returning this instead:
     if (isLoading || !currentGroup) {
         return <div>
             <Image className=''
