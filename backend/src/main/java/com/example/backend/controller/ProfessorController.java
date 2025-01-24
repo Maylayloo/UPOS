@@ -59,13 +59,13 @@ public class ProfessorController {
 
     @PutMapping("/exams/{courseId}")
     public ResponseEntity<?> setExam( @PathVariable Long courseId,@RequestBody ExamDTO examDTO){
-        examManagementForProfessorService.scheduleExam(courseId,examDTO);
+        examManagementForProfessorService.scheduleExam(examDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/exams/{courseId}")
     public ResponseEntity<?> modifyExam( @PathVariable Long courseId,@RequestBody Exam exam){
-        examManagementForProfessorService.modifyExamById(courseId,exam.getExamId(),exam);
+        examManagementForProfessorService.modifyExamById(exam.getExamId(),exam);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
