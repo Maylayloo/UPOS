@@ -13,6 +13,7 @@ const Page = () => {
     const [currentGroup, setCurrentGroup] = useState<any>(null);
 
     const currentGroupId = localStorage.getItem('current_group');
+    const currentCourseName = localStorage.getItem('current_course');
 
     // wait for currentGroupId, then start fetching data
     useEffect(() => {
@@ -109,9 +110,9 @@ const Page = () => {
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8'>
                 <div className='w-full bg-[#D9D9D9] rounded-t-xl text-center'>
                     <h3 className='text-bg text-2xl tracking-wider font-outfit py-3'>
-                        ALGEBRA <br />
+                        {currentCourseName} <br />
                         <span className='text-[1rem]'>
-                            WYKŁAD, GRUPA NR 1
+                            {currentGroup.type.toUpperCase()}, GRUPA NR {currentGroup.numberOfGroup}
                         </span>
                         <br />
                         <span className='text-[0.85rem]'>
