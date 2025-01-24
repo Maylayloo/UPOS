@@ -18,6 +18,7 @@ public class Course {
     @ElementCollection
     private List<Long> studentIds;
 
+
     //We probably need a list of exams if we want to contain them inside courses
     @Transient //I suppose we don't want another mapped column in a database with exams
     private List<Exam> exams = new ArrayList<>();
@@ -25,6 +26,7 @@ public class Course {
     public Course() {}
 
     public Course(Long courseId, String name, int ects, Long professorId, String semester, String major, List<Long> studentIds) {
+
         this.courseId = courseId;
         this.name = name;
         this.ects = ects;
@@ -32,7 +34,7 @@ public class Course {
         this.semester = semester;
         this.major = major;
         this.exams = new ArrayList<>();
-        this.studentIds = studentIds;
+]       this.studentIds=studentids
     }
 
     public Long getCourseId() {
@@ -58,8 +60,6 @@ public class Course {
     public void setEcts(int ects) {
         this.ects = ects;
     }
-
-
 
     public Long getProfessorId() { return professorId; }
 
@@ -90,4 +90,8 @@ public class Course {
     public void addExam(Exam exam) {
         this.exams.add(exam);
     }
+
+    public List<Long> getStudentsIds() { return studentsIds; }
+
+    public void setStudentsIds(List<Long> studentsIds) { this.studentsIds = studentsIds; }
 }

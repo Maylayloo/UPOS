@@ -9,14 +9,13 @@ const DynamicBody = ({children}: {children: React.ReactNode }) => {
 
     const bodyThemes: Record<string, string> = {
         "/dashboard": "bg-gradient-to-t from-[#2f6478] to-bg to-[85%]",
-
-
         "/dashboard/profile": "bg-gradient-to-t from-[#224406] to-bg to-[85%]",
         "/dashboard/schedule": "bg-gradient-to-t from-[#065F7F] to-bg to-[85%]",
         "/dashboard/statistics": "bg-gradient-to-t from-[#827E09] to-bg to-[85%]",
         "/dashboard/grades": "bg-gradient-to-t from-[#67095F] to-bg to-[85%]",
         "/dashboard/groups": "bg-gradient-to-t from-[#8a8a8a] to-bg to-[85%]",
         "/dashboard/roulette": "bg-gradient-to-t from-[#4D0F10] to-bg to-[85%]",
+        "/dashboard/exams": "bg-gradient-to-t from-[#ee7430] to-bg to-[85%]",
     }
 
     const bodyColor = bodyThemes[path] || "bg-bg"

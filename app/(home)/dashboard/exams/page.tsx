@@ -1,7 +1,7 @@
 const Page = () => {
     return (
         <div>
-            Dildo Baggins
+            Egzaminy
         </div>
     );
 };

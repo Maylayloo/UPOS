@@ -19,16 +19,16 @@ const DashboardLayout = ({children,}: {
     const path = usePathname();
     const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
 
-    const titles: Record<string, string> = {
-        "/dashboard/profile": storedUser.name + " " + storedUser.surname, // tu imię i nazwisko zalogowanego użytkownika
-        "/dashboard/schedule": "Plan Zajęć",
-        "/dashboard/statistics": "Statystyki",
-        "/dashboard/grades": "oceny",
-        "/dashboard/groups": "grupy zajęciowe",
-        "/dashboard/roulette": "ruletka",
-    }
+        const titles: Record<string, string> = {
+            "/dashboard/profile": storedUser.name + " " + storedUser.surname, // tu imię i nazwisko zalogowanego użytkownika
+            "/dashboard/schedule": "Plan Zajęć",
+            "/dashboard/statistics": "Statystyki",
+            "/dashboard/grades": "oceny",
+            "/dashboard/groups": "grupy zajęciowe",
+            "/dashboard/roulette": "ruletka",
+        }
 
-    const displayTitle = titles[path] || "panel";
+        const displayTitle = path.startsWith("/dashboard/groups/") ? "grupy zajęciowe" : titles[path] || "panel";
 
 
 

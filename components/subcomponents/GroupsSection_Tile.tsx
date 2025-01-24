@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import GroupContainer from "@/components/subcomponents/GroupContainer";
-import Link from "next/link";
 
 interface groupTileInterface {
     name: string,
@@ -54,7 +53,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
         fetchData();
     }, []);
 
-    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '{}');
+    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '[]');
 
     const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
 

@@ -4,11 +4,15 @@ package AdminServiceTest;
 import com.example.backend.model.Course;
 import com.example.backend.repository.CourseRepository;
 import com.example.backend.service.adminService.CourseManagementForAdminService;
+import io.netty.handler.codec.string.LineSeparator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+
+import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,8 +35,10 @@ class CourseManagementForAdminServiceTest {
     @Test
     void testCreateCourse() {
         // Given
+
         List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         Course course = new Course(5L, "Anal 101", 5, 1L, "1", "Femboys", studentIDS);
+
 
         // When
         courseManagementForAdminService.createCourse(course);
