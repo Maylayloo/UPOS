@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +35,8 @@ class ExamManagementForProfessorServiceTest {
     void testScheduleExam() {
         // Given
         Long courseId = 1L;
-        Course course = new Course(8L,"Anal", 5, 2L, "1", "Math");
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
+        Course course = new Course(8L,"Anal", 5, 2L, "1", "Math",studentIDS);
         Exam exam = new Exam(2L, 1L, "2025-01-10", "D5-s101");
 
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
@@ -52,7 +55,8 @@ class ExamManagementForProfessorServiceTest {
         // Given
         Long courseId = 6L;
         Long examId = 3L;
-        Course course = new Course(6L,"Math", 5, 2L, "2", "AiR");
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
+        Course course = new Course(6L,"Math", 5, 2L, "2", "AiR", studentIDS);
         Exam oldExam = new Exam(3L,1L, "2025-01-10", "Room 101");
         course.addExam(oldExam);
         Exam updatedExam = new Exam(5L, 1L, "2025-02-15", "Room 202");
@@ -72,9 +76,10 @@ class ExamManagementForProfessorServiceTest {
     @Test
     void testModifyExamById_ExamNotFound() {
         // Given
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         Long courseId = 1L;
         Long examId = 2L; // Exam ID that doesn't exist
-        Course course = new Course(7L,"Math", 5, 1L, "3", "Mathematics");
+        Course course = new Course(7L,"Math", 5, 1L, "3", "Mathematics",studentIDS);
         course.addExam(new Exam(6L,1L, "2025-01-10", "Room 101"));
         Exam updatedExam = new Exam(7L,2L, "2025-02-15", "Room 202");
 

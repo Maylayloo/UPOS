@@ -73,7 +73,8 @@ class CourseForStudentServiceTest {
         Long courseId = 101L;
 
         // Mocking the course existence
-        Course mockCourse = new Course(courseId, "Mathematics", 5, 1L, "5", "Math");
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
+        Course mockCourse = new Course(courseId, "Mathematics", 5, 1L, "5", "Math",studentIDS);
         when(courseRepository.findById(courseId)).thenReturn(Optional.of(mockCourse));
 
         // Mocking the groups related to the course
@@ -107,10 +108,10 @@ class CourseForStudentServiceTest {
                 new MajorGroup(2L, "Lab", 2, null, null, null, "Room 102", 25, List.of(1L))
         );
         when(majorGroupRepository.findAll()).thenReturn(mockGroups);
-
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         List<Course> mockCourses = Arrays.asList(
-                new Course(101L, "Mathematics", 5, 1L, "5", "Math"),
-                new Course(102L, "Physics", 4, 1L, "4", "Science")
+                new Course(101L, "Mathematics", 5, 1L, "5", "Math",studentIDS),
+                new Course(102L, "Physics", 4, 1L, "4", "Science",studentIDS)
         );
         when(courseRepository.findAllById(anyList())).thenReturn(mockCourses);
 

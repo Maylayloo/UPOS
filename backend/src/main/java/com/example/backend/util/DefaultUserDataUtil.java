@@ -1,9 +1,7 @@
 package com.example.backend.util;
 
-import com.example.backend.model.DayOfTheWeek;
-import com.example.backend.model.MajorGroup;
-import com.example.backend.model.MyUser;
-import com.example.backend.model.Role;
+import com.example.backend.model.*;
+import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.MajorGroupRepository;
 import com.example.backend.repository.MyUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +18,11 @@ public class DefaultUserDataUtil implements CommandLineRunner {
 
     private final MyUserRepository myUserRepository;
     private final MajorGroupRepository majorGroupRepository;
-    public DefaultUserDataUtil(MyUserRepository myUserRepository, MajorGroupRepository majorGroupRepository) {
+    private final CourseRepository courseRepository;
+    public DefaultUserDataUtil(MyUserRepository myUserRepository, MajorGroupRepository majorGroupRepository,CourseRepository courseRepository ) {
         this.myUserRepository = myUserRepository;
         this.majorGroupRepository = majorGroupRepository;
+        this.courseRepository=courseRepository;
     }
 
     public static MyUser  createMyUser() {
@@ -30,17 +30,22 @@ public class DefaultUserDataUtil implements CommandLineRunner {
         return myUser;
     }
     public static MajorGroup createMajorGroup() {
-        List<Long> studentIDS= Arrays.asList(1L);
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
         LocalTime startTime = LocalTime.of(9,40);
         LocalTime endTime = LocalTime.of(11,45);
-        MajorGroup majorGroup =  new MajorGroup(1L, "Wykład", 1, DayOfTheWeek.SUNDAY,startTime,endTime, "D6-s201", 90,studentIDS);
+        MajorGroup majorGroup =  new MajorGroup(1L, "LEC", 1, DayOfTheWeek.FRIDAY,startTime,endTime, "D6-s201", 90,studentIDS);
         return majorGroup;
     }
-
+    public static Course createCourse(){
+        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
+        Course course=new Course(3L,"Metody Numeryczne",4,1L,"1","Teleinformatics",studentIDS);
+                return course;
+    }
     @Override
     public void run(String... args) throws Exception {
        // MyUser myUser=createMyUser();
         //myUserRepository.save(myUser);
+        //majorGroupRepository.save(createMajorGroup());
 
 
 

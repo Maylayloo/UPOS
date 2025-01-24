@@ -1,5 +1,7 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.IdRequest;
+import com.example.backend.dto.StudentCourseDTO;
 import com.example.backend.model.Exam;
 import com.example.backend.model.Grade;
 import com.example.backend.model.Student;
@@ -11,10 +13,7 @@ import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +38,10 @@ public class StudentController {
             return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
         }
     }
+    @GetMapping("/")
+    public ResponseEntity<List<Student>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
+        return new ResponseEntity<>(studentService.getStudentsBymajorAndSemester(studentCourseDTO.getSemester(),studentCourseDTO.getMajor()),HttpStatus.OK);
+    }
 
     @GetMapping("/{id}/grades")
     public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable Long id) {
@@ -48,6 +51,10 @@ public class StudentController {
     @GetMapping("/{id}/nameAndSurname")
     public ResponseEntity<Map<String,String>> getNamesAndSurnamesByStudentId(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.getNameAndSurnameByStudentId(id),HttpStatus.OK);
+    }
+    @GetMapping("/namesAndSurnames")
+    public ResponseEntity<List<Map<String,String>>> getNamesAndSurnames(@RequestBody IdRequest idRequest) {
+        return new ResponseEntity<>(studentService.getNamesAndSurnamesByIds(idRequest.getIds()),HttpStatus.OK);
     }
 
     @GetMapping("/loggedIn/nameAndSurname")

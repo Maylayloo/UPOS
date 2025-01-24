@@ -9,6 +9,7 @@ public class Student  {
     private Long studentId;
     private Long userId;
     private String indexNumber;
+
     private String faculty;
     private String major;
     private String dateOfBirth;
