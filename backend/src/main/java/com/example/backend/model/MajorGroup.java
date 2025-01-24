@@ -80,8 +80,6 @@ public class MajorGroup {
         this.numberOfGroup = numberOfGroup;
     }
 
-
-
     public String getPlace() {
         return place;
     }
