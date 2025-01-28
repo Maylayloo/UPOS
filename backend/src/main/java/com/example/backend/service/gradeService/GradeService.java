@@ -73,6 +73,11 @@ public class GradeService {
                         + loggedInStudent.getStudentId() + " and course ID " + courseId));
     }
 
+    public Grade getNonPartialGradeByStudentAndGroupId(Long groupId){
+        List<Grade> gradesInGroup=getAllGradesByLoggedInStudentAndGroupId(groupId);
+        return gradesInGroup.stream().filter(Grade::isNotPartial).findFirst().orElse(null);
+    }
+
 
 
 
