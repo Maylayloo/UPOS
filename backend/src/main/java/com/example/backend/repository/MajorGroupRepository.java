@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface MajorGroupRepository extends JpaRepository<MajorGroup, Long> {
     List<MajorGroup> findByCourseId(Long courseId);
+    MajorGroup findByGroupId(Long groupId);
 }

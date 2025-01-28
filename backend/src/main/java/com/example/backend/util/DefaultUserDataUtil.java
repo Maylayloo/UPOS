@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DefaultUserDataUtil implements CommandLineRunner {
@@ -30,11 +31,11 @@ public class DefaultUserDataUtil implements CommandLineRunner {
         return myUser;
     }
     public static MajorGroup createMajorGroup() {
-        List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
+        List<Long> studentIDS= Arrays.asList(1L,5L,6L,7L);
         LocalTime startTime = LocalTime.of(9,40);
         LocalTime endTime = LocalTime.of(11,45);
-        MajorGroup majorGroup =  new MajorGroup(1L, "LEC", 1, DayOfTheWeek.FRIDAY,startTime,endTime, "D6-s201", 90,studentIDS);
-        return majorGroup;
+
+        return null;
     }
     public static Course createCourse(){
         List<Long> studentIDS= Arrays.asList(1L,7L,8L,9L);
@@ -46,6 +47,7 @@ public class DefaultUserDataUtil implements CommandLineRunner {
        // MyUser myUser=createMyUser();
         //myUserRepository.save(myUser);
         //majorGroupRepository.save(createMajorGroup());
+
 
 
 
