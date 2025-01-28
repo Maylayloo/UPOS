@@ -4,6 +4,7 @@ import com.example.backend.model.Course;
 import com.example.backend.model.MajorGroup;
 
 import com.example.backend.model.Professor;
+import com.example.backend.model.Student;
 import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.MajorGroupRepository;
 import com.example.backend.repository.ProfessorRepository;
@@ -77,7 +78,11 @@ public class CourseManagementForProfessorService {
     public List<MajorGroup> getMajorGroupsByCourseId(Long courseId) {
         return majorGroupRepository.findByCourseId(courseId);
     }
-
+    public List<Course> getCoursesByProfessorLoggedIn(){
+        Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
+        return courseRepository.findAll().stream().filter(course->course.getStudentsIds().
+                contains(loggedInProfessor.getProfessorId())).collect(Collectors.toList());
+    }
 
 
 }
