@@ -1,9 +1,7 @@
 package com.example.backend.service.gradeService;
 
-import com.example.backend.model.Grade;
-import com.example.backend.model.MyUser;
-import com.example.backend.model.Role;
-import com.example.backend.model.Student;
+import com.example.backend.model.*;
+import com.example.backend.repository.FinalGradeRepository;
 import com.example.backend.repository.GradeRepository;
 import com.example.backend.repository.StudentRepository;
 import com.example.backend.service.studentService.StudentAuthenticationService;
@@ -19,6 +17,9 @@ public class GradeService {
     private GradeRepository gradeRepository;
 
     @Autowired
+    private FinalGradeRepository finalGradeRepository;
+
+    @Autowired
     private StudentRepository studentRepository;
 
     @Autowired
@@ -26,6 +27,10 @@ public class GradeService {
 
     public List<Grade> showGradesByStudentId(Long studentId) {
         return gradeRepository.findByStudentId(studentId);
+    }
+
+    public List<FinalGrade> showFinalGradesByStudentId(Long studentId) {
+        return finalGradeRepository.findByStudentId(studentId);
     }
 
     public List<Grade> showGradesByGradeId(Long gradeId) {
@@ -36,6 +41,12 @@ public class GradeService {
         return grades;
     }
 
+    public FinalGrade showFinalGradeByGradeId(Long finalGradeId) {
+        return finalGradeRepository.findById(finalGradeId)
+                .orElseThrow(() -> new RuntimeException("Final Grade with ID " + finalGradeId + " not found"));
+    }
+
+
     public List<Grade> showAllGrades() {return gradeRepository.findAll();}
 
     public List<Grade> showAllGradesByLoggedInStudent() {
@@ -43,5 +54,28 @@ public class GradeService {
 
         return gradeRepository.findByStudentId(loggedInStudent.getStudentId());
     }
+
+    public List<Grade> getAllGradesByLoggedInStudentAndGroupId(Long groupId) {
+        Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
+
+        return gradeRepository.findByStudentIdAndGroupId(loggedInStudent.getStudentId(), groupId);
+    }
+
+    public FinalGrade getFinalGradeByLoggedInStudentAndCourseId(Long courseId) {
+        Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
+
+        if (loggedInStudent == null) {
+            throw new RuntimeException("No logged-in student found");
+        }
+
+        return finalGradeRepository.findByStudentIdAndCourseId(loggedInStudent.getStudentId(), courseId)
+                .orElseThrow(() -> new RuntimeException("No final grade found for student ID "
+                        + loggedInStudent.getStudentId() + " and course ID " + courseId));
+    }
+
+
+
+
+
 }
 
