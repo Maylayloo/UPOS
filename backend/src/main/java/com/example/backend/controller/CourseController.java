@@ -20,13 +20,14 @@ public class CourseController {
     private CourseManagementForProfessorService courseManagementForProfessorService;
     @Autowired
     private UserWebAuthenticationService userWebAuthenticationService;
+
     @GetMapping("/loggedIn")
     public ResponseEntity<?> loggedIn() {
         if(userWebAuthenticationService.isLoggedInStudent()){
-            return new ResponseEntity<>(groupForStudentService.getCoursesByLoggedInStudent(),HttpStatus.OK);
+            return new ResponseEntity<>(groupForStudentService.getCoursesByStudentLoggedIn(),HttpStatus.OK);
         }
         else if(userWebAuthenticationService.isLoggedInProfessor()){
-            return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByLoggedInProfessor(),HttpStatus.OK);
+            return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByProfessorLoggedIn(),HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);

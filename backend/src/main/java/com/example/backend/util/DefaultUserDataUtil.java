@@ -45,8 +45,7 @@ public class DefaultUserDataUtil implements CommandLineRunner {
     public void run(String... args) throws Exception {
        // MyUser myUser=createMyUser();
         //myUserRepository.save(myUser);
-        //majorGroupRepository.save(createMajorGroup());
-
+        //majorGroupRepository.save(createMajorGroup()); 3 4 5 6 7
 
 
     }

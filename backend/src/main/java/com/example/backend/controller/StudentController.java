@@ -29,6 +29,7 @@ public class StudentController {
     private StudentService studentService;
     @Autowired
     private ExamForStudentService examForStudentService;
+
     @GetMapping("/loggedIn/grades")
     public ResponseEntity<List<Grade>> getGradesForLoggedInUser() {
         if(userWebAuthenticationService.isLoggedInStudent()){
@@ -38,6 +39,7 @@ public class StudentController {
             return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
         }
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Student>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
         return new ResponseEntity<>(studentService.getStudentsBymajorAndSemester(studentCourseDTO.getSemester(),studentCourseDTO.getMajor()),HttpStatus.OK);
@@ -52,6 +54,7 @@ public class StudentController {
     public ResponseEntity<Map<String,String>> getNamesAndSurnamesByStudentId(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.getNameAndSurnameByStudentId(id),HttpStatus.OK);
     }
+
     @GetMapping("/namesAndSurnames")
     public ResponseEntity<List<Map<String,String>>> getNamesAndSurnames(@RequestBody IdRequest idRequest) {
         return new ResponseEntity<>(studentService.getNamesAndSurnamesByIds(idRequest.getIds()),HttpStatus.OK);
@@ -71,6 +74,17 @@ public class StudentController {
     public ResponseEntity<List<Exam>> getAllExams() {
         return new ResponseEntity<>(examForStudentService.getAllExamsByLoggedInStudent(),HttpStatus.OK);
     }
+
+    @GetMapping("/loggedIn/grades/{groupid}")
+    public ResponseEntity<List<Grade>> getAllGradesByLoggedInUserAndGroupId(@PathVariable Long groupid) {
+        return new ResponseEntity<>(gradeService.getAllGradesByLoggedInStudentAndGroupId(groupid),HttpStatus.OK);
+    }
+
+    @GetMapping("/loggedIn/grades/NonPartial/{groupid}")
+    public ResponseEntity<Grade> getGradesForNoNPartialGradeByLoggedInStudentAndGroupId(@PathVariable Long groupid) {
+        return new ResponseEntity<>(gradeService.getNonPartialGradeByStudentAndGroupId(groupid),HttpStatus.OK);
+    }
+
 
 
     
