@@ -64,6 +64,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
                         <GradeContainer
                             key={group.groupId}
                             type={group.type}
+                            groupId={group.groupId}
                         />
                     ))
 
