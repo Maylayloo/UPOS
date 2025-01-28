@@ -1,9 +1,7 @@
 package GradeServiceTest;
 
-import com.example.backend.model.Grade;
-import com.example.backend.model.MyUser;
-import com.example.backend.model.Role;
-import com.example.backend.model.Student;
+import com.example.backend.model.*;
+import com.example.backend.repository.FinalGradeRepository;
 import com.example.backend.repository.GradeRepository;
 import com.example.backend.repository.StudentRepository;
 import com.example.backend.service.gradeService.GradeService;
@@ -27,6 +25,9 @@ class GradeServiceTest {
 
     @Mock
     private GradeRepository gradeRepository;
+
+    @Mock
+    private FinalGradeRepository finalGradeRepository;
 
     @Mock
     private StudentRepository studentRepository;
@@ -131,4 +132,120 @@ class GradeServiceTest {
         assertEquals("No grades found for gradeId: 1", exception.getMessage());
         verify(gradeRepository, times(1)).findByGradeId(gradeId);
     }
+
+    @Test
+    void testGetAllGradesByLoggedInStudentAndGroupId_Success() {
+        // Given
+        Long studentId = 1L;
+        Long groupId = 101L;
+        Student loggedInStudent = new Student();
+        loggedInStudent.setStudentId(studentId);
+
+        List<Grade> mockGrades = List.of(
+                new Grade(studentId, groupId, true, "A"),
+                new Grade(studentId, groupId, false, "B")
+        );
+
+        when(studentAuthenticationService.getLoggedInStudent()).thenReturn(loggedInStudent);
+        when(gradeRepository.findByStudentIdAndGroupId(studentId, groupId)).thenReturn(mockGrades);
+
+        // When
+        List<Grade> result = gradeService.getAllGradesByLoggedInStudentAndGroupId(groupId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("A", result.get(0).getValue());
+        assertEquals("B", result.get(1).getValue());
+        verify(studentAuthenticationService, times(1)).getLoggedInStudent();
+        verify(gradeRepository, times(1)).findByStudentIdAndGroupId(studentId, groupId);
+    }
+
+    @Test
+    void testGetFinalGradeByLoggedInStudentAndCourseId_Success() {
+        // Given
+        Long studentId = 1L;
+        Long courseId = 201L;
+        Student loggedInStudent = new Student();
+        loggedInStudent.setStudentId(studentId);
+
+        FinalGrade mockFinalGrade = new FinalGrade(studentId, courseId, "A");
+
+        when(studentAuthenticationService.getLoggedInStudent()).thenReturn(loggedInStudent);
+        when(finalGradeRepository.findByStudentIdAndCourseId(studentId, courseId)).thenReturn(Optional.of(mockFinalGrade));
+
+        // When
+        FinalGrade result = gradeService.getFinalGradeByLoggedInStudentAndCourseId(courseId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals("A", result.getValue());
+        assertEquals(studentId, result.getStudentId());
+        assertEquals(courseId, result.getCourseId());
+        verify(studentAuthenticationService, times(1)).getLoggedInStudent();
+        verify(finalGradeRepository, times(1)).findByStudentIdAndCourseId(studentId, courseId);
+    }
+
+
+
+    @Test
+    void testGetFinalGradeByLoggedInStudentAndCourseId_NotFound() {
+        // Given
+        Long studentId = 1L;
+        Long courseId = 201L;
+        Student loggedInStudent = new Student();
+        loggedInStudent.setStudentId(studentId);
+
+        when(studentAuthenticationService.getLoggedInStudent()).thenReturn(loggedInStudent);
+        when(finalGradeRepository.findByStudentIdAndCourseId(studentId, courseId)).thenReturn(Optional.empty());
+
+        // When & Then
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                gradeService.getFinalGradeByLoggedInStudentAndCourseId(courseId)
+        );
+
+        assertEquals("No final grade found for student ID 1 and course ID 201", exception.getMessage());
+        verify(studentAuthenticationService, times(1)).getLoggedInStudent();
+        verify(finalGradeRepository, times(1)).findByStudentIdAndCourseId(studentId, courseId);
+    }
+
+
+
+    @Test
+    void testShowFinalGradeByGradeId_Success() {
+        // Given
+        Long gradeId = 301L;
+        FinalGrade mockFinalGrade = new FinalGrade(1L, 201L, "A");
+
+        when(finalGradeRepository.findById(gradeId)).thenReturn(Optional.of(mockFinalGrade));
+
+        // When
+        FinalGrade result = gradeService.showFinalGradeByGradeId(gradeId);
+
+        // Then
+        assertNotNull(result);
+        assertEquals("A", result.getValue());
+        assertEquals(1L, result.getStudentId());
+        assertEquals(201L, result.getCourseId());
+        verify(finalGradeRepository, times(1)).findById(gradeId);
+    }
+
+    @Test
+    void testShowFinalGradeByGradeId_NotFound() {
+        // Given
+        Long gradeId = 301L;
+
+        when(finalGradeRepository.findById(gradeId)).thenReturn(Optional.empty());
+
+        // When & Then
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                gradeService.showFinalGradeByGradeId(gradeId)
+        );
+
+        assertEquals("Final Grade with ID 301 not found", exception.getMessage());
+        verify(finalGradeRepository, times(1)).findById(gradeId);
+    }
+
+
+
 }
