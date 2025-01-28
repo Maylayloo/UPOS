@@ -20,6 +20,7 @@ public class CourseController {
     private CourseManagementForProfessorService courseManagementForProfessorService;
     @Autowired
     private UserWebAuthenticationService userWebAuthenticationService;
+
     @GetMapping("/loggedIn")
     public ResponseEntity<?> loggedIn() {
         if(userWebAuthenticationService.isLoggedInStudent()){
