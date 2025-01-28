@@ -1,9 +1,46 @@
+import {useEffect} from "react";
+
 interface props {
     type: string,
+    groupId?: number,
 }
 
-const GradeContainer = ({type}: props) => {
-    const grade = "-"
+const GradeContainer = ({type, groupId}: props) => {
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/students/loggedIn/grades/NonPartial/${groupId}`, {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Sprawdzamy, czy odpowiedź zawiera treść, zanim wywołamy .json()
+                const text = await response.text();
+                const data = text ? JSON.parse(text) : null;
+
+                localStorage.setItem(`grade${groupId}`, JSON.stringify(data));
+                console.log('OCENA', data);
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        };
+
+        if (groupId !== undefined) {
+            fetchData();
+        }
+    }, [groupId]);
+
+
+
+
+    const storedGrade = JSON.parse(localStorage.getItem(`grade${groupId}`) || '[]');
+
+    const grade = storedGrade?.value === undefined ? "-" : storedGrade.value;
 
     return (
         <div className="flex justify-between items-center ">
