@@ -56,6 +56,7 @@ public class ExamManagementForProfessorService {
         existingExam.setPlace(updatedExam.getPlace());
         existingExam.setAttempt(updatedExam.getAttempt());
         existingExam.setProfessorId(updatedExam.getProfessorId());
+        existingExam.setStartOfExam(updatedExam.getStartOfExam());
         existingExam.setCourseId(updatedExam.getCourseId()); // Update course if necessary
         examRepository.save(existingExam);
     }
