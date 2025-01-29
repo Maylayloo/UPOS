@@ -1,17 +1,17 @@
 package com.example.backend.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Builder
 public class ExamDTO {
     private Long courseId;
     private Long professorId;
     private String date;
     private String place;
     private String attempt;
-
+    public ExamDTO(){}
     public Long getCourseId() {return courseId;}
 
     public void setCourseId(Long courseId) {this.courseId = courseId;}
