@@ -18,6 +18,21 @@ public class MyUserMapper {
         myUser.setBankNumber(String.valueOf(myUserDTO.getBankNumber()));
         myUser.setSurname(myUserDTO.getSurname());
         myUser.setNumber(String.valueOf(myUserDTO.getNumber()));
+        myUser.setRole(myUserDTO.getRole());
+        myUser.setEmail(myUserDTO.getEmail());
+        return myUser;
+    }
+
+    public static MyUser toEntity(MyUserDTO myUserDTO){
+        MyUser myUser = new MyUser();
+        myUser.setName(myUserDTO.getName());
+        myUser.setBankNumber(myUserDTO.getBankNumber());
+        myUser.setSurname(myUserDTO.getSurname());
+        myUser.setNumber(myUserDTO.getNumber());
+        myUser.setPassword(PasswordUtils.encodePassword(myUserDTO.getPassword()));
+        myUser.setAddress(myUserDTO.getAddress());
+        myUser.setRole(myUserDTO.getRole());
+        myUser.setEmail(myUserDTO.getEmail());
         return myUser;
     }
 
