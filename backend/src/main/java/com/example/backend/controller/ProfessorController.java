@@ -53,7 +53,7 @@ public class ProfessorController {
     }
 
     @GetMapping("/exams")
-    public ResponseEntity<?> getAllExams(){
+    public ResponseEntity<?> getAllExamsByLoggedInProfessor(){
         return new ResponseEntity<>(examManagementForProfessorService.getExamsByLoggedInProfessor(), HttpStatus.OK);
     }
 

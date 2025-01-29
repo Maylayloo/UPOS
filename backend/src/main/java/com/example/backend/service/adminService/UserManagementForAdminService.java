@@ -1,5 +1,8 @@
 package com.example.backend.service.adminService;
 
+import com.example.backend.dto.MyUserDTO;
+import com.example.backend.dto.ProfessorDTO;
+import com.example.backend.dto.StudentDTO;
 import com.example.backend.model.Professor;
 import com.example.backend.model.Student;
 import com.example.backend.repository.ProfessorRepository;
@@ -20,6 +23,7 @@ public class UserManagementForAdminService {
         studentRepository.save(student);
     }
 
+
     public void registerUser(Professor professor) {
         professorRepository.save(professor);
     }
@@ -31,4 +35,9 @@ public class UserManagementForAdminService {
     public void killProfessor(Long professorId) {
         professorRepository.deleteById(professorId);
     }
+
+    public void registerStudent(StudentDTO studentDTO, MyUserDTO myUserDTO) {
+    }
+
+    public void registerProfessor(ProfessorDTO professor, MyUserDTO myUserDTO) {}
 }
