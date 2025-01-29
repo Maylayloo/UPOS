@@ -1,4 +1,15 @@
-const ExamTile = () => {
+interface props {
+    courseId: number,
+    attempt: string,
+    date: string,
+    startHour: string,
+    place: string,
+}
+
+const ExamTile = ({courseId, attempt, date, startHour, place}: props) => {
+
+    const currentCourseId = courseId;
+
     return (
         <div className="border font-roboto min-w-max p-4">
             <h1 className='text-lg'>
@@ -6,16 +17,16 @@ const ExamTile = () => {
             </h1>
             <h2>
                 Termin: <span className='font-[300]'>
-                0
+                {attempt}
             </span>
             </h2>
             <h3>
                 Data: <span className='font-[300]'>
-                11.02.2025 16:00
+                {date} {startHour}
             </span>
                 <br/>
                 Miejsce: <span className='font-[300]'>
-                s.201 bud. D6
+                {place}
             </span>
             </h3>
 
