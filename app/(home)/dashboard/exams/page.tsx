@@ -12,6 +12,7 @@ const Page = () => {
         date: string,
         place: string,
         attempt: string,
+        startOfExam: string,
     }
 
 
@@ -44,6 +45,11 @@ const Page = () => {
                 exams.map((exam: Exam) => (
                     <ExamTile
                         key={exam.examId}
+                        courseId={exam.courseId}
+                        attempt={exam.attempt}
+                        date={exam.date}
+                        startHour={exam.startOfExam.slice(0, 5)}
+                        place={exam.place}
                     />
                 ))
             }
