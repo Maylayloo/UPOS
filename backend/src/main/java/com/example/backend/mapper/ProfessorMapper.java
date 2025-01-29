@@ -12,4 +12,5 @@ public class ProfessorMapper {
         professorDTO.setTitle(professor.getTitle());
         return professorDTO;
     }
+
 }

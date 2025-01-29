@@ -1,7 +1,7 @@
 package com.example.backend.dto;
 
 public class StudentDTO {
-    private Long userId;
+
     private String indexNumber;
 
     private String faculty;
@@ -10,13 +10,6 @@ public class StudentDTO {
     private String phoneNumber;
     private int semester;
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getIndexNumber() {
         return indexNumber;

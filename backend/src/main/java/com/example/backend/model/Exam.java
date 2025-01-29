@@ -19,6 +19,7 @@ public class Exam {
     private String place;
     private String attempt;
 
+
     public Exam() {}
 
     public Exam(Long examId, Long courseId,Long professorId, String date, String place, String attempt) {

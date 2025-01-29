@@ -2,16 +2,12 @@ package com.example.backend.dto;
 
 
 public class CourseDTO {
-    private Long courseId;
     private String name;
     private int ects;
     private Long professorId;
     private String semester;
     private String major;
 
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -53,7 +49,4 @@ public class CourseDTO {
         return name;
     }
 
-    public Long getCourseId() {
-        return courseId;
-    }
 }

@@ -7,7 +7,6 @@ public class CourseMapper {
     public static Course toModel(CourseDTO courseDTO){
         Course course = new Course();
 
-        course.setCourseId(courseDTO.getCourseId());
         course.setName(courseDTO.getName());
         course.setEcts(courseDTO.getEcts());
         course.setMajor(courseDTO.getMajor());

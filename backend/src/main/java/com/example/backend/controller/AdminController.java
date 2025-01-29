@@ -1,6 +1,8 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.*;
+import com.example.backend.dto.wrapper.ProfessorRegisterWrapperDTO;
+import com.example.backend.dto.wrapper.StudentRegisterWrapperDTO;
 import com.example.backend.model.Student;
 import com.example.backend.service.adminService.CourseManagementForAdminService;
 import com.example.backend.service.adminService.UserManagementForAdminService;
@@ -11,23 +13,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminController {
     private UserManagementForAdminService userManagementForAdminService;
     private CourseManagementForAdminService courseManagementForAdminService;
-    AdminController(UserManagementForAdminService userManagementForAdminService) {
+    AdminController(UserManagementForAdminService userManagementForAdminService,CourseManagementForAdminService courseManagementForAdminService) {
        this.userManagementForAdminService=userManagementForAdminService;
+       this.courseManagementForAdminService=courseManagementForAdminService;
     }
 
     @PostMapping("/students")
-    public ResponseEntity<?> registerStudent(@RequestBody StudentDTO studentDTO, @RequestBody MyUserDTO userDTO) {
-        userManagementForAdminService.registerStudent(studentDTO,userDTO);
+    public ResponseEntity<?> registerStudent(@RequestBody StudentRegisterWrapperDTO studentRegisterWrapperDTO) {
+        userManagementForAdminService.registerStudent(studentRegisterWrapperDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     @PostMapping("/professors")
-    public ResponseEntity<?> registerProfessor(@RequestBody ProfessorDTO professorDTO,@RequestBody MyUserDTO userDTO) {
-        userManagementForAdminService.registerProfessor(professorDTO,userDTO);
+    public ResponseEntity<?> registerProfessor(@RequestBody ProfessorRegisterWrapperDTO professorRegisterWrapperDTO) {
+        userManagementForAdminService.registerProfessor(professorRegisterWrapperDTO.getTitle(),professorRegisterWrapperDTO.getMyUserDTO());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
