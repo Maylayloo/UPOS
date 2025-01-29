@@ -2,10 +2,6 @@ package com.example.backend.mapper;
 
 import com.example.backend.dto.ExamDTO;
 import com.example.backend.model.Exam;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-import org.springframework.context.annotation.Configuration;
-
 
 
 public class ExamMapper {
@@ -17,6 +13,7 @@ public class ExamMapper {
         examDTO.setCourseId(exam.getCourseId());
         examDTO.setDate(exam.getDate());
         examDTO.setProfessorId(exam.getProfessorId());
+        examDTO.setStartOfExam(exam.getStartOfExam());
         return examDTO;
 
 
@@ -28,6 +25,7 @@ public class ExamMapper {
         exam.setCourseId(examDTO.getCourseId());
         exam.setDate(examDTO.getDate());
         exam.setProfessorId(examDTO.getProfessorId());
+        exam.setStartOfExam(examDTO.getStartOfExam());
         return exam;
 
     }

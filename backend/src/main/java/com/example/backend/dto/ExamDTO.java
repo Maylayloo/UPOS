@@ -1,8 +1,8 @@
 package com.example.backend.dto;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.time.LocalTime;
 
 @Builder
 public class ExamDTO {
@@ -11,7 +11,18 @@ public class ExamDTO {
     private String date;
     private String place;
     private String attempt;
+    private LocalTime startOfExam;
+
     public ExamDTO(){}
+
+    public LocalTime getStartOfExam() {
+        return startOfExam;
+    }
+
+    public void setStartOfExam(LocalTime startOfExam) {
+        this.startOfExam = startOfExam;
+    }
+
     public Long getCourseId() {return courseId;}
 
     public void setCourseId(Long courseId) {this.courseId = courseId;}
