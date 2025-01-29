@@ -9,10 +9,8 @@ import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.backend.service.professorService.ProfessorAuthenticationService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ExamManagementForProfessorService {
@@ -33,7 +31,8 @@ public class ExamManagementForProfessorService {
         courseRepository.save(course);
     }
     public void scheduleExam(ExamDTO examDTO) {
-        Exam exam = ExamMapper.INSTANCE.examDTOToExam(examDTO);
+        ExamMapper examMapper=new ExamMapper();
+        Exam exam = examMapper.toEntity(examDTO);
         examRepository.save(exam);
     }
 
@@ -57,6 +56,7 @@ public class ExamManagementForProfessorService {
         existingExam.setPlace(updatedExam.getPlace());
         existingExam.setAttempt(updatedExam.getAttempt());
         existingExam.setProfessorId(updatedExam.getProfessorId());
+        existingExam.setStartOfExam(updatedExam.getStartOfExam());
         existingExam.setCourseId(updatedExam.getCourseId()); // Update course if necessary
         examRepository.save(existingExam);
     }

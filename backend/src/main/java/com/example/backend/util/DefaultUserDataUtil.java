@@ -26,7 +26,7 @@ public class DefaultUserDataUtil implements CommandLineRunner {
     }
 
     public static MyUser  createMyUser() {
-        MyUser myUser =  new MyUser("poczta@o2.pl", PasswordUtils.encodePassword("123"), "John", "Doe", Role.PROFESSOR,"48 546 464 456","reymont56","5645764856245677546");
+        MyUser myUser =  new MyUser("admin@o2.pl", PasswordUtils.encodePassword("123"), "George", "arthemsky", Role.ADMIN,"48 546 344 486","radom,45","564576485999945677546");
         return myUser;
     }
     public static MajorGroup createMajorGroup() {
@@ -46,6 +46,7 @@ public class DefaultUserDataUtil implements CommandLineRunner {
        // MyUser myUser=createMyUser();
         //myUserRepository.save(myUser);
         //majorGroupRepository.save(createMajorGroup()); 3 4 5 6 7
+
 
 
     }

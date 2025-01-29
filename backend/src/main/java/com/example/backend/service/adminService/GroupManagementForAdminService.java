@@ -1,5 +1,6 @@
 package com.example.backend.service.adminService;
 
+import com.example.backend.dto.MajorGroupDTO;
 import com.example.backend.model.MajorGroup;
 import com.example.backend.repository.MajorGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ public class GroupManagementForAdminService {
     public void createGroup(MajorGroup group) {
         majorGroupRepository.save(group);
     }
+    public void createGroup(MajorGroupDTO groupDTO) {
 
+    }
     public void deleteGroup(Long groupId) {
         majorGroupRepository.deleteById(groupId);
     }

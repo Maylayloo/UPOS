@@ -4,8 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
+
+import java.time.LocalTime;
+
 
 @Entity
+@Builder
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +20,36 @@ public class Exam {
     private String date;
     private String place;
     private String attempt;
+    private LocalTime startOfExam;
 
     public Exam() {}
 
-    public Exam(Long examId, Long courseId,Long professorId, String date, String place, String attempt) {
+    public Exam(Long examId, Long courseId,Long professorId, String date, String place, String attempt, LocalTime startOfExam) {
         this.examId = examId;
         this.courseId = courseId;
         this.professorId = professorId;
         this.date = date;
         this.place = place;
         this.attempt = attempt;
+        this.startOfExam = startOfExam;
+    }
+
+    public Exam(Long examId, Long courseId, Long professorId, String date, String place, String attempt) {
+        this.examId = examId;
+        this.courseId = courseId;
+        this.professorId = professorId;
+        this.date = date;
+        this.place = place;
+        this.attempt = attempt;
+
+    }
+
+    public LocalTime getStartOfExam() {
+        return startOfExam;
+    }
+
+    public void setStartOfExam(LocalTime startOfExam) {
+        this.startOfExam = startOfExam;
     }
 
     public Long getExamId() {
