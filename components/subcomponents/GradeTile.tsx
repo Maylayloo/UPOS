@@ -49,7 +49,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
 
 
     return (
-        <div className='font-roboto px-6 pt-4 pb-8 w-[27.5%] border rounded-xl'>
+        <div className='font-roboto px-6 pt-4 pb-8 w-[27.5%] border rounded-xl min-w-max'>
             <h1 className='text-lg'>
                 {courseName}
             </h1>
