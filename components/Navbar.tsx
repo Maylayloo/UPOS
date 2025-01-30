@@ -41,8 +41,8 @@ const Navbar = () => {
             </div>
             <div className='flex-[2] flex items-center justify-evenly px-12 max-lg:gap-6 max-sm:hidden'>
                 <NavLink href='/dashboard' content='MÓJ UPOS'></NavLink>
-                <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
-                <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
+                <NavLink href='/not-done-yet' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
+                <NavLink href='/not-done-yet' content='DLA WSZYSTKICH'></NavLink>
             </div>
             <div className='sm:hidden flex-1 px-12'>
                 <button className='float-end' onClick={() => setActive(!active)}>
