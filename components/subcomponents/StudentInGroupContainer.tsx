@@ -62,7 +62,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 {index}. {name}
             </h2>
             <div>
-                {!activeGrade && (
+                {!activeGrade && !successfullyGraded && (
                     <button
                         onClick={() => setActiveGrade(true)}
                         className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
@@ -95,7 +95,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 )}
                 {
                     successfullyGraded && (
-                        <h1 className="text-lg text-green-400">
+                        <h1 className="text-lg  font-roboto text-green-400">
                             Oceniono pomyślnie
                         </h1>
                     )
