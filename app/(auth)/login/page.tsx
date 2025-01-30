@@ -142,10 +142,10 @@ const LoginPage = () => {
                             <LoginInput name="email" type="email" image={userIMG} alt="Username" placeholder="Nazwa użytkownika (email)"/>
                             <LoginInput name="password" type="password" image={passIMG} alt="Password" placeholder="Hasło"/>
                             <LoginButton type='submit' text="Zaloguj się" image={logIMG} alt="login"
-                                         className='mb-4 bg-[#28A745] hover:hidden'/>
+                                         className='mb-4 bg-[#28A745]'/>
                         </form>
                         <div className='flex gap-2'>
-                            <Link href='https://pl.pornhub.com/view_video.php?viewkey=ph61c213df7ba19'>
+                            <Link href='/dashboard'>
                                 <LoginButton type='button' text="Zresetuj hasło" image={infoIMG} alt="login"
                                              className='bg-[#6C757D]'/>
                             </Link>
