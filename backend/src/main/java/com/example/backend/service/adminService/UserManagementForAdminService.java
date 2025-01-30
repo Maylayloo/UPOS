@@ -13,8 +13,10 @@ import com.example.backend.model.Student;
 import com.example.backend.repository.MyUserRepository;
 import com.example.backend.repository.ProfessorRepository;
 import com.example.backend.repository.StudentRepository;
+import com.example.backend.service.professorService.ProfessorCleanupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserManagementForAdminService {
@@ -22,6 +24,9 @@ public class UserManagementForAdminService {
     private MyUserRepository myUserRepository;
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private ProfessorCleanupService professorCleanupService;
 
     @Autowired
     private ProfessorRepository professorRepository;
@@ -40,8 +45,16 @@ public class UserManagementForAdminService {
         studentRepository.deleteById(studentId);
     }
 
+    @Transactional
     public void killProfessor(Long professorId) {
+        if (!professorRepository.existsById(professorId)) {
+            throw new RuntimeException("Professor with ID " + professorId + " not found.");
+        }
 
+        //first delete every reference to professor
+        professorCleanupService.removeProfessorReferences(professorId);
+
+        //delete the old man
         professorRepository.deleteById(professorId);
     }
 
