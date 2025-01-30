@@ -7,6 +7,7 @@ interface groupTileInterface {
     name: string,
     ects: number,
     courseId: string,
+    major: string,
 }
 
 interface Groups {
@@ -32,10 +33,12 @@ const daysTranslation = {
     SUNDAY: "Każda niedziela",
 };
 
-const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
-
+const GroupsSection_Tile = ({name, ects, courseId, major}: groupTileInterface) => {
     const [groups, setGroups] = useState<Groups[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
+    const role = storedUser.role.toLowerCase();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,9 +51,8 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setGroups(data)
-                console.log(`data for course ${courseId} `, data)
                 localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
+                setGroups(data)
             } catch (err) {
                 console.error("Error fetching data:", err);
             } finally {
@@ -76,11 +78,16 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
             </div>
         );
     }
+
     return (
-        <div className='border-b border-b-[#DBE3D4] w-full px-8 py-5'>
+        <div className={`border-b border-b-[#DBE3D4] w-full px-8 py-5 ${groups?.length === 0 ? 'hidden' : ''}`}>
             <h2 className='font-roboto font-[500] text-lg tracking-wide'>
-                {name} <span className='font-[300] text-base'>
-                    [punkty ECTS: {ects}]
+                {name} {role === 'professor' ? `- ${major}` : ""}
+                <span className='font-[300] text-base'>
+                   {
+                       role === 'student' ? ` [punkty ECTS: ${ects}]` : ` - 1 rok`
+                   }
+
                 </span>
             </h2>
             <h3>

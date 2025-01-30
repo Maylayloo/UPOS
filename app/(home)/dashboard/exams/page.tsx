@@ -1,9 +1,13 @@
 'use client'
 
 import ExamTile from "@/components/subcomponents/ExamTile";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import Image from "next/image";
+import dawidIMG from "@/public/images/dawid.png";
 
 const Page = () => {
+
+    const [loading, setLoading] = useState<boolean>(true);
 
     interface Exam {
         examId: number,
@@ -34,12 +38,27 @@ const Page = () => {
 
             } catch (err) {
                 console.error("Error fetching data:", err);
+            } finally {
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
 
     const exams = JSON.parse(localStorage.getItem(`upos_exams`) || '[]');
+
+
+    if (loading) {
+        return (
+            <div>
+                <Image className=''
+                       src={dawidIMG}
+                       alt="LOADING"
+                />
+            </div>
+        )
+    }
+
 
     return (
         <div className='flex justify-center gap-8 flex-wrap'>

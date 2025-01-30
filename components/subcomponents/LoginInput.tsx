@@ -15,7 +15,7 @@ const LoginInput = ({type, name, image, alt, placeholder}: loginInputProps) => {
                 <Image src={image} alt={alt} width={16} height={16}/>
             </div>
             <input type={type} name={name} placeholder={placeholder}
-                   className='w-full px-4 rounded-r-[0.5rem] text-[#19191a] focus:outline-none focus:border-cyan-300 focus:border focus:shadow-2xl'
+                   className='w-full px-4 rounded-r-[0.5rem] text-[#19191a] focus:outline-none focus:border-cyan-300 focus:border focus:shadow-2xl hover:p-4 hover:bg-pink-500 hover:text-white'
             />
         </div>
     );
