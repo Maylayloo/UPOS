@@ -55,7 +55,7 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getNameAndSurnameByStudentId(id),HttpStatus.OK);
     }
 
-    @GetMapping("/namesAndSurnames")
+    @PostMapping("/namesAndSurnames")
     public ResponseEntity<List<Map<String,String>>> getNamesAndSurnames(@RequestBody IdRequest idRequest) {
         return new ResponseEntity<>(studentService.getNamesAndSurnamesByIds(idRequest.getIds()),HttpStatus.OK);
     }
