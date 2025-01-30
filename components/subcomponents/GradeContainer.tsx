@@ -23,7 +23,7 @@ const GradeContainer = ({type, groupId}: props) => {
                 const text = await response.text();
                 const data = text ? JSON.parse(text) : null;
 
-                localStorage.setItem(`grade${groupId}`, JSON.stringify(data));
+                localStorage.setItem(`upos_grade${groupId}`, JSON.stringify(data));
                 console.log('OCENA', data);
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -38,7 +38,7 @@ const GradeContainer = ({type, groupId}: props) => {
 
 
 
-    const storedGrade = JSON.parse(localStorage.getItem(`grade${groupId}`) || '[]');
+    const storedGrade = JSON.parse(localStorage.getItem(`upos_grade${groupId}`) || '[]');
 
     const grade = storedGrade?.value === undefined ? "-" : storedGrade.value;
 

@@ -30,7 +30,7 @@ const Page = () => {
                 const data = await response.json();
 
                 // save data in localStorage
-                localStorage.setItem(`exams`, JSON.stringify(data));
+                localStorage.setItem(`upos_exams`, JSON.stringify(data));
 
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -39,7 +39,7 @@ const Page = () => {
         fetchData();
     }, []);
 
-    const exams = JSON.parse(localStorage.getItem(`exams`) || '[]');
+    const exams = JSON.parse(localStorage.getItem(`upos_exams`) || '[]');
 
     return (
         <div className='flex justify-center gap-8 flex-wrap'>

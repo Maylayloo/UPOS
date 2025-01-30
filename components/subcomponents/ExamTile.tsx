@@ -13,7 +13,7 @@ interface Course {
 const ExamTile = ({courseId, attempt, date, startHour, place}: props) => {
 
     const currentCourseId = courseId;
-    const storedCourses = JSON.parse(localStorage.getItem(`courses`) || '[]');
+    const storedCourses = JSON.parse(localStorage.getItem(`upos_courses`) || '[]');
     let courseName;
 
     storedCourses.forEach((element: Course) => {

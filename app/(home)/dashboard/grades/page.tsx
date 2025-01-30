@@ -17,7 +17,7 @@ const GradesPage = () => {
     }
 
     // getting courses from localStorage
-    const storedCourses: Course[] = JSON.parse(localStorage.getItem("courses") || '[]');
+    const storedCourses: Course[] = JSON.parse(localStorage.getItem("upos_courses") || '[]');
     console.log(storedCourses)
 
 

@@ -9,7 +9,7 @@ const Page = () => {
 
 
     // TODO: zmien localstorage na session storage
-    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
     const role = storedUser.role.toLowerCase();
 
     return (

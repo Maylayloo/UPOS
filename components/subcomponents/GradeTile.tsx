@@ -34,7 +34,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
                 }
                 const data = await response.json();
 
-                localStorage.setItem(`group${courseId}`, JSON.stringify(data));
+                localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
                 console.log('xD', data)
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -45,7 +45,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
     }, []);
 
 
-    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '[]');
+    const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
 
 
     return (

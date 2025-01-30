@@ -16,7 +16,7 @@ const GroupsPage = () => {
     }
 
 
-    const storedCourses: Course[] = JSON.parse(localStorage.getItem("courses") || '[]');
+    const storedCourses: Course[] = JSON.parse(localStorage.getItem("upos_courses") || '[]');
     return (
         <div className='w-full flex justify-center'>
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl'>
