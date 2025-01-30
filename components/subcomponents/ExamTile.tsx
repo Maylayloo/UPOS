@@ -5,15 +5,27 @@ interface props {
     startHour: string,
     place: string,
 }
+interface Course {
+    courseId: number,
+    name: string,
+}
 
 const ExamTile = ({courseId, attempt, date, startHour, place}: props) => {
 
     const currentCourseId = courseId;
+    const storedCourses = JSON.parse(localStorage.getItem(`courses`) || '[]');
+    let courseName;
+
+    storedCourses.forEach((element: Course) => {
+        if (currentCourseId === element.courseId) {
+            courseName = element.name;
+        }
+    })
 
     return (
         <div className="border font-roboto min-w-max p-4">
             <h1 className='text-lg'>
-                Metody Numeryczne
+                {courseName}
             </h1>
             <h2>
                 Termin: <span className='font-[300]'>
