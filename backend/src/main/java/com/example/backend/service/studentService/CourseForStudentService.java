@@ -1,5 +1,7 @@
 package com.example.backend.service.studentService;
 
+import com.example.backend.exception.ResourceNotFoundException;
+import com.example.backend.exception.StudentAccessException;
 import com.example.backend.model.Course;
 import com.example.backend.model.MajorGroup;
 import com.example.backend.model.Student;
@@ -27,7 +29,7 @@ public class CourseForStudentService {
     public List<MajorGroup> getMajorGroupsByLoggedInStudent() {
         Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
         if (loggedInStudent == null) {
-            throw new RuntimeException("No student is currently logged in");
+            throw new StudentAccessException("No student is currently logged in");
         }
 
         return majorGroupRepository.findAll().stream()
@@ -39,11 +41,11 @@ public class CourseForStudentService {
     public List<MajorGroup> getMajorGroupsByLoggedInStudentAndCourseId(Long courseId) {
         Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
         if (loggedInStudent == null) {
-            throw new RuntimeException("No student is currently logged in");
+            throw new StudentAccessException("No student is currently logged in");
         }
 
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course with ID " + courseId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Course with ID " + courseId + " not found"));
 
         return majorGroupRepository.findByCourseId(courseId).stream()
                 .filter(group -> group.getStudentsIds().contains(loggedInStudent.getStudentId()))
@@ -52,7 +54,7 @@ public class CourseForStudentService {
     public List<Course> getCoursesByLoggedInStudent() {
         Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
         if (loggedInStudent == null) {
-            throw new RuntimeException("No student is currently logged in");
+            throw new StudentAccessException("No student is currently logged in");
         }
 
         // Get all students groups

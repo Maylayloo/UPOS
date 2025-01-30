@@ -1,6 +1,7 @@
 package com.example.backend.service.professorService;
 
 import com.example.backend.dto.GradeRequestDTO;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.FinalGrade;
 import com.example.backend.model.Grade;
 import com.example.backend.repository.FinalGradeRepository;
@@ -48,7 +49,7 @@ public class GradeManagementForProfessorService {
 
     public void updateGradeByGradeId(Long id,GradeRequestDTO gradeRequestDTO) {
         Grade grade = gradeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Grade with ID " + id + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Grade with ID " + id + " not found"));
 
         grade.setValue(gradeRequestDTO.getValue());
         grade.setPartial(gradeRequestDTO.isPartial());

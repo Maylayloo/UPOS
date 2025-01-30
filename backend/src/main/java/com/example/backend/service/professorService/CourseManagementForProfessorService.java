@@ -1,5 +1,8 @@
 package com.example.backend.service.professorService;
 
+import com.example.backend.exception.InvalidAssociationException;
+import com.example.backend.exception.ProfessorAccessException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.Course;
 import com.example.backend.model.MajorGroup;
 
@@ -40,7 +43,7 @@ public class CourseManagementForProfessorService {
     public List<MajorGroup> getMajorGroupsByLoggedInProfessor() {
         Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
         if (loggedInProfessor == null) {
-            throw new RuntimeException("No professor is currently logged in");
+            throw new ProfessorAccessException("No professor is currently logged in");
         }
 
         List<Course> professorCourses = courseRepository.findByProfessorId(loggedInProfessor.getProfessorId());
@@ -53,14 +56,14 @@ public class CourseManagementForProfessorService {
     public List<MajorGroup> getMajorGroupsByLoggedInProfessorAndCourseId(Long courseId) {
         Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
         if (loggedInProfessor == null) {
-            throw new RuntimeException("No professor is currently logged in");
+            throw new ProfessorAccessException("No professor is currently logged in");
         }
 
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new RuntimeException("Course with ID " + courseId + " not found"));
 
         if (!course.getProfessorId().equals(loggedInProfessor.getProfessorId())) {
-            throw new RuntimeException("Logged-in professor does not own this course");
+            throw new InvalidAssociationException("Logged-in professor does not own this course");
         }
 
         return majorGroupRepository.findByCourseId(courseId);
@@ -69,7 +72,7 @@ public class CourseManagementForProfessorService {
     public List<Course> getCoursesByLoggedInProfessor() {
         Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
         if (loggedInProfessor == null) {
-            throw new RuntimeException("No professor is currently logged in");
+            throw new ProfessorAccessException("No professor is currently logged in");
         }
 
         return courseRepository.findByProfessorId(loggedInProfessor.getProfessorId());

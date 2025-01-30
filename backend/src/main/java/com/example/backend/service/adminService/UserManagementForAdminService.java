@@ -4,6 +4,7 @@ import com.example.backend.dto.MyUserDTO;
 import com.example.backend.dto.ProfessorDTO;
 import com.example.backend.dto.StudentDTO;
 import com.example.backend.dto.wrapper.StudentRegisterWrapperDTO;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.mapper.MyUserMapper;
 import com.example.backend.mapper.ProfessorMapper;
 import com.example.backend.mapper.StudentMapper;
@@ -47,7 +48,7 @@ public class UserManagementForAdminService {
     @Transactional
     public void killStudent(Long studentId) {
         if (!studentRepository.existsById(studentId)) {
-            throw new RuntimeException("Student with ID " + studentId + " not found.");
+            throw new ResourceNotFoundException("Student with ID " + studentId + " not found.");
         }
 
         studentCleanupService.removeStudentReferences(studentId);
@@ -58,7 +59,7 @@ public class UserManagementForAdminService {
     @Transactional
     public void killProfessor(Long professorId) {
         if (!professorRepository.existsById(professorId)) {
-            throw new RuntimeException("Professor with ID " + professorId + " not found.");
+            throw new ResourceNotFoundException("Professor with ID " + professorId + " not found.");
         }
 
         //first delete every reference to professor

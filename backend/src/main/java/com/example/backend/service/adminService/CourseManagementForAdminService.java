@@ -2,6 +2,7 @@ package com.example.backend.service.adminService;
 
 import com.example.backend.dto.CourseDTO;
 import com.example.backend.dto.MajorGroupDTO;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.mapper.CourseMapper;
 import com.example.backend.mapper.GroupMapper;
 import com.example.backend.model.Course;
@@ -48,7 +49,7 @@ public class CourseManagementForAdminService {
     @Transactional
     public void deleteCourse(Long courseId) {
         if (!courseRepository.existsById(courseId)) {
-            throw new RuntimeException("Course with ID " + courseId + " not found.");
+            throw new ResourceNotFoundException("Course with ID " + courseId + " not found.");
         }
 
         removeCourseReferences(courseId);
