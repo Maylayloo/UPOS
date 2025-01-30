@@ -1,4 +1,6 @@
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import Image from "next/image";
+import dawidIMG from "@/public/images/dawid.png";
 
 interface props {
     type: string,
@@ -6,6 +8,8 @@ interface props {
 }
 
 const GradeContainer = ({type, groupId}: props) => {
+
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,23 +28,34 @@ const GradeContainer = ({type, groupId}: props) => {
                 const data = text ? JSON.parse(text) : null;
 
                 localStorage.setItem(`upos_grade${groupId}`, JSON.stringify(data));
-                console.log('OCENA', data);
             } catch (err) {
                 console.error("Error fetching data:", err);
+            } finally {
+                setLoading(false)
             }
         };
 
         if (groupId !== undefined) {
             fetchData();
+        } else {
+            setLoading(false)
         }
     }, [groupId]);
 
 
-
-
     const storedGrade = JSON.parse(localStorage.getItem(`upos_grade${groupId}`) || '[]');
-
     const grade = storedGrade?.value === undefined ? "-" : storedGrade.value;
+
+    if (loading) {
+        return (
+            <div>
+                <Image className=''
+                       src={dawidIMG}
+                       alt="LOADING"
+                />
+            </div>
+        )
+    }
 
     return (
         <div className="flex justify-between items-center ">

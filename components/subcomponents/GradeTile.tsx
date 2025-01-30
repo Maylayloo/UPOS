@@ -1,5 +1,7 @@
 import GradeContainer from "@/components/subcomponents/GradeContainer";
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import Image from "next/image";
+import dawidIMG from "@/public/images/dawid.png";
 
 interface props {
     courseName: string,
@@ -22,6 +24,8 @@ interface Groups {
 
 const GradeTile = ({courseName, ects, courseId}: props) => {
 
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,23 +39,35 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
                 const data = await response.json();
 
                 localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
-                console.log('xD', data)
             } catch (err) {
                 console.error("Error fetching data:", err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, [courseId]);
 
 
     const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
 
 
+    if (loading) {
+        return (
+            <div>
+                <Image className=''
+                       src={dawidIMG}
+                       alt="LOADING"
+                />
+            </div>
+        )
+    }
+
     return (
         <div className='font-roboto px-6 pt-4 pb-8 w-[27.5%] border rounded-xl min-w-max'>
             <h1 className='text-lg'>
-                {courseName}
+            {courseName}
             </h1>
             <span className='font-[300]'>
                 punkty ECTS: {ects}.00
