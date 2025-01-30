@@ -95,7 +95,6 @@ class UserManagementForAdminServiceTest {
         verify(professorRepository, times(1)).deleteById(professorId);
     }
 
-    /** ❌ Test sprawdzający, czy rzucany jest wyjątek, gdy profesor nie istnieje */
     @Test
     void testKillProfessor_ProfessorNotFound() {
         // Given
