@@ -100,7 +100,6 @@ const Page = () => {
             content: String(currentGroup.maxStudentAmount)
         },
     ];
-
     return (
         <div className='w-full flex justify-center flex-col items-center gap-8'>
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8'>
@@ -133,7 +132,10 @@ const Page = () => {
                     <StudentInGroupContainer
                         key={index}
                         index={index + 1}
-                        name={`${student.name} ${student.surname}`} />
+                        name={`${student.name} ${student.surname}`}
+                        groupId={Number(currentGroupId)}
+                        studentId={Number(student.studentId)}
+                    />
                 ))}
             </div>
         </div>
