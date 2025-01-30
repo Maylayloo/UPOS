@@ -1,74 +1,61 @@
-package ProffesorServiceTest;
+package com.example.backend.service.professorService;
 
-import com.example.backend.service.professorService.ProfessorCleanupService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class ProfessorCleanupServiceTest {
-
-    @InjectMocks
-    private ProfessorCleanupService professorCleanupService;
+public class ProfessorCleanupTest {
 
     @Mock
     private EntityManager entityManager;
 
     @Mock
-    private Query mockSchemaQuery;
+    private Query query;
 
-    @Mock
-    private Query mockUpdateQuery;
+    @InjectMocks
+    private ProfessorCleanupService professorCleanupService;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        // 🔹 Sprawiamy, że każda próba stworzenia natywnego zapytania SELECT zwraca `mockSchemaQuery`
-        when(entityManager.createNativeQuery(
-                "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'professor_id'"))
-                .thenReturn(mockSchemaQuery);
-
-        // 🔹 Sprawiamy, że każda próba stworzenia natywnego zapytania UPDATE zwraca `mockUpdateQuery`
-        when(entityManager.createNativeQuery(anyString())).thenReturn(mockUpdateQuery);
     }
 
     @Test
-    void testRemoveProfessorReferences_Success() {
-        // ✅ Symulujemy tabele zawierające professor_id
+    public void testRemoveProfessorReferences() {
+        // Mock the list of tables
+        List<String> tables = List.of("course", "exam", "petition");
+        when(entityManager.createNativeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'professor_id'"))
+                .thenReturn(query);
+        when(query.getResultList()).thenReturn(tables);
+
+        // Mock the execution of update queries
+        when(entityManager.createNativeQuery(any(String.class))).thenReturn(query);
+        when(query.setParameter(eq("id"), any(Long.class))).thenReturn(query);
+        when(query.executeUpdate()).thenReturn(1);
+
         Long professorId = 1L;
-        List<String> mockTables = List.of("courses", "exams");
-
-        // ✅ Upewniamy się, że `mockSchemaQuery.getResultList()` zwraca listę tabel
-        when(mockSchemaQuery.getResultList()).thenReturn(mockTables);
-
-        // ✅ Mockowanie parametrów zapytań UPDATE
-        when(mockUpdateQuery.setParameter(anyString(), any())).thenReturn(mockUpdateQuery);
-        when(mockUpdateQuery.executeUpdate()).thenReturn(1); // Symulujemy poprawną aktualizację
-
-        // 🔹 **Uruchamiamy metodę, którą testujemy**
         professorCleanupService.removeProfessorReferences(professorId);
 
-        // ✅ 1. Sprawdzamy, czy zapytanie SELECT zostało wywołane
-        verify(entityManager, times(1)).createNativeQuery(
-                "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'professor_id'");
+        // Verify that the initial query was executed once
+        verify(entityManager, times(1)).createNativeQuery("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE COLUMN_NAME = 'professor_id'");
 
-        // ✅ 2. Sprawdzamy, czy `getResultList()` zostało wywołane na `mockSchemaQuery`
-        verify(mockSchemaQuery, times(1)).getResultList();
-
-        // ✅ 3. Sprawdzamy, czy dla każdej tabeli wywołano `UPDATE`
-        for (String table : mockTables) {
+        // Verify that the update queries were executed for each table
+        for (String table : tables) {
             verify(entityManager, times(1)).createNativeQuery("UPDATE " + table + " SET professor_id = NULL WHERE professor_id = :id");
         }
 
-        // ✅ 4. Sprawdzamy, czy zapytania UPDATE wykonały się poprawnie
-        verify(mockUpdateQuery, times(mockTables.size())).setParameter("id", professorId);
-        verify(mockUpdateQuery, times(mockTables.size())).executeUpdate();
+        // Verify that setParameter and executeUpdate were called for each table
+        verify(query, times(tables.size())).setParameter(eq("id"), eq(professorId));
+        verify(query, times(tables.size())).executeUpdate();
     }
 }
