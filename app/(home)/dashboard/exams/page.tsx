@@ -26,10 +26,12 @@ const Page = () => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+
                 const data = await response.json();
 
+                // save data in localStorage
                 localStorage.setItem(`exams`, JSON.stringify(data));
-                console.log('xD', data)
+
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
