@@ -4,6 +4,7 @@ import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import com.example.backend.service.adminService.UserManagementForAdminService;
 import com.example.backend.service.professorService.ProfessorCleanupService;
+import com.example.backend.service.studentService.StudentCleanupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,16 +26,13 @@ class UserManagementForAdminServiceTest {
     private ProfessorCleanupService professorCleanupService;
 
     @Mock
+    private StudentCleanupService studentCleanupService;
+
+    @Mock
     private StudentRepository studentRepository;
 
     @Mock
     private ProfessorRepository professorRepository;
-
-    @Mock
-    private CourseRepository courseRepository;
-
-    @Mock
-    private ExamRepository examRepository;
 
     @BeforeEach
     void setUp() {
@@ -112,11 +110,33 @@ class UserManagementForAdminServiceTest {
 
 
     @Test
-    void testKillStudent() {
+    void testKillStudent_Success() {
+        // Given
         Long studentId = 1L;
+        when(studentRepository.existsById(studentId)).thenReturn(true);
 
+        // When
         userManagementForAdminService.killStudent(studentId);
 
+        // Then
+        verify(studentCleanupService, times(1)).removeStudentReferences(studentId);
         verify(studentRepository, times(1)).deleteById(studentId);
+    }
+
+    @Test
+    void testKillStudent_StudentNotFound() {
+        // Given
+        Long studentId = 1L;
+        when(studentRepository.existsById(studentId)).thenReturn(false);
+
+        // When & Then
+        try {
+            userManagementForAdminService.killStudent(studentId);
+        } catch (RuntimeException e) {
+            assert (e.getMessage().equals("Student with ID " + studentId + " not found."));
+        }
+
+        verify(studentCleanupService, never()).removeStudentReferences(anyLong());
+        verify(studentRepository, never()).deleteById(anyLong());
     }
 }

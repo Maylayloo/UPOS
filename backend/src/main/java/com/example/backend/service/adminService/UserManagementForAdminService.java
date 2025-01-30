@@ -14,6 +14,7 @@ import com.example.backend.repository.MyUserRepository;
 import com.example.backend.repository.ProfessorRepository;
 import com.example.backend.repository.StudentRepository;
 import com.example.backend.service.professorService.ProfessorCleanupService;
+import com.example.backend.service.studentService.StudentCleanupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,9 @@ public class UserManagementForAdminService {
     private MyUserRepository myUserRepository;
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private StudentCleanupService studentCleanupService;
 
     @Autowired
     private ProfessorCleanupService professorCleanupService;
@@ -40,7 +44,13 @@ public class UserManagementForAdminService {
         professorRepository.save(professor);
     }
 
+    @Transactional
     public void killStudent(Long studentId) {
+        if (!studentRepository.existsById(studentId)) {
+            throw new RuntimeException("Student with ID " + studentId + " not found.");
+        }
+
+        studentCleanupService.removeStudentReferences(studentId);
 
         studentRepository.deleteById(studentId);
     }
