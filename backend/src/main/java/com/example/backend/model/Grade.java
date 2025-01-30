@@ -59,7 +59,7 @@ public class Grade {
     public boolean isPartial() {
         return isPartial;
     }
-
+    public boolean isNotPartial() {return !isPartial;}
     public void setPartial(boolean partial) {
         isPartial = partial;
     }

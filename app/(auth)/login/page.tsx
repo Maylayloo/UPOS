@@ -75,10 +75,8 @@ const LoginPage = () => {
                     setUser(data);
 
                     // save user data to localStorage
-                    localStorage.setItem('user', JSON.stringify(data));
-                    localStorage.setItem('courses', JSON.stringify(coursesData));
-
-                    console.log(localStorage)
+                    localStorage.setItem('upos_user', JSON.stringify(data));
+                    localStorage.setItem('upos_courses', JSON.stringify(coursesData));
 
                 } catch (error) {
                     console.error("Wystąpił błąd:", error);

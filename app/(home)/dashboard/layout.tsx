@@ -10,7 +10,7 @@ const DashboardLayout = ({children,}: {
 }) => {
 
     const path = usePathname();
-    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
     const router = useRouter()
 
         const titles: Record<string, string> = {

@@ -10,7 +10,7 @@ import {useUser} from "@/app/(context)/UserContext";
 const Navbar = () => {
 
     // change localstorage to session-storage
-    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
 
     // get user's role
     const role = storedUser?.role?.toLowerCase();

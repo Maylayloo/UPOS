@@ -65,6 +65,10 @@ public class CourseForStudentService {
         // get courses by courseId from groups
         return courseRepository.findAllById(courseIds);
     }
-
+    public List<Course> getCoursesByStudentLoggedIn(){
+        Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
+        return courseRepository.findAll().stream().filter(course->course.getStudentsIds().
+                contains(loggedInStudent.getStudentId())).collect(Collectors.toList());
+    }
     public void addToWF(){}
 }

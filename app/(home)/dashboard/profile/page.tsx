@@ -7,7 +7,7 @@ import {useUser} from "@/app/(context)/UserContext";
 const ProfilePage = () => {
 
     // change localstorage to session storage
-    const storedUser = JSON.parse(localStorage.getItem("user") || '{}');
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
     // table with user Data provided by { user } from backend
     const profileData = [
         {

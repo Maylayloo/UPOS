@@ -12,8 +12,26 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [currentGroup, setCurrentGroup] = useState<any>(null);
 
-    const currentGroupId = localStorage.getItem('current_group');
-    const currentCourseName = localStorage.getItem('current_course');
+    const currentGroupId = localStorage.getItem('upos_current_group');
+    const currentCourseName = localStorage.getItem('upos_current_course');
+
+    // const fetchStudents = async () => {
+    //
+    //     const namesResponse = await fetch(`http://localhost:8080/students/namesAndSurnames`, {
+    //         method: "GET",
+    //         credentials: "include",
+    //         body: JSON.stringify({
+    //             ids: currentGroup.studentsIds,
+    //         })
+    //     });
+    //
+    //     if (!namesResponse.ok) {
+    //         throw new Error('Failed to fetch');
+    //     }
+    //
+    //     const data = await namesResponse.json();
+    //     console.log(data);
+    // };
 
     // wait for currentGroupId, then start fetching data
     useEffect(() => {
@@ -32,7 +50,7 @@ const Page = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                localStorage.setItem(`current_group_data`, JSON.stringify(data));
+                localStorage.setItem(`upos_current_group_data`, JSON.stringify(data));
                 setCurrentGroup(data);  // Zapisz dane grupy w stanie
                 setIsLoading(false);  // Ustaw stan ładowania na false
             } catch (err) {
@@ -46,7 +64,7 @@ const Page = () => {
 
     // checking if data is saved in localStorage
     useEffect(() => {
-        const storedData = localStorage.getItem('current_group_data');
+        const storedData = localStorage.getItem('upos_current_group_data');
         if (storedData) {
             setCurrentGroup(JSON.parse(storedData));
             setIsLoading(false);

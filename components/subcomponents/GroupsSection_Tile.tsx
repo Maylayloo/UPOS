@@ -44,7 +44,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                 }
                 const data = await response.json();
                 console.log(`data for course ${courseId} `, data)
-                localStorage.setItem(`group${courseId}`, JSON.stringify(data));
+                localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
             } catch (err) {
                 console.error("Error fetching data:", err);
             }
@@ -53,7 +53,7 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
         fetchData();
     }, []);
 
-    const storedGroup = JSON.parse(localStorage.getItem(`group${courseId}`) || '[]');
+    const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
 
     const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
 

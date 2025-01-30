@@ -20,8 +20,8 @@ const GroupContainer = ({type, no, dotw, startHour, endHour, courseName, groupId
                 >
                     <h2
                         onClick={() => {
-                            localStorage.setItem('current_group', String(groupId))
-                            localStorage.setItem('current_course', String(courseName).toUpperCase())
+                            localStorage.setItem('upos_current_group', String(groupId))
+                            localStorage.setItem('upos_current_course', String(courseName).toUpperCase())
                     }}
                         className='font-roboto font-[500]'>
                         &#x2022; {type}, <span className='font-[300]'>

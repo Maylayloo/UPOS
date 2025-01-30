@@ -12,21 +12,21 @@ export const dashboardContent = [
         icon: user,
         title: "moje dane",
         href: "dashboard/profile",
-        allowedRoles: ["student", "prof"],
+        allowedRoles: ["student", "professor"],
     },
     {
         leadingColor: "#077298",
         icon: schedule,
         title: "plan zajęć",
         href: "dashboard/schedule",
-        allowedRoles: ["student", "prof"],
+        allowedRoles: ["student", "professor"],
     },
     {
         leadingColor: "#969B00",
         icon: stats,
         title: "statystyki",
         href: "dashboard/statistics",
-        allowedRoles: ["student", "prof"],
+        allowedRoles: ["student", "professor"],
     },
     {
         leadingColor: "#8C0BA2",
@@ -40,7 +40,7 @@ export const dashboardContent = [
         icon: groups,
         title: "grupy",
         href: "dashboard/groups",
-        allowedRoles: ["student", "prof"],
+        allowedRoles: ["student", "professor"],
     },
     {
         leadingColor: "#951818",
