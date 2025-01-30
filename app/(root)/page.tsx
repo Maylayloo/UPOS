@@ -1,9 +1,21 @@
+'use client'
+
 import Hero from "@/app/(root)/(sections)/Hero";
 import Login from "@/app/(root)/(sections)/Login";
 import Onboarding from "@/app/(root)/(sections)/Onboarding";
 import BackgroundDecor from "@/components/subcomponents/BackgroundDecor";
+import {useEffect} from "react";
 
 const Root = () => {
+
+    useEffect(() => {
+        Object.keys(localStorage).forEach((key) => {
+            if (key.startsWith('upos_')) {
+                localStorage.removeItem(key);
+            }
+        });
+    }, []);
+
     return (
         <section className=''>
             <h1 className='text-[36px] font-outfit font-semibold'>
