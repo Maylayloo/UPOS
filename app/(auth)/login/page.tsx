@@ -145,7 +145,7 @@ const LoginPage = () => {
                                          className='mb-4 bg-[#28A745]'/>
                         </form>
                         <div className='flex gap-2'>
-                            <Link href='/dashboard'>
+                            <Link href=''>
                                 <LoginButton type='button' text="Zresetuj hasło" image={infoIMG} alt="login"
                                              className='bg-[#6C757D]'/>
                             </Link>
