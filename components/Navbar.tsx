@@ -6,6 +6,7 @@ import hamburger from "@/public/icons/hamburger.png"
 import close from "@/public/icons/close.png"
 import {useState} from "react";
 import {useUser} from "@/app/(context)/UserContext";
+import LogoutButton from "@/components/subcomponents/LogoutButton";
 
 const Navbar = () => {
 
@@ -30,10 +31,7 @@ const Navbar = () => {
                         {name}
                     </span>
 
-                    {/*TODO: make logout button work*/}
-                    <button className='mr-4 px-6 rounded-lg py-1 my-2 border border-[#9AD6D6] text-[#9AD6D6]'>
-                        WYLOGUJ
-                    </button>
+                    <LogoutButton/>
                 </h4>
             </div>
             <div className="flex-1 px-16 max-sm:px-8">
@@ -63,10 +61,7 @@ const Navbar = () => {
                     <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
                     <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
 
-                    // TODO: make logout button work
-                    <button className='px-10 rounded-lg py-3 border-2 border-[#9AD6D6] text-[#9AD6D6]'>
-                        WYLOGUJ
-                    </button>
+                    <LogoutButton/>
                 </div>
 
             )}
