@@ -19,8 +19,9 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
     // Funkcja do wysyłania POST
     const handleSubmit = async () => {
         try {
-            const response = await fetch("urlapi", {
+            const response = await fetch("http://localhost:8080/professors/loggedIn/grades", {
                 method: "POST",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
