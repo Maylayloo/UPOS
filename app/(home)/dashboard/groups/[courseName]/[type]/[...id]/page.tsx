@@ -5,42 +5,23 @@ import GroupInfoContainer from "@/components/subcomponents/GroupInfoContainer";
 import StudentInGroupContainer from "@/components/subcomponents/StudentInGroupContainer";
 
 import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png"
+import dawidIMG from "@/public/images/dawid.png";
 
 const Page = () => {
-
     const [isLoading, setIsLoading] = useState(true);
     const [currentGroup, setCurrentGroup] = useState<any>(null);
+    const [students, setStudents] = useState<any[]>([]); // 🆕 Nowy stan na studentów
 
     const currentGroupId = localStorage.getItem('upos_current_group');
     const currentCourseName = localStorage.getItem('upos_current_course');
 
-    // const fetchStudents = async () => {
-    //
-    //     const namesResponse = await fetch(`http://localhost:8080/students/namesAndSurnames`, {
-    //         method: "GET",
-    //         credentials: "include",
-    //         body: JSON.stringify({
-    //             ids: currentGroup.studentsIds,
-    //         })
-    //     });
-    //
-    //     if (!namesResponse.ok) {
-    //         throw new Error('Failed to fetch');
-    //     }
-    //
-    //     const data = await namesResponse.json();
-    //     console.log(data);
-    // };
-
-    // wait for currentGroupId, then start fetching data
     useEffect(() => {
         if (!currentGroupId) {
             setIsLoading(false);
             return;
         }
 
-        const fetchData = async () => {
+        const fetchGroupData = async () => {
             try {
                 const response = await fetch(`http://localhost:8080/groups/${currentGroupId}`, {
                     method: "GET",
@@ -50,34 +31,50 @@ const Page = () => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                localStorage.setItem(`upos_current_group_data`, JSON.stringify(data));
-                setCurrentGroup(data);  // Zapisz dane grupy w stanie
-                setIsLoading(false);  // Ustaw stan ładowania na false
+                localStorage.setItem('upos_current_group_data', JSON.stringify(data));
+                setCurrentGroup(data);
+                setIsLoading(false);
             } catch (err) {
-                console.error("Error fetching data:", err);
-                setIsLoading(false);  // Zakończ ładowanie w przypadku błędu
+                console.error("Error fetching group data:", err);
+                setIsLoading(false);
             }
         };
 
-        fetchData();
+        fetchGroupData();
     }, [currentGroupId]);
 
-    // checking if data is saved in localStorage
+    // fetching full names list by students' ids belong to specific group
     useEffect(() => {
-        const storedData = localStorage.getItem('upos_current_group_data');
-        if (storedData) {
-            setCurrentGroup(JSON.parse(storedData));
-            setIsLoading(false);
-        }
-    }, []);
+        if (!currentGroup || !currentGroup.studentsIds) return;
 
-    // Until data isn't fetched, don't load the component. Returning this instead:
+        const fetchStudents = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/students/namesAndSurnames`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ ids: currentGroup.studentsIds }),
+                    credentials: "include",
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                setStudents(data);
+            } catch (err) {
+                console.error("Error fetching students:", err);
+            }
+        };
+
+        fetchStudents();
+    }, [currentGroup]);
+
+
     if (isLoading || !currentGroup) {
         return <div>
-            <Image className=''
-                   src={dawidIMG}
-                   alt="LOADING"
-            />
+            <Image src={dawidIMG} alt="LOADING" />
         </div>;
     }
 
@@ -104,25 +101,6 @@ const Page = () => {
         },
     ];
 
-
-    const students = [
-        {
-            name: "Drillb Aby"
-        },
-        {
-            name: "Pedo Phile"
-        },
-        {
-            name: "Mr Beast"
-        },
-        {
-            name: "Coco Anus"
-        },
-        {
-            name: "Dominik Afgańczynski"
-        },
-    ];
-
     return (
         <div className='w-full flex justify-center flex-col items-center gap-8'>
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8'>
@@ -133,40 +111,30 @@ const Page = () => {
                             {currentGroup.type.toUpperCase()}, GRUPA NR {currentGroup.numberOfGroup}
                         </span>
                         <br />
-                        <span className='text-[0.85rem]'>
-                            Semestr zimowy 2024/2025
-                        </span>
+                        <span className='text-[0.85rem]'>Semestr zimowy 2024/2025</span>
                     </h3>
                 </div>
 
-                {
-                    groupData.map((group) => (
-                        <GroupInfoContainer
-                            key={group.title}
-                            title={group.title}
-                            content={group.content}
-                        />
-                    ))
-                }
-
+                {groupData.map((group) => (
+                    <GroupInfoContainer
+                        key={group.title}
+                        title={group.title}
+                        content={group.content} />
+                ))}
             </div>
-            <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8'>
+
+            <div className={`w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8 ${students.length > 0 ? "" : "hidden"}`}>
                 <div className='w-full bg-[#D9D9D9] rounded-t-xl text-center'>
-                    <h3 className='text-bg text-2xl tracking-wider font-outfit py-3'>
-                        LISTA STUDENTÓW
-                    </h3>
+                    <h3 className='text-bg text-2xl tracking-wider font-outfit py-3'>LISTA STUDENTÓW</h3>
                 </div>
 
                 {
                     students.map((student, index) => (
-                        <StudentInGroupContainer
-                            key={index}
-                            index={index + 1}
-                            name={student.name}
-                        />
-                    ))
-                }
-
+                    <StudentInGroupContainer
+                        key={index}
+                        index={index + 1}
+                        name={`${student.name} ${student.surname}`} />
+                ))}
             </div>
         </div>
     );
