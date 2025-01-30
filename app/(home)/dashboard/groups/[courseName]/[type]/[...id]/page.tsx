@@ -123,12 +123,13 @@ const Page = () => {
                 ))}
             </div>
 
-            <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8'>
+            <div className={`w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl pb-8 ${students.length > 0 ? "" : "hidden"}`}>
                 <div className='w-full bg-[#D9D9D9] rounded-t-xl text-center'>
                     <h3 className='text-bg text-2xl tracking-wider font-outfit py-3'>LISTA STUDENTÓW</h3>
                 </div>
 
-                {students.map((student, index) => (
+                {
+                    students.map((student, index) => (
                     <StudentInGroupContainer
                         key={index}
                         index={index + 1}
