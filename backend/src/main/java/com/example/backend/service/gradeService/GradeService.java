@@ -79,9 +79,8 @@ public class GradeService {
         return gradesInGroup.stream().filter(Grade::isNotPartial).findFirst().orElse(null);
     }
 
-
-
-
-
+    public Grade getNonPartialByStudentIdAndGroupId(Long studentid, Long groupid) {
+        return gradeRepository.findByGroupIdAndStudentId(groupid, studentid).stream().filter(Grade::isNotPartial).findFirst().orElse(null);
+    }
 }
 
