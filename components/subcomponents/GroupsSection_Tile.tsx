@@ -34,7 +34,6 @@ const daysTranslation = {
 
 const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
 
-    const [groups, setGroups] = useState<Groups[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -48,7 +47,6 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
-                setGroups(data)
                 console.log(`data for course ${courseId} `, data)
                 localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
             } catch (err) {
