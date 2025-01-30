@@ -1,5 +1,7 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import GroupContainer from "@/components/subcomponents/GroupContainer";
+import Image from "next/image";
+import dawidIMG from "@/public/images/dawid.png";
 
 interface groupTileInterface {
     name: string,
@@ -32,6 +34,9 @@ const daysTranslation = {
 
 const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
 
+    const [groups, setGroups] = useState<Groups[] | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -43,22 +48,34 @@ const GroupsSection_Tile = ({name, ects, courseId }: groupTileInterface) => {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const data = await response.json();
+                setGroups(data)
                 console.log(`data for course ${courseId} `, data)
                 localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
             } catch (err) {
                 console.error("Error fetching data:", err);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, [courseId]);
 
     const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
 
     const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
 
-    console.log(storedGroup)
 
+    if (loading) {
+        return (
+            <div>
+                <Image className=''
+                       src={dawidIMG}
+                       alt="LOADING"
+                />
+            </div>
+        );
+    }
     return (
         <div className='border-b border-b-[#DBE3D4] w-full px-8 py-5'>
             <h2 className='font-roboto font-[500] text-lg tracking-wide'>
