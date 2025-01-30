@@ -40,6 +40,7 @@ public class StudentService {
             Map<String,String> nameAndSurname=new HashMap<>();
             nameAndSurname.put("name",bunchOfusers.get(i).getName());
             nameAndSurname.put("surname",bunchOfusers.get(i).getSurname());
+            nameAndSurname.put("studentId",String.valueOf( bunchOfStudends.get(i).getStudentId()));
             result.add(nameAndSurname);
         }
         return result;
