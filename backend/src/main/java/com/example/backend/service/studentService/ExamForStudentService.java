@@ -1,5 +1,6 @@
 package com.example.backend.service.studentService;
 
+import com.example.backend.exception.StudentAccessException;
 import com.example.backend.model.Course;
 import com.example.backend.model.Exam;
 import com.example.backend.model.MajorGroup;
@@ -29,7 +30,7 @@ public class ExamForStudentService {
     public List<Exam> getAllExamsByLoggedInStudent() {
         Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
         if (loggedInStudent == null) {
-            throw new RuntimeException("No student is currently logged in");
+            throw new StudentAccessException("No student is currently logged in");
         }
 
         List<Course> studentCourses = courseRepository.findAll().stream()

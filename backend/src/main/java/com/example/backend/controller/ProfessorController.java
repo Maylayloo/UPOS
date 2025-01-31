@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/professors")
 public class ProfessorController {
+
     @Autowired
     private ProfessorService professorService;
     @Autowired
@@ -22,11 +23,11 @@ public class ProfessorController {
     @Autowired
     private ExamManagementForProfessorService examManagementForProfessorService;
 
-
     @GetMapping("/{id}/nameAndSurnameAndTitle")
     public ResponseEntity<ProfessorDTO>  getProfessorDTO(@PathVariable("id") Long id) {
         return new ResponseEntity<>(professorService.getProfessorDTOByProfessorId(id),HttpStatus.OK);
     }
+
     @GetMapping("/loggedIn/nameAndSurnameAndTitle")
     public ResponseEntity<ProfessorDTO>  getProfessorDTOForLoggedIn() {
         return new ResponseEntity<>(professorService.getProfessorDTOByLoggedIn(),HttpStatus.OK);
@@ -68,6 +69,7 @@ public class ProfessorController {
         examManagementForProfessorService.modifyExamById(exam.getExamId(),exam);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 
 }

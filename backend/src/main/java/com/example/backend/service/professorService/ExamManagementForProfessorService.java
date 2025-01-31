@@ -1,6 +1,8 @@
 package com.example.backend.service.professorService;
 
 import com.example.backend.dto.ExamDTO;
+import com.example.backend.exception.ProfessorAccessException;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.mapper.ExamMapper;
 import com.example.backend.model.Course;
 import com.example.backend.model.Exam;
@@ -26,7 +28,7 @@ public class ExamManagementForProfessorService {
 
     public void scheduleExam(Long courseId, Exam exam) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + courseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Course not found with ID: " + courseId));
         course.addExam(exam);
         courseRepository.save(course);
     }
@@ -38,7 +40,7 @@ public class ExamManagementForProfessorService {
 
     public void modifyExamById(Long examId, ExamDTO examDTO) {
         Exam existingExam = examRepository.findById(examId)
-                .orElseThrow(() -> new RuntimeException("Exam with ID " + examId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Exam with ID " + examId + " not found"));
 
         existingExam.setCourseId(examDTO.getCourseId());
         existingExam.setProfessorId(examDTO.getProfessorId());
@@ -50,7 +52,7 @@ public class ExamManagementForProfessorService {
 
     public void modifyExamById(Long examId, Exam updatedExam) {
         Exam existingExam = examRepository.findById(examId)
-                .orElseThrow(() -> new RuntimeException("Exam with ID " + examId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Exam with ID " + examId + " not found"));
 
         existingExam.setDate(updatedExam.getDate());
         existingExam.setPlace(updatedExam.getPlace());
@@ -64,7 +66,7 @@ public class ExamManagementForProfessorService {
     public List<Exam> getExamsByLoggedInProfessor() {
         Professor loggedInProfessor = professorAuthenticationService.getLoggedInProfessor();
         if (loggedInProfessor == null) {
-            throw new RuntimeException("No professor is currently logged in");
+            throw new ProfessorAccessException("No professor is currently logged in");
         }
 
         return examRepository.findByProfessorId(loggedInProfessor.getProfessorId());

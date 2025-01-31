@@ -1,5 +1,6 @@
 package com.example.backend.service.gradeService;
 
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.model.*;
 import com.example.backend.repository.FinalGradeRepository;
 import com.example.backend.repository.GradeRepository;
@@ -36,14 +37,14 @@ public class GradeService {
     public List<Grade> showGradesByGradeId(Long gradeId) {
         List<Grade> grades = gradeRepository.findByGradeId(gradeId);
         if (grades.isEmpty()) {
-            throw new RuntimeException("No grades found for gradeId: " + gradeId);
+            throw new ResourceNotFoundException("No grades found for gradeId: " + gradeId);
         }
         return grades;
     }
 
     public FinalGrade showFinalGradeByGradeId(Long finalGradeId) {
         return finalGradeRepository.findById(finalGradeId)
-                .orElseThrow(() -> new RuntimeException("Final Grade with ID " + finalGradeId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Final Grade with ID " + finalGradeId + " not found"));
     }
 
 
@@ -65,11 +66,11 @@ public class GradeService {
         Student loggedInStudent = studentAuthenticationService.getLoggedInStudent();
 
         if (loggedInStudent == null) {
-            throw new RuntimeException("No logged-in student found");
+            throw new ResourceNotFoundException("No logged-in student found");
         }
 
         return finalGradeRepository.findByStudentIdAndCourseId(loggedInStudent.getStudentId(), courseId)
-                .orElseThrow(() -> new RuntimeException("No final grade found for student ID "
+                .orElseThrow(() -> new ResourceNotFoundException("No final grade found for student ID "
                         + loggedInStudent.getStudentId() + " and course ID " + courseId));
     }
 
@@ -78,9 +79,8 @@ public class GradeService {
         return gradesInGroup.stream().filter(Grade::isNotPartial).findFirst().orElse(null);
     }
 
-
-
-
-
+    public Grade getNonPartialByStudentIdAndGroupId(Long studentid, Long groupid) {
+        return gradeRepository.findByGroupIdAndStudentId(groupid, studentid).stream().filter(Grade::isNotPartial).findFirst().orElse(null);
+    }
 }
 

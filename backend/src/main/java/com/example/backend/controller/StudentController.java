@@ -85,7 +85,10 @@ public class StudentController {
         return new ResponseEntity<>(gradeService.getNonPartialGradeByStudentAndGroupId(groupid),HttpStatus.OK);
     }
 
-
+    @GetMapping("/{studentid}/grades/NonPartial/{groupid}")
+    public ResponseEntity<Grade> getGradeForNonPartialByStudentIdAndGroupId(@PathVariable Long groupid,@PathVariable Long studentid ) {
+        return new ResponseEntity<>(gradeService.getNonPartialByStudentIdAndGroupId(studentid,groupid),HttpStatus.OK);
+   }
 
     
 
