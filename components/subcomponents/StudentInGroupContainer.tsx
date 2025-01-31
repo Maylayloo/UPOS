@@ -16,7 +16,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
     const [selectedGrade, setSelectedGrade] = useState(grades[0]);
     const [successfullyGraded, setSuccessfullyGraded] = useState(false);
 
-    // Funkcja do wysyłania POST
+    // grade student
     const handleSubmit = async () => {
         try {
             const response = await fetch("http://localhost:8080/professors/loggedIn/grades", {
@@ -37,9 +37,9 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            console.log("Ocena wysłana pomyślnie!");
-            setActiveGrade(false); // Ukryj select po zatwierdzeniu
+            setActiveGrade(false);
             setSuccessfullyGraded(true)
+
         } catch (error) {
             console.error("Błąd podczas wysyłania oceny:", error);
         }
@@ -91,11 +91,17 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                         >
                             ZATWIERDŹ
                         </button>
+                        <button
+                            onClick={() => {setActiveGrade(false)}}
+                            className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
+                        >
+                            ANULUJ
+                        </button>
                     </div>
                 )}
                 {
                     successfullyGraded && (
-                        <h1 className="text-lg  font-roboto text-green-400">
+                        <h1 className="text-lg font-roboto text-green-400">
                             Oceniono pomyślnie
                         </h1>
                     )
