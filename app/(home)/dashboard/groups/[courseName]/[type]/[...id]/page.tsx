@@ -3,9 +3,7 @@
 import React, { useState, useEffect } from "react";
 import GroupInfoContainer from "@/components/subcomponents/GroupInfoContainer";
 import StudentInGroupContainer from "@/components/subcomponents/StudentInGroupContainer";
-
-import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png";
+import Loading from "@/components/Loading";
 
 const Page = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -73,9 +71,7 @@ const Page = () => {
 
 
     if (isLoading || !currentGroup) {
-        return <div>
-            <Image src={dawidIMG} alt="LOADING" />
-        </div>;
+        return <Loading/>
     }
 
     const groupData = [
