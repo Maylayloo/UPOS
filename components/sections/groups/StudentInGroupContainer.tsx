@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Loading from "@/components/layout/Loading";
 import ManagingStudentButton from "@/components/utils/ManagingStudentButton";
+import {fetchGrade, gradeStudent} from "@/services/api/grade";
 
 interface Props {
     index: number;
@@ -24,89 +25,33 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
     const [currentGradeId, setCurrentGradeId] = useState("");
 
     useEffect(() => {
-
-        const fetchGrade = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/students/${studentId}/grades/NonPartial/${groupId}`, {
-                    method: 'GET',
-                    credentials: "include",
-                    });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const fetchedGrade = await response.json();
+        const loadGrade = async () => {
+            const fetchedGrade = await fetchGrade(studentId, groupId);
+            if (fetchedGrade) {
                 setCurrentGrade(fetchedGrade.value)
                 setCurrentGradeId(fetchedGrade.gradeId)
-
-                setAlreadyGraded(true);
-
-
-            } catch(err) {
-                console.log("prawdopodobnie nie znaleziono oceny", studentId)
-            } finally {
-                setLoading(false);
+                setAlreadyGraded(true)
             }
+            setLoading(false)
         }
-        fetchGrade();
-    }, [])
 
-
+        loadGrade();
+    })
 
     // grade student
-    const gradeStudent = async () => {
-        try {
-            const response = await fetch("http://localhost:8080/professors/loggedIn/grades", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    studentId: studentId,
-                    groupId: groupId,
-                    value: selectedGrade,
-                    isPartial: false,
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+    const postGrade = async (method: string) => {
+        console.log("wybrano metodę w postGrade", method)
+        const submitGrade = await gradeStudent(studentId, groupId, selectedGrade, currentGradeId, method);
+            if (submitGrade && method === 'POST') {
+                setActiveGrade(false);
+                setSuccessfullyGraded(true)
             }
-
-            setActiveGrade(false);
-            setSuccessfullyGraded(true)
-
-        } catch (error) {
-            console.error("Błąd podczas wysyłania oceny:", error);
-        }
-    };
-
-    const editStudentGrade = async () => {
-        try {
-            const response = await fetch(`http://localhost:8080/professors/loggedIn/grades/${currentGradeId}`, {
-                method: "PUT",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    studentId: studentId,
-                    groupId: groupId,
-                    value: selectedGrade,
-                    isPartial: false,
-                })
-            })
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            if (submitGrade && method === 'PUT') {
+                setActiveGrade(false);
+                setAlreadyGraded(false);
+                setSuccessfullyGraded(true)
             }
-            setActiveGrade(false);
-            setAlreadyGraded(false);
-            setSuccessfullyGraded(true)
-        } catch(err) {
-            console.error("Błąd podczas edycji oceny:", err);
         }
-    }
 
     if (loading) {
      return (
@@ -129,7 +74,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
             <h2>
                 {index}. {name}
             </h2>
-            <div>
+            <div className='flex items-center relative'>
                 { alreadyGraded && !activeGrade && (
                     <div className='flex items-center gap-4 -ml-6 font-roboto font-[400]'>
                         {currentGrade}
@@ -166,15 +111,17 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                             ))}
                         </select>
                         { alreadyGraded && (
+                            // for editing grade
                             <ManagingStudentButton
-                                onClick={editStudentGrade}
+                                onClick={() => postGrade("PUT")}
                                 content='ZATWIERDŹ'
                             />
                         )}
                         {
+                            // grading for first time
                             !alreadyGraded && (
                                 <ManagingStudentButton
-                                    onClick={gradeStudent}
+                                    onClick={() => postGrade("POST")}
                                     content='ZATWIERDŹ'
                                 />
                             )
@@ -188,7 +135,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 )}
                 {
                     successfullyGraded && (
-                        <h1 className="text-lg font-roboto text-green-400">
+                        <h1 className="text-lg font-roboto text-green-400 ml-1">
                             Oceniono pomyślnie
                         </h1>
                     )
