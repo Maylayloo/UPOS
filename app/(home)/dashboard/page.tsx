@@ -21,6 +21,7 @@ const Page = () => {
                         key={tile.title}
                         href={tile.href}
                         icon={tile.icon}
+                        altIcon={tile.altIcon}
                         title={tile.title}
                         role={role}
                         allowedRoles={tile.allowedRoles}
