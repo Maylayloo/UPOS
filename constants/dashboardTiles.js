@@ -5,6 +5,7 @@ import grades from "@/public/icons/grade.png"
 import groups from "@/public/icons/groups.png"
 import roulette from "@/public/icons/roulette.png"
 import exams from "@/public/icons/exams.png"
+import altExams from "@/public/icons/altExams.png"
 
 export const dashboardContent = [
     {
@@ -52,9 +53,10 @@ export const dashboardContent = [
     {
         leadingColor: "#ee7430",
         icon: exams,
+        altIcon: altExams,
         title: "Egzaminy",
         href: "dashboard/exams",
-        allowedRoles: ["student"],
+        allowedRoles: ["student", "professor"],
     },
 
 ]
