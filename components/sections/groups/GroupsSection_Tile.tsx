@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import GroupContainer from "@/components/subcomponents/GroupContainer";
-import Loading from "@/components/Loading";
+import GroupContainer from "@/components/sections/groups/GroupContainer";
+import Loading from "@/components/layout/Loading";
 
 interface groupTileInterface {
     name: string,

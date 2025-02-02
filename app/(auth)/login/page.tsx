@@ -6,8 +6,8 @@ import userIMG from "@/public/icons/user.png"
 import passIMG from "@/public/icons/padlock.png"
 import logIMG from "@/public/icons/log-in.png"
 import infoIMG from "@/public/icons/info.png"
-import LoginInput from "@/components/subcomponents/LoginInput";
-import LoginButton from "@/components/subcomponents/LoginButton";
+import LoginInput from "@/components/utils/auth/LoginInput";
+import LoginButton from "@/components/utils/auth/LoginButton";
 
 import {FormEvent} from 'react'
 import {useRouter} from "next/navigation";

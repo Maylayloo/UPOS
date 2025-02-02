@@ -1,8 +1,7 @@
 'use client'
 
 import React from 'react';
-import ProfileField from "@/components/subcomponents/ProfileField";
-import {useUser} from "@/app/(context)/UserContext";
+import ProfileField from "@/components/sections/profile/ProfileField";
 
 const ProfilePage = () => {
 

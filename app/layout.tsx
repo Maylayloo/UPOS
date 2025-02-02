@@ -2,10 +2,10 @@ import "./globals.css";
 
 import type {Metadata} from "next";
 import React from "react";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 
 import { Outfit, Roboto } from "next/font/google"
-import DynamicBody from "@/components/DynamicBody";
+import DynamicBody from "@/components/layout/DynamicBody";
 import {UserProvider} from "@/app/(context)/UserContext";
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });

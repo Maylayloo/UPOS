@@ -3,7 +3,7 @@
 import Hero from "@/app/(root)/(sections)/Hero";
 import Login from "@/app/(root)/(sections)/Login";
 import Onboarding from "@/app/(root)/(sections)/Onboarding";
-import BackgroundDecor from "@/components/subcomponents/BackgroundDecor";
+import BackgroundDecor from "@/components/utils/BackgroundDecor";
 import {useEffect} from "react";
 
 const Root = () => {

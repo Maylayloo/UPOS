@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import GradeTile from "@/components/subcomponents/GradeTile";
+import GradeTile from "@/components/sections/grade/GradeTile";
 
 const GradesPage = () => {
 

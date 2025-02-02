@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import GroupInfoContainer from "@/components/subcomponents/GroupInfoContainer";
-import StudentInGroupContainer from "@/components/subcomponents/StudentInGroupContainer";
-import Loading from "@/components/Loading";
+import GroupInfoContainer from "@/components/sections/groups/GroupInfoContainer";
+import StudentInGroupContainer from "@/components/sections/groups/StudentInGroupContainer";
+import Loading from "@/components/layout/Loading";
 
 const Page = () => {
     const [isLoading, setIsLoading] = useState(true);

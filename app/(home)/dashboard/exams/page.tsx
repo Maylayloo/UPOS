@@ -1,8 +1,8 @@
 'use client'
 
-import ExamTile from "@/components/subcomponents/ExamTile";
+import ExamTile from "@/components/sections/exams/ExamTile";
 import React, {useEffect, useState} from "react";
-import Loading from "@/components/Loading";
+import Loading from "@/components/layout/Loading";
 
 const Page = () => {
 

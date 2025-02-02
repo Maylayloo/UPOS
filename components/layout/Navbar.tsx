@@ -1,12 +1,12 @@
 'use client'
 
-import NavLink from "@/components/subcomponents/NavLink";
+import NavLink from "@/components/layout/NavLink";
 import Image from "next/image";
 import hamburger from "@/public/icons/hamburger.png"
 import close from "@/public/icons/close.png"
 import {useState} from "react";
 import {useUser} from "@/app/(context)/UserContext";
-import LogoutButton from "@/components/subcomponents/LogoutButton";
+import LogoutButton from "@/components/utils/auth/LogoutButton";
 
 const Navbar = () => {
 

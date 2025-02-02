@@ -1,7 +1,7 @@
 'use client'
 
 import {dashboardContent} from "@/constants/dashboardTiles";
-import DashboardTile from "@/components/subcomponents/DashboardTile";
+import DashboardTile from "@/components/sections/dashboard/DashboardTile";
 import React from "react";
 import {useUser} from "@/app/(context)/UserContext";
 

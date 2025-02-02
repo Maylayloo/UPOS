@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Loading from "@/components/Loading";
-import ManagingStudentButton from "@/components/subcomponents/ManagingStudentButton";
+import Loading from "@/components/layout/Loading";
+import ManagingStudentButton from "@/components/utils/ManagingStudentButton";
 
 interface Props {
     index: number;
