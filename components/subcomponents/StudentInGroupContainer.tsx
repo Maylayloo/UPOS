@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Loading from "@/components/Loading";
+import ManagingStudentButton from "@/components/subcomponents/ManagingStudentButton";
 
 interface Props {
     index: number;
@@ -114,12 +115,10 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 }
 
                 {!activeGrade && !successfullyGraded && !alreadyGraded && (
-                    <button
+                    <ManagingStudentButton
                         onClick={() => setActiveGrade(true)}
-                        className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
-                    >
-                        OCEŃ
-                    </button>
+                        content="OCEŃ"
+                    />
                 )}
 
                 {activeGrade && (
@@ -136,18 +135,14 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                                 </option>
                             ))}
                         </select>
-                        <button
+                        <ManagingStudentButton
                             onClick={handleSubmit}
-                            className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
-                        >
-                            ZATWIERDŹ
-                        </button>
-                        <button
+                            content='ZATWIERDŹ'
+                        />
+                        <ManagingStudentButton
                             onClick={() => {setActiveGrade(false)}}
-                            className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
-                        >
-                            ANULUJ
-                        </button>
+                            content="ANULUJ"
+                        />
                     </div>
                 )}
                 {
