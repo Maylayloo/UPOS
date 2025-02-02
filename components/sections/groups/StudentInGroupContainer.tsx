@@ -40,8 +40,8 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
 
     // grade student
     const postGrade = async (method: string) => {
-        console.log("wybrano metodę w postGrade", method)
         const submitGrade = await gradeStudent(studentId, groupId, selectedGrade, currentGradeId, method);
+
             if (submitGrade && method === 'POST') {
                 setActiveGrade(false);
                 setSuccessfullyGraded(true)
@@ -58,6 +58,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
          <Loading/>
      )
     }
+
     if (role === "student") {
         return (
             <div className="border-b border-b-[#DBE3D4] w-full font-roboto tracking-wide font-[300] py-1 flex justify-center">
@@ -80,7 +81,8 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                         {currentGrade}
                         <ManagingStudentButton
                             onClick={() => {
-                                setActiveGrade(true)
+                                setActiveGrade(true);
+                                setSuccessfullyGraded(false);
                             }}
                             content="ZMIEŃ"/>
                     </div>
@@ -135,7 +137,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 )}
                 {
                     successfullyGraded && (
-                        <h1 className="text-lg font-roboto text-green-400 ml-1">
+                        <h1 className="text-lg font-roboto text-green-400 ml-2">
                             Oceniono pomyślnie
                         </h1>
                     )
