@@ -21,6 +21,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
     const [alreadyGraded, setAlreadyGraded] = useState(false);
     const [loading, setLoading] = useState(true);
     let [currentGrade, setCurrentGrade] = useState("");
+    const [currentGradeId, setCurrentGradeId] = useState("");
 
     useEffect(() => {
 
@@ -35,7 +36,10 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 }
                 const fetchedGrade = await response.json();
                 setCurrentGrade(fetchedGrade.value)
+                setCurrentGradeId(fetchedGrade.gradeId)
+
                 setAlreadyGraded(true);
+
 
             } catch(err) {
                 console.log("prawdopodobnie nie znaleziono oceny", studentId)
@@ -49,7 +53,7 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
 
 
     // grade student
-    const handleSubmit = async () => {
+    const gradeStudent = async () => {
         try {
             const response = await fetch("http://localhost:8080/professors/loggedIn/grades", {
                 method: "POST",
@@ -77,6 +81,33 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
         }
     };
 
+    const editStudentGrade = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/professors/loggedIn/grades/${currentGradeId}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    studentId: studentId,
+                    groupId: groupId,
+                    value: selectedGrade,
+                    isPartial: false,
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            setActiveGrade(false);
+            setAlreadyGraded(false);
+            setSuccessfullyGraded(true)
+        } catch(err) {
+            console.error("Błąd podczas edycji oceny:", err);
+        }
+    }
+
     if (loading) {
      return (
          <Loading/>
@@ -99,15 +130,14 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                 {index}. {name}
             </h2>
             <div>
-                { alreadyGraded && (
+                { alreadyGraded && !activeGrade && (
                     <div className='flex items-center gap-4 -ml-6 font-roboto font-[400]'>
                         {currentGrade}
-                        <button
-                            onClick={() => {}}
-                            className="bg-[#DBE3D4] text-bg font-[500] font-roboto my-1 px-3 rounded-xl hover:bg-bg hover:text-[#DBE3D4] border-2 border-bg hover:border-[#DBE3D4]"
-                        >
-                            ZMIEŃ
-                        </button>
+                        <ManagingStudentButton
+                            onClick={() => {
+                                setActiveGrade(true)
+                            }}
+                            content="ZMIEŃ"/>
                     </div>
 
                 )
@@ -135,10 +165,21 @@ const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
                                 </option>
                             ))}
                         </select>
-                        <ManagingStudentButton
-                            onClick={handleSubmit}
-                            content='ZATWIERDŹ'
-                        />
+                        { alreadyGraded && (
+                            <ManagingStudentButton
+                                onClick={editStudentGrade}
+                                content='ZATWIERDŹ'
+                            />
+                        )}
+                        {
+                            !alreadyGraded && (
+                                <ManagingStudentButton
+                                    onClick={gradeStudent}
+                                    content='ZATWIERDŹ'
+                                />
+                            )
+                        }
+
                         <ManagingStudentButton
                             onClick={() => {setActiveGrade(false)}}
                             content="ANULUJ"
