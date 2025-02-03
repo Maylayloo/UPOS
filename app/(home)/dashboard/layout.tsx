@@ -24,6 +24,7 @@ const DashboardLayout = ({children,}: {
             "/dashboard/course-management": "przedmioty",
             "/dashboard/course-management/create": "stwórz przedmiot",
             "/dashboard/course-management/manage": "zarządzaj",
+            "/dashboard/course-management/create/success": "Gratulacje!",
         }
 
         const displayTitle =
