@@ -61,24 +61,13 @@ const LoginPage = () => {
                     if (!response.ok) {
                         throw new Error("Błąd podczas pobierania danych");
                     }
-                    const response2 = await fetch("http://localhost:8080/courses/loggedIn", {
-                        method: "GET",
-                        credentials: "include"
-                    })
-                    if (!response2.ok) {
-                        throw new Error("Błąd podczas pobierania danych")
-                    }
-
 
                     const data = await response.json();
-                    const coursesData = await response2.json();
                     // save data into 'user'
                     setUser(data);
 
                     // save user data to localStorage
                     localStorage.setItem('upos_user', JSON.stringify(data));
-                    localStorage.setItem('upos_courses', JSON.stringify(coursesData));
-
 
                     if (data.role.toLowerCase() === "professor") {
                         const response3 = await fetch("http://localhost:8080/professors/loggedIn/nameAndSurnameAndTitle", {
@@ -90,6 +79,19 @@ const LoginPage = () => {
                         }
                         const profData = await response3.json();
                         localStorage.setItem('upos_prof_title', JSON.stringify(profData.title));
+                    }
+                    if (data.role.toLowerCase() !== "admin") {
+                        const response2 = await fetch("http://localhost:8080/courses/loggedIn", {
+                            method: "GET",
+                            credentials: "include"
+                        })
+                        if (!response2.ok) {
+                            throw new Error("Błąd podczas pobierania danych")
+                        }
+                        const coursesData = await response2.json();
+                        localStorage.setItem('upos_courses', JSON.stringify(coursesData));
+
+
                     }
                 } catch (error) {
                     console.error("Wystąpił błąd:", error);
