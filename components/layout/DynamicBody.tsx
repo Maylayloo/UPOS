@@ -16,6 +16,7 @@ const DynamicBody = ({children}: {children: React.ReactNode }) => {
         "/dashboard/groups": "bg-gradient-to-t from-[#8a8a8a] to-bg to-[85%]",
         "/dashboard/roulette": "bg-gradient-to-t from-[#4D0F10] to-bg to-[85%]",
         "/dashboard/exams": "bg-gradient-to-t from-[#ee7430] to-bg to-[85%]",
+        "/dashboard/course-management": "bg-gradient-to-t from-[#3b9ead] to-bg to-[85%]",
     }
 
     const bodyColor = bodyThemes[path] || "bg-bg"
