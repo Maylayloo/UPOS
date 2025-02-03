@@ -57,6 +57,8 @@ public class CourseManagementForAdminService {
             throw new ResourceNotFoundException("Course with ID " + courseId + " not found.");
         }
 
+        majorGroupRepository.deleteByCourseId(courseId);
+
         removeCourseReferences(courseId);
 
         courseRepository.deleteById(courseId);
