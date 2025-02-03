@@ -4,7 +4,9 @@ import com.example.backend.dto.ProfessorDTO;
 
 public class ProfessorForAdminWrapperDTO {
    private Long professorId;
-    private ProfessorDTO professorDTO;
+   private String name;
+   private String surname;
+   private String title;
 
     public Long getProfessorId() {
         return professorId;
@@ -14,11 +16,27 @@ public class ProfessorForAdminWrapperDTO {
         this.professorId = professorId;
     }
 
-    public ProfessorDTO getProfessorDTO() {
-        return professorDTO;
+    public String getName() {
+        return name;
     }
 
-    public void setProfessorDTO(ProfessorDTO professorDTO) {
-        this.professorDTO = professorDTO;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

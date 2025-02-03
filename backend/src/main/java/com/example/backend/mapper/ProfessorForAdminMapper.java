@@ -9,12 +9,10 @@ public class ProfessorForAdminMapper {
     public static ProfessorForAdminWrapperDTO toDTO(Professor professor, MyUser myuser)
     {
        ProfessorForAdminWrapperDTO dto = new ProfessorForAdminWrapperDTO();
-       ProfessorDTO professorDTO = new ProfessorDTO();
-       dto.setProfessorDTO(professorDTO);
-       dto.getProfessorDTO().setTitle(professor.getTitle());
-       dto.getProfessorDTO().setSurname(myuser.getSurname());
-       dto.getProfessorDTO().setName(myuser.getName());
+       dto.setName(myuser.getName());
+       dto.setSurname(myuser.getSurname());
        dto.setProfessorId(professor.getProfessorId());
+       dto.setTitle(professor.getTitle());
        return dto;
     }
 }
