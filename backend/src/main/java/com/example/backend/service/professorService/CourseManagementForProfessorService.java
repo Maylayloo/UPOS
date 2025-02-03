@@ -88,4 +88,7 @@ public class CourseManagementForProfessorService {
     }
 
 
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
+    }
 }

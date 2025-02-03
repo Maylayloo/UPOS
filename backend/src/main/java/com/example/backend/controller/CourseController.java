@@ -34,4 +34,9 @@ public class CourseController {
         }
 
     }
+
+    @GetMapping("/")
+    public ResponseEntity<?> getAllCourses() {
+        return new ResponseEntity<>(courseManagementForProfessorService.getAllCourses(),HttpStatus.OK);
+    }
 }
