@@ -7,8 +7,10 @@ import com.example.backend.mapper.CourseMapper;
 import com.example.backend.mapper.GroupMapper;
 import com.example.backend.model.Course;
 import com.example.backend.model.MajorGroup;
+import com.example.backend.model.Student;
 import com.example.backend.repository.CourseRepository;
 import com.example.backend.repository.MajorGroupRepository;
+import com.example.backend.repository.StudentRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import jakarta.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseManagementForAdminService {
@@ -26,6 +29,8 @@ public class CourseManagementForAdminService {
     private CourseRepository courseRepository;
     @Autowired
     private MajorGroupRepository majorGroupRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
 
     public void createCourse(Course course) {
@@ -58,8 +63,16 @@ public class CourseManagementForAdminService {
     }
 
    public void createCourse(CourseDTO courseDTO){
-        Course course = new Course();
-        course = CourseMapper.toModel(courseDTO);
+        Course course = CourseMapper.toModel(courseDTO);
+
+       List<Student> courseStudents = studentRepository.findStudentsBySemesterAndMajor( Integer.parseInt(courseDTO.getSemester()), courseDTO.getMajor());
+
+       List<Long> studentIds = courseStudents.stream()
+               .map(Student::getStudentId)
+               .collect(Collectors.toList());
+
+       course.setStudentsIds(studentIds);
+
         courseRepository.save(course);
    }
 
