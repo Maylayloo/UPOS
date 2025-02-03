@@ -39,6 +39,10 @@ public class ProfessorController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+    @GetMapping("/")
+    public ResponseEntity<?> getAllProfessors(){
+        return new ResponseEntity<>(professorService.getAll(),HttpStatus.OK);
+    }
 
     @PutMapping("/loggedIn/grades/{id}")
     public ResponseEntity<?> updateGradeToStudent( @PathVariable Long id, @RequestBody GradeRequestDTO gradeRequestDTO) {

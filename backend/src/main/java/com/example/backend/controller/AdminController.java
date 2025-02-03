@@ -70,5 +70,9 @@ public class AdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+   @GetMapping("/majors")
+   public ResponseEntity<?> getAllMajors() {
+        return new ResponseEntity<>(courseManagementForAdminService.getAllMajors(), HttpStatus.OK);
+   }
 
 }

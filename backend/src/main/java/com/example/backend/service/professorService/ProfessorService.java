@@ -10,6 +10,8 @@ import com.example.backend.service.userService.UserDataManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfessorService {
     @Autowired
@@ -34,4 +36,7 @@ public class ProfessorService {
     }
 
 
+    public List<Professor> getAll() {
+        return professorRepository.findAll();
+    }
 }

@@ -17,7 +17,11 @@ import org.springframework.stereotype.Service;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,6 +89,17 @@ public class CourseManagementForAdminService {
 
     public void deleteGroup(Long id) {
        majorGroupRepository.deleteById(id);
+
+    }
+
+    public List<String> getAllMajors(){
+        List<Course>courses = courseRepository.findAll();
+        Set<String> majors =new HashSet<>();
+       for(Course course:courses){
+           majors.add(course.getMajor());
+       }
+      return new ArrayList<>(majors);
+
 
     }
 }
