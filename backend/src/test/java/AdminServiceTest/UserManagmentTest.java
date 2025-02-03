@@ -4,6 +4,7 @@ import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import com.example.backend.service.adminService.UserManagementForAdminService;
 import com.example.backend.service.professorService.ProfessorCleanupService;
+import com.example.backend.service.professorService.ProfessorService;
 import com.example.backend.service.studentService.StudentCleanupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,10 +12,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UserManagementForAdminServiceTest {
@@ -33,6 +35,11 @@ class UserManagementForAdminServiceTest {
 
     @Mock
     private ProfessorRepository professorRepository;
+
+    @Mock
+    private CourseRepository courseRepository;
+
+    @Mock MajorGroupRepository majorGroupRepository;
 
     @BeforeEach
     void setUp() {
@@ -113,12 +120,29 @@ class UserManagementForAdminServiceTest {
     void testKillStudent_Success() {
         // Given
         Long studentId = 1L;
+
+        Course course1 = new Course(1L, "Mathematics", 5, 101L, "3", "CS", new ArrayList<>(List.of(1L, 2L, 3L)));
+        Course course2 = new Course(2L, "Physics", 4, 102L, "3", "CS", new ArrayList<>(List.of(1L, 4L, 5L)));
+
+        MajorGroup group1 = new MajorGroup("Lab", 1, DayOfTheWeek.MONDAY, LocalTime.of(8, 0), LocalTime.of(10, 0),
+                "Room 101", 30, new ArrayList<>(List.of(1L, 6L, 7L)));
+
         when(studentRepository.existsById(studentId)).thenReturn(true);
+        when(courseRepository.findCoursesByStudentId(studentId)).thenReturn(List.of(course1, course2));
+        when(majorGroupRepository.findMajorGroupsByStudentId(studentId)).thenReturn(List.of(group1));
 
         // When
         userManagementForAdminService.killStudent(studentId);
 
         // Then
+        assertFalse(course1.getStudentsIds().contains(studentId));
+        assertFalse(course2.getStudentsIds().contains(studentId));
+        verify(courseRepository, times(1)).save(course1);
+        verify(courseRepository, times(1)).save(course2);
+
+        assertFalse(group1.getStudentsIds().contains(studentId));
+        verify(majorGroupRepository, times(1)).save(group1);
+
         verify(studentCleanupService, times(1)).removeStudentReferences(studentId);
         verify(studentRepository, times(1)).deleteById(studentId);
     }
@@ -138,5 +162,11 @@ class UserManagementForAdminServiceTest {
 
         verify(studentCleanupService, never()).removeStudentReferences(anyLong());
         verify(studentRepository, never()).deleteById(anyLong());
+
+
+        verify(courseRepository, never()).findCoursesByStudentId(anyLong());
+        verify(majorGroupRepository, never()).findMajorGroupsByStudentId(anyLong());
+        verify(courseRepository, never()).save(any(Course.class));
+        verify(majorGroupRepository, never()).save(any(MajorGroup.class));
     }
 }
