@@ -1,12 +1,12 @@
 'use client'
 
-import NavLink from "@/components/subcomponents/NavLink";
+import NavLink from "@/components/layout/NavLink";
 import Image from "next/image";
 import hamburger from "@/public/icons/hamburger.png"
 import close from "@/public/icons/close.png"
 import {useState} from "react";
 import {useUser} from "@/app/(context)/UserContext";
-import LogoutButton from "@/components/subcomponents/LogoutButton";
+import LogoutButton from "@/components/utils/auth/LogoutButton";
 
 const Navbar = () => {
 
@@ -41,8 +41,8 @@ const Navbar = () => {
             </div>
             <div className='flex-[2] flex items-center justify-evenly px-12 max-lg:gap-6 max-sm:hidden'>
                 <NavLink href='/dashboard' content='MÓJ UPOS'></NavLink>
-                <NavLink href='//' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
-                <NavLink href='//' content='DLA WSZYSTKICH'></NavLink>
+                <NavLink href='/not-done-yet' content={`${role == "student" ? "DLA STUDENTA" : "DLA PRACOWNIKA"}`}/>
+                <NavLink href='/not-done-yet' content='DLA WSZYSTKICH'></NavLink>
             </div>
             <div className='sm:hidden flex-1 px-12'>
                 <button className='float-end' onClick={() => setActive(!active)}>

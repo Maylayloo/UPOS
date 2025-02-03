@@ -1,13 +1,11 @@
 'use client'
 
-import ExamTile from "@/components/subcomponents/ExamTile";
+import ExamTile from "@/components/sections/exams/ExamTile";
 import React, {useEffect, useState} from "react";
-import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png";
+import Loading from "@/components/layout/Loading";
+import {fetchExams} from "@/services/api/exam";
 
 const Page = () => {
-
-    const [loading, setLoading] = useState<boolean>(true);
 
     interface Exam {
         examId: number,
@@ -19,46 +17,28 @@ const Page = () => {
         startOfExam: string,
     }
 
+    const [loading, setLoading] = useState(true);
+    const [exams, setExams] = useState<Exam[]>([]);
+    const storedUser = JSON.parse(localStorage.getItem("upos_user") || "{}");
+    const role = storedUser.role.toLowerCase();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/students/exams`, {
-                    method: "GET",
-                    credentials: "include",
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-
-                // save data in localStorage
-                localStorage.setItem(`upos_exams`, JSON.stringify(data));
-
-            } catch (err) {
-                console.error("Error fetching data:", err);
-            } finally {
-                setLoading(false);
+        const loadExams = async () => {
+            const fetchedExams = await fetchExams(role);
+            if (fetchedExams) {
+                setExams(fetchedExams);
             }
-        };
-        fetchData();
-    }, []);
+            setLoading(false);
+        }
 
-    const exams = JSON.parse(localStorage.getItem(`upos_exams`) || '[]');
-
+        loadExams();
+    }, [])
 
     if (loading) {
         return (
-            <div>
-                <Image className=''
-                       src={dawidIMG}
-                       alt="LOADING"
-                />
-            </div>
+           <Loading/>
         )
     }
-
 
     return (
         <div className='flex justify-center gap-8 flex-wrap'>

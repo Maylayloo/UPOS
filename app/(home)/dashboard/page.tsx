@@ -1,7 +1,7 @@
 'use client'
 
 import {dashboardContent} from "@/constants/dashboardTiles";
-import DashboardTile from "@/components/subcomponents/DashboardTile";
+import DashboardTile from "@/components/sections/dashboard/DashboardTile";
 import React from "react";
 import {useUser} from "@/app/(context)/UserContext";
 
@@ -21,6 +21,7 @@ const Page = () => {
                         key={tile.title}
                         href={tile.href}
                         icon={tile.icon}
+                        altIcon={tile.altIcon}
                         title={tile.title}
                         role={role}
                         allowedRoles={tile.allowedRoles}

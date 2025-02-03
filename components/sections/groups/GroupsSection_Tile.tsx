@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import GroupContainer from "@/components/subcomponents/GroupContainer";
-import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png";
+import GroupContainer from "@/components/sections/groups/GroupContainer";
+import Loading from "@/components/layout/Loading";
 
 interface groupTileInterface {
     name: string,
@@ -70,12 +69,7 @@ const GroupsSection_Tile = ({name, ects, courseId, major}: groupTileInterface) =
 
     if (loading) {
         return (
-            <div>
-                <Image className=''
-                       src={dawidIMG}
-                       alt="LOADING"
-                />
-            </div>
+            <Loading/>
         );
     }
 

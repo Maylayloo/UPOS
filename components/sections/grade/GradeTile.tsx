@@ -1,7 +1,6 @@
-import GradeContainer from "@/components/subcomponents/GradeContainer";
+import GradeContainer from "@/components/sections/grade/GradeContainer";
 import React, {useEffect, useState} from "react";
-import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png";
+import Loading from "@/components/layout/Loading";
 
 interface props {
     courseName: string,
@@ -55,12 +54,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
 
     if (loading) {
         return (
-            <div>
-                <Image className=''
-                       src={dawidIMG}
-                       alt="LOADING"
-                />
-            </div>
+            <Loading/>
         )
     }
 

@@ -1,5 +1,5 @@
 import {footerContent} from "@/constants";
-import FooterDiv from "@/components/subcomponents/FooterDiv";
+import FooterDiv from "@/components/layout/FooterDiv";
 
 const Footer = () => {
     return (

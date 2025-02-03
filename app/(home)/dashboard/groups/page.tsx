@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import GroupsSection_Tile from "@/components/subcomponents/GroupsSection_Tile";
+import GroupsSection_Tile from "@/components/sections/groups/GroupsSection_Tile";
 
 const GroupsPage = () => {
 

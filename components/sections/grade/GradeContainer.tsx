@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import Image from "next/image";
-import dawidIMG from "@/public/images/dawid.png";
+import Loading from "@/components/layout/Loading";
 
 interface props {
     type: string,
@@ -48,12 +47,7 @@ const GradeContainer = ({type, groupId}: props) => {
 
     if (loading) {
         return (
-            <div>
-                <Image className=''
-                       src={dawidIMG}
-                       alt="LOADING"
-                />
-            </div>
+            <Loading/>
         )
     }
 

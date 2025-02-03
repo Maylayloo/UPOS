@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import {usePathname} from "next/navigation";
 
 const HomeLayout = ({children, }: {children: React.ReactNode}) => {
