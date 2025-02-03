@@ -21,9 +21,13 @@ const DashboardLayout = ({children,}: {
             "/dashboard/groups": "grupy zajęciowe",
             "/dashboard/roulette": "ruletka",
             "/dashboard/exams": "egzaminy",
+            "/dashboard/course-management": "przedmioty",
+            "/dashboard/course-management/create": "stwórz przedmiot",
+            "/dashboard/course-management/manage": "zarządzaj",
         }
 
-        const displayTitle = path.startsWith("/dashboard/groups/") ? "grupy zajęciowe" : titles[path] || "panel";
+        const displayTitle =
+            path.startsWith("/dashboard/groups/") ? "grupy zajęciowe" : titles[path] || "panel";
 
     return (
         <div className='flex flex-col items-center relative'>
