@@ -22,10 +22,12 @@ public class ProfessorCleanupService {
 
         // for each table set their professor_id = null
         for (String table : tables) {
-            String query = "UPDATE " + table + " SET professor_id = NULL WHERE professor_id = :id";
-            entityManager.createNativeQuery(query)
-                    .setParameter("id", professorId)
-                    .executeUpdate();
+            if(!table.equalsIgnoreCase("professor")) {
+                String query = "UPDATE " + table + " SET professor_id = NULL WHERE professor_id = :id";
+                entityManager.createNativeQuery(query)
+                        .setParameter("id", professorId)
+                        .executeUpdate();
+            }
         }
     }
 }
