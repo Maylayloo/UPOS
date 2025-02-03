@@ -20,10 +20,12 @@ public class StudentCleanupService {
                 .getResultList();
 
         for (String table : tables) {
-            String query = "UPDATE " + table + " SET student_id = NULL WHERE student_id = :id";
-            entityManager.createNativeQuery(query)
-                    .setParameter("id", studentId)
-                    .executeUpdate();
+            if (!table.equalsIgnoreCase("student")) {
+                String query = "UPDATE " + table + " SET student_id = NULL WHERE student_id = :id";
+                entityManager.createNativeQuery(query)
+                        .setParameter("id", studentId)
+                        .executeUpdate();
+            }
         }
     }
 }

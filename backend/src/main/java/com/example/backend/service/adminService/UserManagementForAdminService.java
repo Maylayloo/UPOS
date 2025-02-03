@@ -8,17 +8,16 @@ import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.mapper.MyUserMapper;
 import com.example.backend.mapper.ProfessorMapper;
 import com.example.backend.mapper.StudentMapper;
-import com.example.backend.model.MyUser;
-import com.example.backend.model.Professor;
-import com.example.backend.model.Student;
-import com.example.backend.repository.MyUserRepository;
-import com.example.backend.repository.ProfessorRepository;
-import com.example.backend.repository.StudentRepository;
+import com.example.backend.model.*;
+import com.example.backend.repository.*;
 import com.example.backend.service.professorService.ProfessorCleanupService;
+import com.example.backend.service.professorService.ProfessorService;
 import com.example.backend.service.studentService.StudentCleanupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UserManagementForAdminService {
@@ -32,6 +31,18 @@ public class UserManagementForAdminService {
 
     @Autowired
     private ProfessorCleanupService professorCleanupService;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private MajorGroupRepository majorGroupRepository;
+
+    @Autowired
+    private GradeRepository gradeRepository;
+
+    @Autowired
+    private FinalGradeRepository finalGradeRepository;
 
     @Autowired
     private ProfessorRepository professorRepository;
@@ -50,6 +61,22 @@ public class UserManagementForAdminService {
         if (!studentRepository.existsById(studentId)) {
             throw new ResourceNotFoundException("Student with ID " + studentId + " not found.");
         }
+
+        List<Course> courses = courseRepository.findCoursesByStudentId(studentId);
+        for (Course course : courses) {
+            course.getStudentsIds().remove(studentId);
+            courseRepository.save(course);
+        }
+
+        List<MajorGroup> majorGroups = majorGroupRepository.findMajorGroupsByStudentId(studentId);
+        for (MajorGroup group : majorGroups) {
+            group.getStudentsIds().remove(studentId);
+            majorGroupRepository.save(group);
+        }
+
+        gradeRepository.deleteByStudentId(studentId);
+
+        finalGradeRepository.deleteByStudentId(studentId);
 
         studentCleanupService.removeStudentReferences(studentId);
 
