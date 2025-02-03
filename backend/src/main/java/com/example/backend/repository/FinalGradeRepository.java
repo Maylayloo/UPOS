@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface FinalGradeRepository extends JpaRepository<FinalGrade, Long> {
     List<FinalGrade> findByStudentId(Long studentId);
     Optional<FinalGrade> findByStudentIdAndCourseId(Long studentId, Long courseId);
-
+    void deleteByStudentId(Long studentId);
 }

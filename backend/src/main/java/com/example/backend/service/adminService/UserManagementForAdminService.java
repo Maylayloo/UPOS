@@ -39,6 +39,12 @@ public class UserManagementForAdminService {
     private MajorGroupRepository majorGroupRepository;
 
     @Autowired
+    private GradeRepository gradeRepository;
+
+    @Autowired
+    private FinalGradeRepository finalGradeRepository;
+
+    @Autowired
     private ProfessorRepository professorRepository;
 
     public void registerUser(Student student) {
@@ -67,6 +73,10 @@ public class UserManagementForAdminService {
             group.getStudentsIds().remove(studentId);
             majorGroupRepository.save(group);
         }
+
+        gradeRepository.deleteByStudentId(studentId);
+
+        finalGradeRepository.deleteByStudentId(studentId);
 
         studentCleanupService.removeStudentReferences(studentId);
 
