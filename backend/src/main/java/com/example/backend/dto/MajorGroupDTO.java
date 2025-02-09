@@ -16,8 +16,16 @@ public class MajorGroupDTO {
     private LocalTime endOfLesson;
     private String place;
     private int maxStudentAmount;
+    private Long professorId;
 
 
+    public Long getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(Long professorId) {
+        this.professorId = professorId;
+    }
 
     public Long getCourseId() {
         return courseId;
