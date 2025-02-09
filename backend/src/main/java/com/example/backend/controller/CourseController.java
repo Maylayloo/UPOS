@@ -41,7 +41,7 @@ public class CourseController {
         return new ResponseEntity<>(courseManagementForProfessorService.getAllCourses(),HttpStatus.OK);
     }
 
-    @GetMapping("/majorsAndSemesters")
+    @PostMapping("/majorsAndSemesters")
     public ResponseEntity<?> getCoursesByMajorAndSemester(@RequestBody RequestSpecyficCourseByMajorAndSemesterDTO dto) {
         return new ResponseEntity<>(courseManagementForAdminService.getAllCoursesByMajorAndSemester(dto.getMajor(), dto.getSemester()),HttpStatus.OK);
     }
