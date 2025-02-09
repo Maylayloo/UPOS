@@ -40,7 +40,7 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/")
+    @PostMapping("/")
     public ResponseEntity<List<Student>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
         return new ResponseEntity<>(studentService.getStudentsBymajorAndSemester(studentCourseDTO.getSemester(),studentCourseDTO.getMajor()),HttpStatus.OK);
     }
