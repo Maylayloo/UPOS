@@ -15,7 +15,7 @@ export const dashboardContent = [
         icon: user,
         title: "moje dane",
         href: "dashboard/profile",
-        allowedRoles: ["student", "professor"],
+        allowedRoles: ["student", "professor", "admin"],
     },
     {
         leadingColor: "#077298",
