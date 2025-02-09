@@ -23,6 +23,7 @@ const DashboardLayout = ({children,}: {
             "/dashboard/exams": "egzaminy",
             "/dashboard/course-management": "przedmioty",
             "/dashboard/course-management/create": "stwórz przedmiot",
+            "/dashboard/group-management/create": "stwórz grupę",
             "/dashboard/course-management/manage": "zarządzaj",
             "/dashboard/course-management/create/success": "Gratulacje!",
         }
