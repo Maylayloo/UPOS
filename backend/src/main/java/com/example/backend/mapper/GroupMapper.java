@@ -15,6 +15,7 @@ public class GroupMapper {
       majorGroup.setDayOfTheWeek(majorGroupDTO.getDayOfTheWeek());
       majorGroup.setMaxStudentAmount(majorGroupDTO.getMaxStudentAmount());
       majorGroup.setProfessorId(majorGroupDTO.getProfessorId());
+      majorGroup.setStudentsIds(majorGroupDTO.getStudentsIds());
       return majorGroup;
     }
 }

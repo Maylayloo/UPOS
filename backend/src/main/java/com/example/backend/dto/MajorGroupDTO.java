@@ -5,6 +5,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class MajorGroupDTO {
     private Long courseId;
@@ -17,7 +18,15 @@ public class MajorGroupDTO {
     private String place;
     private int maxStudentAmount;
     private Long professorId;
+    private List<Long> studentsIds;
 
+    public List<Long> getStudentsIds() {
+        return studentsIds;
+    }
+
+    public void setStudentsIds(List<Long> studentsIds) {
+        this.studentsIds = studentsIds;
+    }
 
     public Long getProfessorId() {
         return professorId;
