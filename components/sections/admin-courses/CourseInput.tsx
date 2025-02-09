@@ -8,7 +8,7 @@ interface props {
 const CourseInput = ({title, placeholder, width, name}: props) => {
     return (
         <div className={`flex flex-col items-center w-[${width}]`}>
-            <h2 className='mb-1 font-roboto '>
+            <h2 className='mb-1 font-roboto text-lg'>
                 {title}
             </h2>
             <input
