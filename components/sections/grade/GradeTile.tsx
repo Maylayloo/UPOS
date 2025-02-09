@@ -48,9 +48,7 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
         fetchData();
     }, [courseId]);
 
-
     const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
-
 
     if (loading) {
         return (
@@ -68,7 +66,6 @@ const GradeTile = ({courseName, ects, courseId}: props) => {
             </span>
             <div className='flex flex-col gap-4 mt-2'>
                 <GradeContainer type='Przedmiot'/>
-
                 {
                     storedGroup.map((group: Groups) => (
                         <GradeContainer
