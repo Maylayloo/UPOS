@@ -7,6 +7,7 @@ import roulette from "@/public/icons/roulette.png"
 import exams from "@/public/icons/exams.png"
 import altExams from "@/public/icons/altExams.png"
 import courses from "@/public/icons/courses.png"
+import manageGroups from "@/public/icons/network.png"
 
 export const dashboardContent = [
     {
@@ -64,6 +65,14 @@ export const dashboardContent = [
         icon: courses,
         title: "Przedmioty",
         href: "dashboard/course-management",
+        allowedRoles: ["admin"],
+
+    },
+    {
+        leadingColor: "#2ab86c",
+        icon: manageGroups,
+        title: "Grupy",
+        href: "dashboard/group-management",
         allowedRoles: ["admin"],
 
     },
