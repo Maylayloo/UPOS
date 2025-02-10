@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import GroupContainer from "@/components/sections/groups/GroupContainer";
 import Loading from "@/components/layout/Loading";
 
-interface groupTileInterface {
+interface props {
     name: string,
     ects: number,
     courseId: string,
     major: string,
+    semester: number
 }
 
 interface Groups {
@@ -32,7 +33,7 @@ const daysTranslation = {
     SUNDAY: "Każda niedziela",
 };
 
-const GroupsSection_Tile = ({name, ects, courseId, major}: groupTileInterface) => {
+const GroupsSection_Tile = ({name, ects, courseId, major, semester}: props) => {
     const [groups, setGroups] = useState<Groups[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -79,7 +80,7 @@ const GroupsSection_Tile = ({name, ects, courseId, major}: groupTileInterface) =
                 {name} {role === 'professor' ? `- ${major}` : ""}
                 <span className='font-[300] text-base'>
                    {
-                       role === 'student' ? ` [punkty ECTS: ${ects}]` : ` - 1 rok`
+                       role === 'student' ? ` [punkty ECTS: ${ects}]` : ` - ${semester} semestr`
                    }
 
                 </span>
