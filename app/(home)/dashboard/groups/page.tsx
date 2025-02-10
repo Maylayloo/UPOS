@@ -33,6 +33,7 @@ const GroupsPage = () => {
                          ects={course.ects}
                          courseId={course.courseId}
                          major={course.major}
+                         semester={course.semester}
                      />
                  ))
                 }
