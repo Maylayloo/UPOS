@@ -9,7 +9,6 @@ import com.example.backend.service.gradeService.GradeService;
 import com.example.backend.service.studentService.ExamForStudentService;
 import com.example.backend.service.studentService.StudentService;
 import com.example.backend.service.userService.UserWebAuthenticationService;
-import com.example.backend.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ public class StudentController {
     @Autowired
     private ExamForStudentService examForStudentService;
 
+
     @GetMapping("/loggedIn/grades")
     public ResponseEntity<List<Grade>> getGradesForLoggedInUser() {
         if(userWebAuthenticationService.isLoggedInStudent()){
@@ -40,10 +40,16 @@ public class StudentController {
         }
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Student>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
-        return new ResponseEntity<>(studentService.getStudentsBymajorAndSemester(studentCourseDTO.getSemester(),studentCourseDTO.getMajor()),HttpStatus.OK);
+//    @PostMapping("/")
+//    public ResponseEntity<List<Student>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
+//        return new ResponseEntity<>(studentService.getStudentsBymajorAndSemester(studentCourseDTO.getSemester(),studentCourseDTO.getMajor()),HttpStatus.OK);
+//    }
+
+    @PostMapping("/")
+    public ResponseEntity<List<Map<String, String>>> getAllStudentsByMajorAndSemester(@RequestBody StudentCourseDTO studentCourseDTO) {
+        return new ResponseEntity<>(studentService.getStudentsNameAndSurnameByMajorAndSemester(studentCourseDTO.getSemester(), studentCourseDTO.getMajor()), HttpStatus.OK);
     }
+
 
     @GetMapping("/{id}/grades")
     public ResponseEntity<List<Grade>> getGradesByStudentId(@PathVariable Long id) {

@@ -99,7 +99,13 @@ public class CourseManagementForAdminService {
            majors.add(course.getMajor());
        }
       return new ArrayList<>(majors);
+    }
 
-
+    public List<Course> getAllCoursesByMajorAndSemester(String major, String semester) {
+        List<Course> courses = courseRepository.findByMajorAndSemester(major, semester);
+        if (courses.isEmpty()) {
+            throw new ResourceNotFoundException("No courses found for major: " + major + " and semester: " + semester);
+        }
+        return courses;
     }
 }

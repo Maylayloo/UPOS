@@ -39,6 +39,12 @@ class UserManagementForAdminServiceTest {
     @Mock
     private CourseRepository courseRepository;
 
+    @Mock
+    private FinalGradeRepository finalGradeRepository;
+
+    @Mock
+    private GradeRepository gradeRepository;
+
     @Mock MajorGroupRepository majorGroupRepository;
 
     @BeforeEach

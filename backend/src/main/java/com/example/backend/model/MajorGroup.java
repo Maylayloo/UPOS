@@ -18,6 +18,7 @@ public class MajorGroup {
     private LocalTime startOfLesson;
     private LocalTime endOfLesson;
     private String place;
+    private Long professorId;
     private int maxStudentAmount;
     @ElementCollection
     private List<Long> studentsIds;
@@ -46,6 +47,28 @@ public class MajorGroup {
         this.place = place;
         this.maxStudentAmount = maxStudentAmount;
         this.studentsIds = studentsIds;
+    }
+
+    public MajorGroup(Long courseId, String type, int numberOfGroup, DayOfTheWeek dayOfTheWeek,
+                      LocalTime startOfLesson, LocalTime endOfLesson, String place, Long coordinatorId, int maxStudentAmount, List<Long> studentsIds) {
+        this.courseId = courseId;
+        this.type = type;
+        this.numberOfGroup = numberOfGroup;
+        this.dayOfTheWeek = dayOfTheWeek;
+        this.startOfLesson = startOfLesson;
+        this.endOfLesson = endOfLesson;
+        this.place = place;
+        this.professorId=coordinatorId;
+        this.maxStudentAmount = maxStudentAmount;
+        this.studentsIds = studentsIds;
+    }
+
+    public Long getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(Long professorId) {
+        this.professorId = professorId;
     }
 
     public Long getGroupId() {

@@ -1,10 +1,12 @@
 package AdminServiceTest;
 
 import com.example.backend.dto.CourseDTO;
+import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.mapper.CourseMapper;
 import com.example.backend.model.Course;
 import com.example.backend.model.Student;
 import com.example.backend.repository.CourseRepository;
+import com.example.backend.repository.MajorGroupRepository;
 import com.example.backend.repository.StudentRepository;
 import com.example.backend.service.adminService.CourseManagementForAdminService;
 import jakarta.persistence.EntityManager;
@@ -38,6 +40,9 @@ class CourseManagementForAdminServiceTest {
 
     @Mock
     private StudentRepository studentRepository;
+
+    @Mock
+    private MajorGroupRepository majorGroupRepository;
 
     @Spy
     private CourseMapper courseMapper;
@@ -188,6 +193,44 @@ class CourseManagementForAdminServiceTest {
         verify(studentRepository, times(1)).findStudentsBySemesterAndMajor(
                 Integer.parseInt(mockCourseDTO.getSemester()), mockCourseDTO.getMajor());
         verify(courseRepository, times(1)).save(any(Course.class));
+    }
+
+    @Test
+    void testGetAllCoursesByMajorAndSemester_Success() {
+        // Given
+        String major = "Computer Science";
+        String semester = "3";
+        List<Course> mockCourses = List.of(
+                new Course(1L, "Algorithms", 5, 1L, "3", "Computer Science", List.of(1L, 2L)),
+                new Course(2L, "Databases", 4, 1L, "3", "Computer Science", List.of(3L, 4L))
+        );
+
+        when(courseRepository.findByMajorAndSemester(major, semester)).thenReturn(mockCourses);
+
+        // When
+        List<Course> result = courseManagementForAdminService.getAllCoursesByMajorAndSemester(major, semester);
+
+        // Then
+        assertEquals(2, result.size());
+        assertEquals("Algorithms", result.get(0).getName());
+        assertEquals("Databases", result.get(1).getName());
+        verify(courseRepository, times(1)).findByMajorAndSemester(major, semester);
+    }
+
+    @Test
+    void testGetAllCoursesByMajorAndSemester_NoCoursesFound() {
+        // Given
+        String major = "Artificial Intelligence";
+        String semester = "5";
+
+        when(courseRepository.findByMajorAndSemester(major, semester)).thenReturn(List.of());
+
+        // When & Then
+        Exception exception = assertThrows(ResourceNotFoundException.class,
+                () -> courseManagementForAdminService.getAllCoursesByMajorAndSemester(major, semester));
+
+        assertEquals("No courses found for major: Artificial Intelligence and semester: 5", exception.getMessage());
+        verify(courseRepository, times(1)).findByMajorAndSemester(major, semester);
     }
 
 }
