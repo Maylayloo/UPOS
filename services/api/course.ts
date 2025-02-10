@@ -26,3 +26,29 @@ export const postCourse = async (courseName: string, ects: number, profId: numbe
         return null;
     }
 };
+
+// (POST) create brand-new course as admin
+export const fetchCoursesByMajorSemester = async (major: string, semester: string) => {
+    try {
+        const response = await fetch('http://localhost:8080/courses/majorsAndSemesters', {
+            method: 'POST',
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                major: major,
+                semester: semester
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return await response.json();
+
+    } catch (error) {
+        console.error("Error grading student: ", error);
+        return null;
+    }
+};
