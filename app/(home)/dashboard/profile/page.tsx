@@ -19,7 +19,7 @@ const ProfilePage = () => {
         {
             title: "Email",
             value: storedUser.email,
-            visibility: ["professor", "student"]
+            visibility: ["professor", "student", "admin"]
         },
         {
             title: "Numer Albumu",
@@ -30,19 +30,19 @@ const ProfilePage = () => {
             title: "Numer Telefonu",
             value: storedUser.number,
             changeable: true,
-            visibility: ["professor", "student"]
+            visibility: ["professor", "student", "admin"]
         },
         {
             title: "Adres",
             value: storedUser.address,
             changeable: true,
-            visibility: ["professor", "student"]
+            visibility: ["professor", "student", "admin"]
         },
         {
             title: "Konto Bankowe",
             value: storedUser.bankNumber,
             changeable: true,
-            visibility: ["professor", "student"]
+            visibility: ["professor", "student", "admin"]
         },
 
     ]
