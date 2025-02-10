@@ -4,20 +4,25 @@ import React, { useState, useEffect } from "react";
 import GroupInfoContainer from "@/components/sections/groups/GroupInfoContainer";
 import StudentInGroupContainer from "@/components/sections/groups/StudentInGroupContainer";
 import Loading from "@/components/layout/Loading";
+import {fetchProfData} from "@/services/api/professor";
 
 const Page = () => {
+
+    interface Professor {
+        name: string,
+        surname: string,
+        title: string,
+    }
+
     const [isLoading, setIsLoading] = useState(true);
     const [currentGroup, setCurrentGroup] = useState<any>(null);
     const [students, setStudents] = useState<any[]>([]); // 🆕 Nowy stan na studentów
+    const [profData, setProfData] = useState<Professor>();
 
     const currentGroupId = localStorage.getItem('upos_current_group');
     const currentCourseName = localStorage.getItem('upos_current_course');
 
     useEffect(() => {
-        if (!currentGroupId) {
-            setIsLoading(false);
-            return;
-        }
 
         const fetchGroupData = async () => {
             try {
@@ -31,11 +36,18 @@ const Page = () => {
                 const data = await response.json();
                 localStorage.setItem('upos_current_group_data', JSON.stringify(data));
                 setCurrentGroup(data);
-                setIsLoading(false);
+                const fetchedProfData = await fetchProfData(data.professorId)
+
+                if (fetchedProfData) {
+                    setProfData(fetchedProfData);
+                }
             } catch (err) {
                 console.error("Error fetching group data:", err);
-                setIsLoading(false);
             }
+
+
+
+            setIsLoading(false);
         };
 
         fetchGroupData();
@@ -77,7 +89,7 @@ const Page = () => {
     const groupData = [
         {
             title: "Prowadzący",
-            content: "Sperm o'Yad"
+            content: `${profData?.title} ${profData?.name} ${profData?.surname}`
         },
         {
             title: "Termin",
