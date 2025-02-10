@@ -28,7 +28,7 @@ public class CourseController {
             return new ResponseEntity<>(groupForStudentService.getCoursesByStudentLoggedIn(),HttpStatus.OK);
         }
         else if(userWebAuthenticationService.isLoggedInProfessor()){
-            return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByProfessorLoggedIn(),HttpStatus.OK);
+            return new ResponseEntity<>(courseManagementForProfessorService.getCoursesByLoggedInProfessor(),HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
