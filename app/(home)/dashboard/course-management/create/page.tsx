@@ -44,8 +44,6 @@ const CreateCoursePage = () => {
         }
     }
 
-
-
     useEffect(() => {
         const getData = async () => {
             // fetch all majors
