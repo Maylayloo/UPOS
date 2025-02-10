@@ -1,11 +1,14 @@
+import React from "react";
+
 interface props {
     title: string,
     placeholder: string,
     width?: string,
     name: string,
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CourseInput = ({title, placeholder, width, name}: props) => {
+const CourseInput = ({title, placeholder, width, name, onChange}: props) => {
     return (
         <div className={`flex flex-col items-center w-[${width}]`}>
             <h2 className='mb-1 font-roboto text-lg'>
@@ -17,6 +20,7 @@ const CourseInput = ({title, placeholder, width, name}: props) => {
                 placeholder={`np. ${placeholder}`}
                 name={name}
                 autoComplete="off"
+                onChange={onChange}
             />
         </div>
     );
