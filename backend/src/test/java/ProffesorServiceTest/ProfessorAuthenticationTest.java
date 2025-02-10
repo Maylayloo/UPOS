@@ -69,8 +69,8 @@ class ProfessorAuthenticationServiceTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
                 professorAuthenticationService.getLoggedInProfessor());
 
-        assertEquals("Logged-in user is not a professor", exception.getMessage());
+        assertEquals("Access denied. Logged-in user is not a professor.", exception.getMessage());
         verify(userWebAuthenticationService, times(1)).getLoggedInUser();
-        verify(professorRepository, times(1)).findByUserId(2L);
+        verify(professorRepository, times(0)).findByUserId(2L);
     }
 }
