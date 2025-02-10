@@ -39,7 +39,7 @@ const Page = () => {
            <Loading/>
         )
     }
-
+    if (exams) {
     return (
         <div className='flex justify-center gap-8 flex-wrap'>
             {
@@ -56,6 +56,8 @@ const Page = () => {
             }
         </div>
     );
+    }
+
 };
 
 export default Page;
