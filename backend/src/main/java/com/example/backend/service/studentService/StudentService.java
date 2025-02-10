@@ -54,4 +54,20 @@ public class StudentService {
     public List<Student> getStudentsBymajorAndSemester(int semester,String major) {
        return studentRepository.findStudentsBySemesterAndMajor(semester,major);
     }
+
+    public List<Map<String, String>> getStudentsNameAndSurnameByMajorAndSemester(int semester, String major) {
+        List<Student> students = studentRepository.findStudentsBySemesterAndMajor(semester, major);
+
+        return students.stream()
+                .map(student -> {
+                    Long studentId = student.getStudentId();
+                    Map<String, String> studentInfo = studentRepository.getNameAndSurnameByStudentId(studentId);
+
+                    // Dodajemy ID do mapy zwracanej przez repozytorium
+                    studentInfo.put("studentId", studentId.toString());
+
+                    return studentInfo;
+                })
+                .collect(Collectors.toList());
+    }
 }
