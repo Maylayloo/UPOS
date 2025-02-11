@@ -1,7 +1,7 @@
 import React from 'react';
 import ChoiceButton from "@/components/sections/admin-courses/ChoiceButton";
-import createIcon from "@/public/icons/create.png"
-import manageIcon from "@/public/icons/manage.png"
+import createIcon from "@/public/icons/createbutgreen.png"
+import manageIcon from "@/public/icons/managebutgreen.png"
 
 const AdminCoursesPage = () => {
     return (
@@ -11,12 +11,14 @@ const AdminCoursesPage = () => {
                 icon={createIcon}
                 alt="Stwórz"
                 title="Stwórz nową grupe zajęciową"
+                theme="#2ab86c"
             />
             <ChoiceButton
                 href="group-management/manage"
                 icon={manageIcon}
                 alt="Zarządzaj"
                 title="Zarządzaj istniejącymi grupami zajęciowymi"
+                theme="#2ab86c"
             />
         </div>
     );

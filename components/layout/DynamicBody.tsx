@@ -18,8 +18,8 @@ const DynamicBody = ({children}: {children: React.ReactNode }) => {
         "/dashboard/exams": "bg-gradient-to-t from-[#ee7430] to-bg to-[85%]",
         "/dashboard/course-management": "bg-gradient-to-t from-[#3b9ead] to-bg to-[85%]",
         "/dashboard/course-management/create": "bg-gradient-to-t from-[#104291] to-bg to-[85%]",
-        "/dashboard/group-management/create": "bg-gradient-to-t from-[#086e08] to-bg to-[85%]",
-        "/dashboard/group-management": "bg-gradient-to-t from-[#3b9ead] to-bg to-[85%]",
+        "/dashboard/group-management/create": "bg-gradient-to-t from-[#2ab86c] to-bg to-[85%]",
+        "/dashboard/group-management": "bg-gradient-to-t from-[#2ab86c] to-bg to-[85%]",
         "/dashboard/course-management/create/success": "bg-gradient-to-t from-[#28e04d] to-bg to-[85%]",
     }
 
