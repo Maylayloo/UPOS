@@ -3,8 +3,8 @@ import React, { useState } from "react";
 interface Props {
     name: string;
     surname: string;
-    studentId: Number;
-    onCheck: (studentId: Number, isChecked: boolean) => void;
+    studentId: number;
+    onCheck: (studentId: number, isChecked: boolean) => void;
 }
 
 const StudentCheckBox = ({ name, surname, studentId, onCheck }: Props) => {
