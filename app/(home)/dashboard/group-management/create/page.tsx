@@ -13,33 +13,34 @@ import {postGroup} from "@/services/api/group";
 import {useRouter} from "next/navigation";
 
 const Page = () => {
-    const [loading, setLoading] = useState(false);
-    const [majors, setMajors] = useState([]);
-    const [step, setStep] = useState(1);
     const semesters = ["1", "2", "3", "4", "5", "6", "7"];
-    const [selectedMajor, setSelectedMajor] = useState("");
-    const [selectedSemester, setSelectedSemester] = useState(semesters[0]);
-    const [selectedCourse, setSelectedCourse] = useState("")
-    const [courses, setCourses] = useState([]);
     const groupTypes = ["wykład", "ćwiczenia audytoryjne", "ćwiczenia laboratoryjne", "ćwiczenia projektowe"]
-    const [selectedGroupType, setSelectedGroupType] = useState(groupTypes[0]);
-    const groupNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    const [selectedGroupNumber, setSelectedGroupNumber] = useState(groupNumbers[0])
-    const [professors, setProfessors] = useState([])
-    const [selectedProfId, setSelectedProfId] = useState("");
     const days = [
         {day: "poniedziałek", value: "MONDAY"},
         {day: "wtorek", value: "TUESDAY"},
         {day: "środa", value: "WEDNESDAY"},
         {day: "czwartek", value: "THURSDAY"},
         {day: "piątek", value: "FRIDAY"}]
+    const groupNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+    const [loading, setLoading] = useState(false);
+    const [majors, setMajors] = useState([]);
+    const [step, setStep] = useState(1);
+    const [selectedMajor, setSelectedMajor] = useState("");
+    const [selectedSemester, setSelectedSemester] = useState(semesters[0]);
+    const [selectedCourse, setSelectedCourse] = useState("")
+    const [courses, setCourses] = useState([]);
+    const [selectedGroupType, setSelectedGroupType] = useState(groupTypes[0]);
+    const [selectedGroupNumber, setSelectedGroupNumber] = useState(groupNumbers[0])
+    const [professors, setProfessors] = useState([])
+    const [selectedProfId, setSelectedProfId] = useState("");
     const [selectedDay, setSelectedDay] = useState(days[0].value)
     const [students, setStudents] = useState([])
     const [selectedStartHour, setSelectedStartHour] = useState("")
     const [selectedEndHour, setSelectedEndHour] = useState("")
     const [place, setPlace] = useState("")
     const [maxGroupSize, setMaxGroupSize] = useState(30)
-    const [studentsIds, setStudentsIds] = useState<Number[]>([]);
+    const [studentsIds, setStudentsIds] = useState<number[]>([]);
     const router = useRouter()
 
     interface Course {
@@ -66,12 +67,12 @@ const Page = () => {
     }
 
     interface Student {
-        studentId: Number,
+        studentId: number,
         name: string,
         surname: string,
     }
 
-    const handleCheck = (studentId: Number, isChecked: boolean) => {
+    const handleCheck = (studentId: number, isChecked: boolean) => {
         setStudentsIds((prev) =>
             isChecked ? [...prev, studentId] : prev.filter((id) => id !== studentId)
         );
@@ -79,14 +80,16 @@ const Page = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const fetchedMajors = await fetchMajors();
-            const fetchedProfessors = await fetchProfessors();
+            const [fetchedMajors, fetchedProfessors] = await Promise.all([
+                fetchMajors(),
+                fetchProfessors()
+            ])
 
             if (fetchedMajors && fetchedProfessors) {
                 setMajors(fetchedMajors)
                 setProfessors(fetchedProfessors)
 
-                // set 'default' value as first element of fetched majors
+                // set default values
                 setSelectedMajor(fetchedMajors[0])
                 setSelectedProfId(fetchedProfessors[0].professorId)
 
@@ -96,11 +99,14 @@ const Page = () => {
         }
         fetchData()
     }, [])
-    const handleClick = () => {
+    const nextStep = () => {
         if (step === 1) firstSubmit();
         if (step === 2) secondSubmit();
         if (step === 3) thirdSubmit();
         if (step === 4) fourthSubmit()
+    }
+    const previousStep = () => {
+        setStep(step - 1)
     }
 
     const firstSubmit = async () => {
@@ -115,7 +121,6 @@ const Page = () => {
 
         setStep(step + 1)
 
-        // ustawic loading, pobrac przedmioty, ustawic pierwszy pobrany jako default
     }
     const secondSubmit = () => {
         setStep(step + 1)
@@ -177,7 +182,7 @@ const Page = () => {
                                     Wybierz przedmiot:
                                 </h2>
                                 <select
-                                    className='text-black w-[40%] py-1 px-3 focus:outline-none w-full'
+                                    className='text-black py-1 px-3 focus:outline-none w-full'
                                     onChange={(e) => setSelectedCourse(e.target.value)}
                                 >
                                     {
@@ -210,7 +215,6 @@ const Page = () => {
                                     />
                                 </div>
 
-                                {/* jeszcze bedzie trzeba dac value = course.id*/}
                             </div>
                             <div className='mb-8'>
                                 <h2 className='text-lg font-roboto'>
@@ -291,7 +295,7 @@ const Page = () => {
                 }
                 {
                     step === 4 && (
-                        <div>
+                        <div className='mb-4'>
                             <CourseInput
                                 title='Wprowadź maksymalny rozmiar grupy:'
                                 placeholder='24'
@@ -324,12 +328,26 @@ const Page = () => {
                 }
 
             </div>
-            <button
-                className='px-6 py-2 font-roboto text-lg tracking-wider border font-[400] rounded-lg hover:bg-gray-100 hover:text-bg transition-colors duration-300 '
-                onClick={handleClick}
-            >
+            <div className='flex gap-4'>
+                {
+                    step !== 1 && (
+                        <button
+                            className='px-6 py-2 font-roboto text-lg tracking-wider border font-[400] rounded-lg hover:bg-gray-100 hover:text-bg transition-colors duration-300 '
+                            onClick={previousStep}
+                        >
+                            Powrót
+                        </button>
+                    )
+                }
+
+                <button
+                    className='px-6 py-2 font-roboto text-lg tracking-wider border font-[400] rounded-lg hover:bg-gray-100 hover:text-bg transition-colors duration-300 '
+                    onClick={nextStep}
+                >
                 {step === 4 ? "Zatwierdź" : "Kolejny krok"}
-            </button>
+                </button>
+            </div>
+
         </div>
     );
 };
