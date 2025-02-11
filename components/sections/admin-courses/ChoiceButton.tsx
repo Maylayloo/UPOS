@@ -6,15 +6,15 @@ interface props {
     icon: any,
     alt: string,
     title: string,
-    color: string,
+    theme: string,
 }
 
-const ChoiceButton = ({href, icon, alt, title, color}: props) => {
+const ChoiceButton = ({href, icon, alt, title, theme}: props) => {
     return (
         <Link href={href} className='cursor-pointer'>
             <div
                 className="border-2 flex items-center px-5 py-3 rounded-2xl gap-4 hover:px-10 hover:shadow-[#3b9ead] shadow-lg"
-                style={{borderColor: color, color: color}}
+                style={{borderColor: theme, color: theme}}
             >
                 <Image
                     src={icon}
