@@ -106,7 +106,7 @@ const Page = () => {
         if (step === 4) fourthSubmit()
     }
     const previousStep = () => {
-        setStep(step - 1)
+        setStep((prevState) => prevState - 1)
     }
 
     const firstSubmit = async () => {
@@ -119,14 +119,14 @@ const Page = () => {
                 setSelectedCourse(fetchedCourses[0].courseId)
             }
 
-        setStep(step + 1)
+        setStep((prevState) => prevState + 1)
 
     }
     const secondSubmit = () => {
-        setStep(step + 1)
+        setStep((prevState) => prevState + 1)
     }
     const thirdSubmit = () => {
-        setStep(step + 1)
+        setStep((prevState) => prevState + 1)
     }
     const fourthSubmit = async () => {
         const postedGroup = await postGroup(
