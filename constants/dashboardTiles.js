@@ -8,6 +8,7 @@ import exams from "@/public/icons/exams.png"
 import altExams from "@/public/icons/altExams.png"
 import courses from "@/public/icons/courses.png"
 import manageGroups from "@/public/icons/network.png"
+import registerUser from "@/public/icons/registeruser.png"
 
 export const dashboardContent = [
     {
@@ -76,6 +77,13 @@ export const dashboardContent = [
         allowedRoles: ["admin"],
 
     },
+    {
+        leadingColor: "#b01565",
+        icon: registerUser,
+        title: "Rejestracje",
+        href: "dashboard/register-user",
+        allowedRoles: ["admin"],
+    }
 
 
 ]
