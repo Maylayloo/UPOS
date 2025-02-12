@@ -14,12 +14,14 @@ const Page = () => {
                     icon={createIcon}
                     alt="Stwórz"
                     href='.'
+                    theme="#3b9ead"
                 />
                 <ChoiceButton
                     title="Powrót"
                     icon={previousIcon}
                     alt="Powrót"
                     href='/dashboard'
+                    theme="#3b9ead"
                 />
             </div>
         </div>

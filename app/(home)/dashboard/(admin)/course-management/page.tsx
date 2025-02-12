@@ -11,12 +11,14 @@ const AdminCoursesPage = () => {
                 icon={createIcon}
                 alt="Stwórz"
                 title="Stwórz nowy przedmiot"
+                theme="#3b9ead"
             />
             <ChoiceButton
                 href="course-management/manage"
                 icon={manageIcon}
                 alt="Zarządzaj"
                 title="Zarządzaj istniejącymi przedmiotami"
+                theme="#3b9ead"
             />
         </div>
     );
