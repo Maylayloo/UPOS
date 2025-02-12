@@ -26,6 +26,8 @@ const DashboardLayout = ({children,}: {
             "/dashboard/group-management/create": "stwórz grupę",
             "/dashboard/course-management/manage": "zarządzaj",
             "/dashboard/course-management/create/success": "Gratulacje!",
+            "/dashboard/group-management": "Grupy",
+            "/dashboard/register-user": "Zarejestruj Użytkownika"
         }
 
         const displayTitle =
