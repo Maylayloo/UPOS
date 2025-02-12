@@ -11,6 +11,7 @@ import {fetchCoursesByMajorSemester} from "@/services/api/course";
 import StudentCheckBox from "@/components/sections/admin-groups/StudentCheckBox";
 import {postGroup} from "@/services/api/group";
 import {useRouter} from "next/navigation";
+import CustomTitle from "@/components/CustomTitle";
 
 const Page = () => {
     const semesters = ["1", "2", "3", "4", "5", "6", "7"];
@@ -155,9 +156,10 @@ const Page = () => {
                 {
                     step === 1 && (
                     <div className='flex flex-col items-center gap-4'>
-                        <h2 className='text-lg font-roboto'>
+                        <CustomTitle>
                             Wybierz kierunek i semestr:
-                        </h2>
+                        </CustomTitle>
+
                         <div className='w-full flex justify-center gap-8 mb-12'>
                             <CustomSelect
                                 arr={majors}
@@ -178,9 +180,9 @@ const Page = () => {
                     step === 2 && (
                         <div className='flex flex-col items-center gap-4'>
                             <div>
-                                <h2 className='text-lg text-center font-roboto mb-1'>
+                                <CustomTitle className='text-center mb-1'>
                                     Wybierz przedmiot:
-                                </h2>
+                                </CustomTitle>
                                 <select
                                     className='text-black py-1 px-3 focus:outline-none w-full'
                                     onChange={(e) => setSelectedCourse(e.target.value)}
@@ -199,9 +201,9 @@ const Page = () => {
                                 </select>
                             </div>
                             <div>
-                                <h2 className='text-lg text-center mb-1 font-roboto'>
+                                <CustomTitle className='text-center mb-1'>
                                     Wybierz typ i numer grupy:
-                                </h2>
+                                </CustomTitle>
                                 <div className='w-full flex justify-center gap-2'>
                                     <CustomSelect
                                         arr={groupTypes}
@@ -217,11 +219,11 @@ const Page = () => {
 
                             </div>
                             <div className='mb-8'>
-                                <h2 className='text-lg font-roboto'>
+                                <CustomTitle>
                                     Wybierz prowadzącego grupy:
-                                </h2>
+                                </CustomTitle>
                                 <select
-                                    className='text-black w-[40%] py-1 px-3 focus:outline-none w-full'
+                                    className='text-black py-1 px-3 focus:outline-none w-full'
                                     onChange={(e) => setSelectedProfId(e.target.value)}
                                 >
                                     {
@@ -244,11 +246,11 @@ const Page = () => {
                     step === 3 && (
                         <div className='flex flex-col items-center gap-4'>
                             <div>
-                                <h2 className='text-lg font-roboto mb-1'>
+                                <CustomTitle className='mb-1'>
                                     Wybierz dzień tygodnia:
-                                </h2>
+                                </CustomTitle>
                                 <select
-                                    className='text-black w-[40%] py-1 px-3 focus:outline-none w-full'
+                                    className='text-black py-1 px-3 focus:outline-none w-full'
                                     onChange={(e) => setSelectedDay(e.target.value)}
                                 >
                                     {
@@ -265,9 +267,9 @@ const Page = () => {
                                 </select>
                             </div>
                             <div className='flex flex-col items-center gap-1'>
-                                <h2 className='text-lg font-roboto'>
+                                <CustomTitle>
                                     Wybierz godzinę rozpoczęcia i zakończenia zajęć:
-                                </h2>
+                                </CustomTitle>
                                 <div className='flex gap-8'>
                                     <input
                                         className='font-roboto text-black focus:outline-none py-1 px-4'
@@ -303,9 +305,9 @@ const Page = () => {
                                 name="size"
                                 onChange={(e) => setMaxGroupSize(Number(e.target.value))}
                             />
-                            <h2 className='font-roboto mb-2 mt-4 text-lg'>
+                            <CustomTitle className='mb-2 mt-4'>
                                 Wybierz studentów którzy będą należeć do grupy:
-                            </h2>
+                            </CustomTitle>
                             <div className='border p-4 w-full flex-col rounded-lg'>
                                 {
                                     students.map((student: Student) => (
