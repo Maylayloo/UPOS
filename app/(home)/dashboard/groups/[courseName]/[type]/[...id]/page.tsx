@@ -5,6 +5,8 @@ import GroupInfoContainer from "@/components/sections/groups/GroupInfoContainer"
 import StudentInGroupContainer from "@/components/sections/groups/StudentInGroupContainer";
 import Loading from "@/components/layout/Loading";
 import {fetchProfData} from "@/services/api/professor";
+import {getGroupById} from "@/services/api/group";
+import {getNamesByIds} from "@/services/api/student";
 
 const Page = () => {
 
@@ -14,7 +16,7 @@ const Page = () => {
         title: string,
     }
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [currentGroup, setCurrentGroup] = useState<any>(null);
     const [students, setStudents] = useState<any[]>([]); // 🆕 Nowy stan na studentów
     const [profData, setProfData] = useState<Professor>();
@@ -23,66 +25,26 @@ const Page = () => {
     const currentCourseName = localStorage.getItem('upos_current_course');
 
     useEffect(() => {
-
         const fetchGroupData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/groups/${currentGroupId}`, {
-                    method: "GET",
-                    credentials: "include",
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                localStorage.setItem('upos_current_group_data', JSON.stringify(data));
-                setCurrentGroup(data);
-                const fetchedProfData = await fetchProfData(data.professorId)
+            const fetchedGroup = await getGroupById(Number(currentGroupId))
+            if (fetchedGroup) {
+                setCurrentGroup(fetchedGroup);
 
-                if (fetchedProfData) {
-                    setProfData(fetchedProfData);
+                const [fetchedProfessor, fetchedStudentsNames] = await Promise.all(
+                    [fetchProfData(fetchedGroup.professorId), getNamesByIds(fetchedGroup.studentsIds)]
+                )
+
+                if (fetchedStudentsNames && fetchedProfessor) {
+                    setStudents(fetchedStudentsNames);
+                    setProfData(fetchedProfessor);
                 }
-            } catch (err) {
-                console.error("Error fetching group data:", err);
             }
-
-
-
-            setIsLoading(false);
+            setLoading(false);
         };
-
         fetchGroupData();
     }, [currentGroupId]);
 
-    // fetching full names list by students' ids belong to specific group
-    useEffect(() => {
-        if (!currentGroup || !currentGroup.studentsIds) return;
-
-        const fetchStudents = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/students/namesAndSurnames`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ ids: currentGroup.studentsIds }),
-                    credentials: "include",
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                setStudents(data);
-            } catch (err) {
-                console.error("Error fetching students:", err);
-            }
-        };
-
-        fetchStudents();
-    }, [currentGroup]);
-
-
-    if (isLoading || !currentGroup) {
+    if (loading) {
         return <Loading/>
     }
 
