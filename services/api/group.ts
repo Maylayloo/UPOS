@@ -1,6 +1,4 @@
 // (POST) create brand-new group as admin
-import {start} from "node:repl";
-
 export const postGroup = async (courseId: Number, type: string, groupNumber: Number,
                                 dayOfTheWeek: string, startHour: string, endHour: string, place: string, groupSize: Number, professorId: Number, studentsIds: Number[]) => {
     try {
@@ -34,3 +32,25 @@ export const postGroup = async (courseId: Number, type: string, groupNumber: Num
         return null;
     }
 };
+
+// GET group data by group id
+export const getGroupById = async (groupId: number) => {
+    try {
+        const response = await fetch(`http://localhost:8080/groups/${groupId}`, {
+            method: 'GET',
+            credentials: "include",
+        })
+
+        if (!response.ok) {
+            throw new Error (`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (err) {
+        console.log(err)
+        return null;
+    }
+
+
+
+}

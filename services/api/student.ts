@@ -23,3 +23,28 @@ export const fetchStudentsByMajorSemester = async (semester: Number, major: stri
         return null;
     }
 };
+
+// get full names of students by list of ids
+export const getNamesByIds = async (ids: string[]) => {
+    try {
+        const response = await fetch('http://localhost:8080/students/namesAndSurnames', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ids: ids})
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+
+    } catch (err) {
+        console.log(err);
+        return null;
+    }
+
+}
