@@ -27,7 +27,7 @@ export const postCourse = async (courseName: string, ects: number, profId: numbe
     }
 };
 
-// (POST) create brand-new course as admin
+// (POST) get all courses by major and semester
 export const fetchCoursesByMajorSemester = async (major: string, semester: string) => {
     try {
         const response = await fetch('http://localhost:8080/courses/majorsAndSemesters', {
