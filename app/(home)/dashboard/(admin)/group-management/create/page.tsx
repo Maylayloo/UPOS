@@ -12,6 +12,7 @@ import StudentCheckBox from "@/components/sections/admin-groups/StudentCheckBox"
 import {postGroup} from "@/services/api/group";
 import {useRouter} from "next/navigation";
 import CustomTitle from "@/components/CustomTitle";
+import CustomButton from "@/components/CustomButton";
 
 const Page = () => {
     const semesters = ["1", "2", "3", "4", "5", "6", "7"];
@@ -322,10 +323,7 @@ const Page = () => {
                                     ))
                                 }
                             </div>
-
-
                         </div>
-
                     )
                 }
 
@@ -333,21 +331,15 @@ const Page = () => {
             <div className='flex gap-4'>
                 {
                     step !== 1 && (
-                        <button
-                            className='px-6 py-2 font-roboto text-lg tracking-wider border font-[400] rounded-lg hover:bg-gray-100 hover:text-bg transition-colors duration-300 '
-                            onClick={previousStep}
-                        >
+                        <CustomButton onClick={previousStep}>
                             Powrót
-                        </button>
+                        </CustomButton>
                     )
                 }
 
-                <button
-                    className='px-6 py-2 font-roboto text-lg tracking-wider border font-[400] rounded-lg hover:bg-gray-100 hover:text-bg transition-colors duration-300 '
-                    onClick={nextStep}
-                >
-                {step === 4 ? "Zatwierdź" : "Kolejny krok"}
-                </button>
+                <CustomButton onClick={nextStep}>
+                    {step === 4 ? "Zatwierdź" : "Następny krok"}
+                </CustomButton>
             </div>
 
         </div>
