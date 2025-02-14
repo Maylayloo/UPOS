@@ -50,7 +50,25 @@ export const getGroupById = async (groupId: number) => {
         console.log(err)
         return null;
     }
+}
 
+// get all groups from specific course (by courseId) in which logged-in user is a member
+export const getGroupsByCourseId = async (courseId: string) => {
+    try {
+        const response = await fetch(`http://localhost:8080/groups/loggedIn/${courseId}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
 
+        if (!response.ok) {
+            throw new Error (`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+
+    } catch (err) {
+        console.log("Problem: ", err)
+        return null;
+    }
 
 }
