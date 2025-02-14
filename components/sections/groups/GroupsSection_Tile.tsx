@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react";
 import GroupContainer from "@/components/sections/groups/GroupContainer";
 import Loading from "@/components/layout/Loading";
+import {getGroupsByCourseId} from "@/services/api/group";
 
 interface props {
     name: string,
     ects: number,
     courseId: string,
     major: string,
-    semester: number
+    semester: number,
+    role: string,
 }
 
 interface Groups {
@@ -33,40 +35,25 @@ const daysTranslation = {
     SUNDAY: "Każda niedziela",
 };
 
-const GroupsSection_Tile = ({name, ects, courseId, major, semester}: props) => {
-    const [groups, setGroups] = useState<Groups[] | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
-    const role = storedUser.role.toLowerCase();
+const GroupsSection_Tile = ({name, ects, courseId, major, semester, role}: props) => {
+    const [groups, setGroups] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/groups/loggedIn/${courseId}`, {
-                    method: "GET",
-                    credentials: "include",
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                localStorage.setItem(`upos_group${courseId}`, JSON.stringify(data));
-                setGroups(data)
-            } catch (err) {
-                console.error("Error fetching data:", err);
-            } finally {
-                setLoading(false);
+        const fetchGroups = async () => {
+            const fetchedGroups = await getGroupsByCourseId(courseId);
+
+            if (fetchedGroups) {
+                setGroups(fetchedGroups)
             }
-        };
 
-        fetchData();
-    }, [courseId]);
+            setLoading(false);
+        }
 
-    const storedGroup = JSON.parse(localStorage.getItem(`upos_group${courseId}`) || '[]');
+        fetchGroups()
+    }, [courseId])
 
     const translateDay = (day: keyof typeof daysTranslation) => daysTranslation[day] || "Nieznany dzień";
-
 
     if (loading) {
         return (
@@ -90,7 +77,7 @@ const GroupsSection_Tile = ({name, ects, courseId, major, semester}: props) => {
             </h3>
 
             {
-                storedGroup.map((group: Groups) => (
+                groups.map((group: Groups) => (
                     <GroupContainer
                         key={group.groupId}
                         type={group.type}
@@ -103,8 +90,6 @@ const GroupsSection_Tile = ({name, ects, courseId, major, semester}: props) => {
                     />
                 ))
             }
-
-
 
         </div>
     );
