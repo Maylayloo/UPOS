@@ -68,6 +68,7 @@ const LoginPage = () => {
 
                     // save user data to localStorage
                     localStorage.setItem('upos_user', JSON.stringify(data));
+                    localStorage.setItem('upos_user_role', JSON.stringify(data.role.toLowerCase()))
 
                     if (data.role.toLowerCase() === "professor") {
                         const response3 = await fetch("http://localhost:8080/professors/loggedIn/nameAndSurnameAndTitle", {
