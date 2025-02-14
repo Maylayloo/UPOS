@@ -19,8 +19,7 @@ const Page = () => {
 
     const [loading, setLoading] = useState(true);
     const [exams, setExams] = useState<Exam[]>([]);
-    const storedUser = JSON.parse(localStorage.getItem("upos_user") || "{}");
-    const role = storedUser.role.toLowerCase();
+    const role = JSON.parse(localStorage.getItem('upos_user_role') || '')
 
     useEffect(() => {
         const loadExams = async () => {

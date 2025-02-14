@@ -15,8 +15,9 @@ const GroupsPage = () => {
         exams: string[]
     }
 
-
     const storedCourses: Course[] = JSON.parse(localStorage.getItem("upos_courses") || '[]');
+    const role = JSON.parse(localStorage.getItem('upos_user_role') || '')
+
     return (
         <div className='w-full flex justify-center'>
             <div className='w-3/4 border-[#DBE3D4] border flex flex-col items-center rounded-xl'>
@@ -34,6 +35,7 @@ const GroupsPage = () => {
                          courseId={course.courseId}
                          major={course.major}
                          semester={course.semester}
+                         role={role}
                      />
                  ))
                 }

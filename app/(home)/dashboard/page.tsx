@@ -2,15 +2,10 @@
 
 import {dashboardContent} from "@/constants/dashboardTiles";
 import DashboardTile from "@/components/sections/dashboard/DashboardTile";
-import React from "react";
-import {useUser} from "@/app/(context)/UserContext";
 
 const Page = () => {
 
-
-    // TODO: zmien localstorage na session storage
-    const storedUser = JSON.parse(localStorage.getItem("upos_user") || '{}');
-    const role = storedUser.role.toLowerCase();
+    const role = JSON.parse(localStorage.getItem('upos_user_role') || '')
 
     return (
         <div className="flex flex-wrap justify-center gap-8">

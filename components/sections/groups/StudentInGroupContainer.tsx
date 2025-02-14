@@ -11,8 +11,7 @@ interface Props {
 }
 
 const StudentInGroupContainer = ({ index, name, groupId, studentId}: Props) => {
-    const storedUser = JSON.parse(localStorage.getItem("upos_user") || "{}");
-    const role = storedUser.role.toLowerCase();
+    const role = JSON.parse(localStorage.getItem('upos_user_role') || '')
     const grades = ["2.0", "3.0", "3.5", "4.0", "4.5", "5.0"];
 
 
