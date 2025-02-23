@@ -13,6 +13,9 @@ import {FormEvent} from 'react'
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import {useUser} from "@/app/(context)/UserContext";
+import {login} from "@/services/api/auth";
+import {fetchUserData} from "@/services/api/user";
+import {fetchLoggedProfData} from "@/services/api/professor";
 
 const LoginPage = () => {
 
@@ -38,79 +41,41 @@ const LoginPage = () => {
 
         // login and fetch data
         try {
-            const response = await fetch('http://localhost:8080/login', {
-                method: 'POST',
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: email,
-                    password: password
-                }),
-            });
+            const loggedIn = await login(email.toString(), password.toString())
+            if (!loggedIn) return;
 
-            if (response.ok) {
+            const user = await fetchUserData();
+            if (!user) return;
 
-                // fetch user data from backend e.g. userId, name, role, etc
-                try {
-                    const response = await fetch("http://localhost:8080/users/loggedIn", {
-                        method: "GET",
-                        credentials: "include"
-                    });
-                    if (!response.ok) {
-                        throw new Error("Błąd podczas pobierania danych");
+            // save user data to localStorage
+            localStorage.setItem('upos_user', JSON.stringify(user));
+            localStorage.setItem('upos_user_role', user.role.toLowerCase())
+
+            if (user.role.toLowerCase() === "professor") {
+                const profData = await fetchLoggedProfData()
+                    if (profData) {
+                        localStorage.setItem('upos_prof_title', profData.title);
                     }
-
-                    const data = await response.json();
-                    // save data into 'user'
-                    setUser(data);
-
-                    // save user data to localStorage
-                    localStorage.setItem('upos_user', JSON.stringify(data));
-                    localStorage.setItem('upos_user_role', JSON.stringify(data.role.toLowerCase()))
-
-                    if (data.role.toLowerCase() === "professor") {
-                        const response3 = await fetch("http://localhost:8080/professors/loggedIn/nameAndSurnameAndTitle", {
-                            method: "GET",
-                            credentials: "include"
-                        })
-                        if (!response3.ok) {
-                            throw new Error("Błąd podczas pobierania danych")
-                        }
-                        const profData = await response3.json();
-                        localStorage.setItem('upos_prof_title', JSON.stringify(profData.title));
-                    }
-                    if (data.role.toLowerCase() !== "admin") {
-                        const response2 = await fetch("http://localhost:8080/courses/loggedIn", {
-                            method: "GET",
-                            credentials: "include"
-                        })
-                        if (!response2.ok) {
-                            throw new Error("Błąd podczas pobierania danych")
-                        }
-                        const coursesData = await response2.json();
-                        localStorage.setItem('upos_courses', JSON.stringify(coursesData));
-
-
-                    }
-                } catch (error) {
-                    console.error("Wystąpił błąd:", error);
                 }
+            if (user.role.toLowerCase() !== "admin") {
+                const response = await fetch("http://localhost:8080/courses/loggedIn", {
+                    method: "GET",
+                    credentials: "include"
+                })
+                if (!response.ok) throw new Error("Błąd podczas pobierania danych")
+
+                const coursesData = await response.json();
+                localStorage.setItem('upos_courses', JSON.stringify(coursesData));
+            }
 
                 // push logged user to /dashboard
                 router.push('/dashboard');
 
-            } else {
-                // if response isn't ok show error
-                const error = await response.json();
-                alert(`Błąd logowania: ${error.message || 'Niepoprawne dane'}`);
-            }
+
 
         } catch (error) {
-            // show error if something went wrong
-            console.error('Błąd połączenia:', error);
-            alert('Nie udało się połączyć z serwerem.');
+            console.error('Błąd logowania:', error);
+            alert('Błąd logowania');
         }
     }
     return (
