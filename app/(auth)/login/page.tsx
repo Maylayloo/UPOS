@@ -49,12 +49,12 @@ const LoginPage = () => {
 
             // save user data to localStorage
             localStorage.setItem('upos_user', JSON.stringify(user));
-            localStorage.setItem('upos_user_role', user.role.toLowerCase())
+            localStorage.setItem('upos_user_role', JSON.stringify(user.role.toLowerCase()))
 
             if (user.role.toLowerCase() === "professor") {
                 const profData = await fetchLoggedProfData()
                     if (profData) {
-                        localStorage.setItem('upos_prof_title', profData.title);
+                        localStorage.setItem('upos_prof_title', JSON.stringify(profData.title));
                     }
                 }
             if (user.role.toLowerCase() !== "admin") {
@@ -70,8 +70,6 @@ const LoginPage = () => {
 
                 // push logged user to /dashboard
                 router.push('/dashboard');
-
-
 
         } catch (error) {
             console.error('Błąd logowania:', error);
