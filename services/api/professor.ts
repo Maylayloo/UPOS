@@ -1,34 +1,15 @@
+import {apiFetch} from "@/services/api/http";
+
 // (GET) all professors
 export const fetchProfessors = async () => {
-    try {
-        const response = await fetch('http://localhost:8080/professors/', {
-            method: 'GET',
-            credentials: "include",
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    } catch (err) {
-        console.log("problem, ", err)
-        return null;
-    }
+    return await apiFetch('/professors/')
 }
 
+// get prof's full name and scientific title by id
 export const fetchProfData = async (profId: Number) => {
-    try {
-        const response = await fetch(`http://localhost:8080/professors/${profId}/nameAndSurnameAndTitle`, {
-            method: 'GET',
-            credentials: "include",
-        })
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-
-    }
-    catch (err) {
-        console.error("problem, ", err);
-        return null;
-    }
+    return await apiFetch(`/professors/${profId}/nameAndSurnameAndTitle`)
+}
+// get logged in prof's full name and title
+export const fetchLoggedProfData = async () => {
+    return await apiFetch('/professors/loggedIn/nameAndSurnameAndTitle')
 }

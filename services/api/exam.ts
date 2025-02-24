@@ -1,24 +1,13 @@
+import {apiFetch} from "@/services/api/http";
+
 export const fetchExams = async (role: string) => {
 
-    const urls: Record<string, string> = {
-        "student": "http://localhost:8080/students/exams",
-        "professor": "http://localhost:8080/professors/exams"
+    const endpoints: Record<string, string> = {
+        "student": "/students/exams",
+        "professor": "/professors/exams"
     }
 
-    const url = urls[role];
+    const url = endpoints[role];
 
-    try {
-        const response = await fetch(url, {
-            method: "GET",
-            credentials: "include",
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-
-    } catch (err) {
-        console.error("Error fetching data:", err);
-        return null;
-    }
+    return await apiFetch(url)
 };

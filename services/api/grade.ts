@@ -1,53 +1,28 @@
 // (GET) fetch existing final grade by studentId and groupId
+import {apiFetch} from "@/services/api/http";
+
 export const fetchGrade = async (studentId: number, groupId: number) => {
-    try {
-        const response = await fetch(`http://localhost:8080/students/${studentId}/grades/NonPartial/${groupId}`, {
-            method: 'GET',
-            credentials: "include",
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-       return await response.json();
-    } catch (err) {
-        console.log("No grade for studentId", studentId)
-        return null;
-    }
+   return await apiFetch(`/students/${studentId}/grades/NonPartial/${groupId}`)
 }
 
 // method = POST: grade student in the specific group for the first time
-// method = PUT: edit student's grade int the specific group
-export const gradeStudent = async (studentId: number, groupId: number, selectedGrade: string, gradeId: string, method: string) => {
+// method = PUT: edit student's grade in the specific group
+export const gradeStudent = async (
+    studentId: number, groupId: number, selectedGrade: string, gradeId: string, method: "POST" | "PUT") => {
 
-    // use url depending on fetch method
     const urls: Record<string, string> = {
-        "POST": "http://localhost:8080/professors/loggedIn/grades",
-        "PUT": `http://localhost:8080/professors/loggedIn/grades/${gradeId}`
+        "POST": "/professors/loggedIn/grades",
+        "PUT": `/professors/loggedIn/grades/${gradeId}`
     }
     const url = urls[method];
 
-    try {
-        const response = await fetch(url, {
-            method: method,
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                studentId: studentId,
-                groupId: groupId,
-                value: selectedGrade,
-                isPartial: false,
-            }),
+    return await apiFetch(url, {
+        method: method,
+        body: {
+            studentId: studentId,
+            groupId: groupId,
+            value: selectedGrade,
+            isPartial: false,
+            }
         });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return 1;
-
-    } catch (error) {
-        console.error("Error grading student: ", error);
-        return null;
-    }
 };
