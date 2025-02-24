@@ -16,6 +16,7 @@ import {useUser} from "@/app/(context)/UserContext";
 import {login} from "@/services/api/auth";
 import {fetchUserData} from "@/services/api/user";
 import {fetchLoggedProfData} from "@/services/api/professor";
+import {apiFetch} from "@/services/api/http";
 
 const LoginPage = () => {
 
@@ -44,7 +45,7 @@ const LoginPage = () => {
             const loggedIn = await login(email.toString(), password.toString())
             if (!loggedIn) return;
 
-            const user = await fetchUserData();
+            const user: any = await fetchUserData();
             if (!user) return;
 
             // save user data to localStorage
@@ -52,20 +53,17 @@ const LoginPage = () => {
             localStorage.setItem('upos_user_role', JSON.stringify(user.role.toLowerCase()))
 
             if (user.role.toLowerCase() === "professor") {
-                const profData = await fetchLoggedProfData()
+                const profData: any = await fetchLoggedProfData()
                     if (profData) {
                         localStorage.setItem('upos_prof_title', JSON.stringify(profData.title));
                     }
                 }
             if (user.role.toLowerCase() !== "admin") {
-                const response = await fetch("http://localhost:8080/courses/loggedIn", {
-                    method: "GET",
-                    credentials: "include"
-                })
-                if (!response.ok) throw new Error("Błąd podczas pobierania danych")
+                const courses = await apiFetch("/courses/loggedIn")
 
-                const coursesData = await response.json();
-                localStorage.setItem('upos_courses', JSON.stringify(coursesData));
+                if (courses) {
+                    localStorage.setItem('upos_courses', JSON.stringify(courses));
+                }
             }
 
                 // push logged user to /dashboard
